@@ -1,46 +1,72 @@
 .App {
   background-color: black;
+  color: white;
+  cursor: crosshair;
+  font-family: monospace;
+  font-size: 0.8em;
+  height: 100%;
+  left: 0;
   position: absolute;
   top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  font-size: 0.8em;
-  color: white;
-  font-family: monospace;
   z-index: -1;
-  cursor: crosshair;
 }
 .self {
+  height: 20px;
+  left: 50%;
+  margin-left: -10px;
+  margin-top: -10px;
   position: absolute;
   top: 50%;
-  left: 50%;
   width: 20px;
-  height: 20px;
-  margin-top: -10px;
-  margin-left: -10px;
 }
 .self .arrow-up {
-  width: 0;
-  height: 0;
+  border-bottom: 20px solid white;
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
-  border-bottom: 20px solid white;
+  height: 0;
+  width: 0;
 }
 
 .Console {
-  position: absolute;
-  left: 5px;
-  top: 5px;
+  margin: 5px;
+  width: 400px;
+}
+.Console ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.Console ul li {
+  display: inline;
+  margin: 1px;
+  padding: 0;
+}
+.Console ul li span {
+  background-color: rgba(255,255,255, 0.1);
+  padding: 0 10px;
+}
+.Console ul li span:hover {
+  background-color: rgba(255,255,255, 0.3);
+}
+.Console ul li.active span {
+  text-decoration: underline;
+  font-weight: bold;
+}
+.Console .log {
+  height: 200px;
+  margin-top: 5px;
+  overflow-y: auto;
+  width: 100%;
 }
 
 .Radar {
+  cursor: none;
+  height: 300px;
   position: absolute;
   right: 5px;
   top: 5px;
-  height: 300px;
   width: 300px;
-  cursor: none;
 }
 .RadarUiReadout {
   margin-left: 3px;
@@ -50,12 +76,14 @@
 }
 
 .Overview {
+  height: 300px;
+  overflow-y: auto;
   position: absolute;
   right: 5px;
-  top: 310px;
-  width: 300px;
   text-align: left;
   text-transform: capitalize;
+  top: 310px;
+  width: 300px;
 }
 .Overview table tr.is-hostile td {
   color: red;

@@ -5,12 +5,17 @@ import Ship from './Ship.js';
 import Radar from './Radar.js';
 import './App.css';
 
-
-const GAMESPEED = 1000
+const LOG = [
+  `[SYSTEM] System online.`,
+  `[SYSTEM] Starting services.`,
+  `[SYSTEM] Detected distress call nearby.`,
+  `[SYSTEM] Setting destination.`,
+]
+const GAMESPEED = 2000
 const SELF = {x:54, y:61}
 const DEST = {x:52, y:58}
 const DOTS = [
-  { x:52, y:58, type: 'beacon', color: 'yellow', name: 'distress call', },
+  { x:52, y:58, type: 'beacon', color: 'green', name: 'rescue beacon', },
   { x:52, y:58, type: 'loot', color: 'transparent', name: 'spooky wreck', },
   { x:52, y:58, type: 'ship', color: 'transparent', name: 'ghost pirate', },
 ].concat(generateDots(100, {
@@ -52,11 +57,10 @@ class App extends Component {
       dest: DEST,
       dots: DOTS,
       intervalId: this.start(),
-      log: [],
-      caughtByPirate: false
+      log: LOG,
+      caughtByPirate: false,
+      stopped: false,
     }
-    this.state.log.push(`[${ Date.now() }] [SYSTEM] System online.`)
-    this.state.log.push(`[${ Date.now() }] [SYSTEM] Booting AUTO bot.`)
   }
   get gameSpeed () {
     return this.state ? this.state.gameSpeed : GAMESPEED
@@ -71,83 +75,108 @@ class App extends Component {
     return this.state.dots
   }
   start () {
-    return setInterval(this.autoMove.bind(this), this.gameSpeed)
+    return setInterval(this.autoPilot.bind(this), this.gameSpeed)
   }
-  flushInterval () {
+  stopShip () {
     let s = this.state
     clearInterval(s.intervalId)
     s.intervalId = null
+    s.stopped = true
+    s.log.push(`[AUTOPILOT] Ship stopped.`)
     this.setState(s)
   }
-  autoMove () {
+  autoPilot () {
     let s = this.state
-    s.log = []
+    s.log.push(`[AUTOPILOT] Currently at ${ s.self.x },${ s.self.y }.`)
     if (s.dest.x === null && s.dest.y === null) {
-      s.log.push(`[${ Date.now() }] [SYSTEM] No destination found.`)
-      s.log.push(`[${ Date.now() }] [SYSTEM] Drifting. `)
-      this.flushInterval()
-    } else {
-      s.caughtByPirate = false
-      s.direction = {x:null, y:null}
-      if (s.self.x < s.dest.x) { s.self.x++; s.direction.x = true }
-      if (s.self.y > s.dest.y) { s.self.y--; s.direction.y = false }
-      if (s.self.x > s.dest.x) { s.self.x--; s.direction.x = false }
-      if (s.self.y < s.dest.y) { s.self.y++; s.direction.y = true }
-      if (this.areWeThereYet()) this.flushInterval()
-      s.log.push(`[${ Date.now() }] [AUTO] Currently at ${ this.state.self.x },${ this.state.self.y }.`)
-      s.log.push(`[${ Date.now() }] [AUTO] ${this.areWeThereYet() ? 'Ship has arrived at set destination.' : 'Moving at full speed.'}`)
-      s.log.push(`[${ Date.now() }] [SCANNER] ${this.getLocalScan().filter((dot) => { return dot.type === 'ship' ? dot : false }).length > 0 ? 'You are not alone.' : 'You are in dark space.'}`)
-      if (this.getLocalScan().length > 0) {
-        this.getLocalScan().forEach((dot) => {
-          if (dot.name.indexOf('pirate') >= 0) {
-            s.caughtByPirate = true
-            s.log.push(`[${ Date.now() }] [${dot.name.toUpperCase()}] YARRRRRR!`)
-          }
-        })
-      }
-      if (s.caughtByPirate) {
-        s.caughtByPirate = false
-        s.log.push(`[${ Date.now() }] [AUTO] Running defensive maneuver.`)
-      }
-      s.dots.push({
-        x: s.self.x,
-        y: s.self.y,
-        type: 'bookmark',
-        color: 'rgba(255,255,255, 0.1)',
-        name: 'travel path',
-      })
+      s.log.push(`[AUTOPILOT] No destination found.`)
       this.setState(s)
+      this.stopShip()
+    } else {
+      this.moveOnce()
+      this.localScan()
+      this.encounters()
     }
   }
-  areWeThereYet () {
+  encounters () {
     let s = this.state
-    return s.self.x === s.dest.x && s.self.y === s.dest.y
+    if (s.caughtByPirate && !s.stopped) {
+      s.caughtByPirate = false // auto win
+      s.log.push(`[AUTOPILOT] Escapive maneuver!`)
+      this.setState(s)
+    }
+    if (s.caughtByPirate && s.stopped) {
+      this.battle()
+    }
   }
-  getLocalScan () {
-    const result = this.dots.filter(function (dot) {
-      if (dot.x === this.state.self.x && dot.y === this.state.self.y) {
-        return dot
+  battle () {
+    let s = this.state
+    let pirate = s.scan.filter((dot, i) => { return dot.name.indexOf('pirate') >= 0 ? dot : false })[0]
+    s.log.push(`[${ pirate.name.toUpperCase() }] Ye shouldn't 'ave stopped 'ere fool!`)
+    let victory = Math.random() - 0.5
+    if (victory > 0) {
+      s.log.push(`[AUTOPILOT] Enemy eliminated.`)
+      s.caughtByPirate = false
+    } else {
+      s.log.push(`[${ pirate.name.toUpperCase() }] NOW YE DIE, YARR!`)
+      s.log.push(`[AUTOPILOT] Ship is taking damage!`)
+      s.log.push(`[${ pirate.name.toUpperCase() }] HA-HA-HA-HA!`)
+    }
+    this.setState(s)
+  }
+  addTravelPath () {
+    let s = this.state
+    s.dots.push({
+      x: s.self.x,
+      y: s.self.y,
+      type: 'bookmark',
+      color: 'rgba(255,255,255, 0.1)',
+      name: 'travel path',
+    })
+    this.setState(s)
+  }
+  moveOnce () {
+    this.addTravelPath()
+    let s = this.state
+    s.stopped = s.self.x === s.dest.x && s.self.y === s.dest.y
+    if (s.stopped) this.stopShip()
+    s.log.push(`[AUTOPILOT] ${ s.stopped ? 'Ship has arrived at set destination.' : 'Moving at full speed.'}`)
+    s.direction = {x:null, y:null}
+    if (s.self.x < s.dest.x) { s.self.x++; s.direction.x = true }
+    if (s.self.y > s.dest.y) { s.self.y--; s.direction.y = false }
+    if (s.self.x > s.dest.x) { s.self.x--; s.direction.x = false }
+    if (s.self.y < s.dest.y) { s.self.y++; s.direction.y = true }
+    this.setState(s)
+  }
+  localScan (type) {
+    let s = this.state
+    const result = this.dots.filter((dot) => { return dot.x === s.self.x && dot.y === s.self.y ? dot : false })
+    s.log.push(`[SCANNER] ${ result.filter((dot) => { return dot.type === 'ship' ? dot : false }).length > 0 ? 'You are not alone.' : 'You are in dark space.'}`)
+    result.forEach((dot) => {
+      if (dot.name.indexOf('pirate') >= 0) {
+        s.caughtByPirate = true
+        s.log.push(`[${dot.name.toUpperCase()}] YARRRRRR!`)
       }
-    }.bind(this))
-    return result
+    })
+    s.scan = result
+    this.setState(s)
   }
   setDest (dest) {
     let s = this.state
-    if (s.caughtByPirate) {
-      s.log.push(`[${ Date.now() }] [SYSTEM] Unable to move.`)
+    if (s.stopped && s.caughtByPirate) {
+      s.log.push(`[${ s.scan.filter((dot) => { return dot.name.indexOf('pirate') >= 0 ? dot : false })[0].name.toUpperCase() }] Gotha! YARRR!`)
     } else {
       s.dest = dest
-      this.flushInterval()
+      this.stopShip()
       s.intervalId = this.start()
-      s.log.push(`[${ Date.now() }] [COMMAND] Destination set.`)
-      s.log.push(`[${ Date.now() }] [SYSTEM] AUTO-bot started auto-piloting.`)
+      s.log.push(`[AUTOPILOT] Destination set.`)
     }
     this.setState(s)
   }
   render () {
     return (
       <div className="App">
-        <Console output={ this.state.log } />
+        <Console log={ this.state.log } />
         <Ship direction={ this.state.direction } />
         <Radar
           dest={ this.state.dest }
