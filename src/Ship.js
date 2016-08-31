@@ -12,9 +12,16 @@ export default class Ship extends Component {
     else if (direction.x === false && direction.y === null) rotation = 270
     else if (direction.x === false && direction.y === false) rotation = 315
 
+    let getClassName = () => {
+      let c = 'self'
+      if (this.props.showShip) c += ' full-speed'
+      else c += ' hide'
+      return c
+    }
+
     return (
-      <div className='self'>
-        <div className='arrow-up' style={ {
+      <div className={ getClassName() }>
+        <div className='compass' style={ {
           transform: `rotate(${ rotation }deg)`,
         } }/>
       </div>

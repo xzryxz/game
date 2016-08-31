@@ -1,6 +1,32 @@
 import React, { Component } from 'react';
 
 export default class Console extends Component {
+  render() {
+    return (
+      <div className='Console'>
+        <ul className='tabs'>
+          {
+            this.state.tabs.map((tab, index) => {
+              return (
+                <li key={ index } className={ this.isActiveTab(tab) ? 'active' : '' }>
+                  <span onClick={ () => {this.activeTab = tab} }>
+                    { tab }
+                  </span>
+                </li>
+              )
+            })
+          }
+        </ul>
+        <div className='log'>
+          {
+            this.activeLog.reverse().map((msg, i) => {
+              return (<div key={ i }> { msg } </div>)
+            })
+          }
+        </div>
+      </div>
+    )
+  }
   constructor (props) {
     super()
     this.state = {
@@ -34,32 +60,5 @@ export default class Console extends Component {
       if (text.indexOf(`[${ this.activeTab }]`) >= 0) return text
       else return false
     })
-  }
-
-  render() {
-    return (
-      <div className="Console">
-        <ul>
-          {
-            this.state.tabs.map((tab, index) => {
-              return (
-                <li key={ index } className={ this.isActiveTab(tab) ? 'active' : '' }>
-                  <span onClick={ () => {this.activeTab = tab} }>
-                    { tab }
-                  </span>
-                </li>
-              )
-            })
-          }
-        </ul>
-        <div className='log'>
-          {
-            this.activeLog.map((msg, i) => {
-              return (<div key={ i }> { msg } </div>)
-            })
-          }
-        </div>
-      </div>
-    )
   }
 }

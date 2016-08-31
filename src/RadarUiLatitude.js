@@ -11,11 +11,11 @@ export default class UiLatitude extends Component {
       false: 'rgba(255,255,255, 0.1)',
     }
     const style = {
-      height: latitudeAxis === 'y' ? 3 : 300,
-      width: latitudeAxis === 'x' ? 3 : 300,
+      height: latitudeAxis === 'y' ? '1%' : '100%',
+      width: latitudeAxis === 'x' ? '1%' : '100%',
       position: 'absolute',
-      top: latitudeAxis === 'y' ? latitudeValue * 3 : 0,
-      left: latitudeAxis === 'x' ? latitudeValue * 3 : 0,
+      top: latitudeAxis === 'y' ? latitudeValue + '%' : 0,
+      left: latitudeAxis === 'x' ? latitudeValue + '%' : 0,
       backgroundColor: highlight[status],
     }
     function onMouseEnter (event) {

@@ -4,10 +4,10 @@ export default class UiSelf extends Component {
   render() {
     return (
       <div style={ {
-        height: 3,
-        width: 3,
-        top: this.props.dot.y * 3,
-        left: this.props.dot.x * 3,
+        height: '1%',
+        width: '1%',
+        top: this.props.dot.y + '%',
+        left: this.props.dot.x + '%',
         position: 'absolute',
         backgroundColor: this.props.dot.color || 'white',
       } } />

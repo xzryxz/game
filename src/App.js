@@ -3,8 +3,16 @@ import Console from './Console.js';
 import Overview from './Overview.js';
 import Ship from './Ship.js';
 import Radar from './Radar.js';
+import Inventory from './Inventory.js';
 import './App.css';
 
+const INVENTORY = [
+  { name: 'food', quantity: Infinity},
+  { name: 'fuel', quantity: Infinity},
+  { name: 'minerals', quantity: 0},
+  { name: 'space currency', quantity: 0},
+  { name: 'water', quantity: Infinity},
+]
 const LOG = [
   `[SYSTEM] System online.`,
   `[SYSTEM] Starting services.`,
@@ -12,20 +20,20 @@ const LOG = [
   `[SYSTEM] Setting destination.`,
 ]
 const GAMESPEED = 2000
-const SELF = {x:54, y:61}
+const SELF = {x:59, y:66, inventory: INVENTORY}
 const DEST = {x:52, y:58}
 const DOTS = [
   { x:52, y:58, type: 'beacon', color: 'green', name: 'rescue beacon', },
   { x:52, y:58, type: 'loot', color: 'transparent', name: 'spooky wreck', },
   { x:52, y:58, type: 'ship', color: 'transparent', name: 'ghost pirate', },
 ].concat(generateDots(100, {
-  color: 'rgba(255,0,0, 0.1)',
+  color: 'rgba(255,0,0, 0.25)',
   name: 'bloody pirate' ,
   type: 'ship',
 })).concat(generateDots(3, {
   color: 'green',
-  name: 'container',
-  type: 'loot',
+  name: 'space junk',
+  type: 'beacon',
 })).concat(generateDots(2, {
   color: 'blue',
   name: 'deep space mining company',
@@ -48,6 +56,33 @@ function generateDots (n, dot) {
 
 
 class App extends Component {
+  render () {
+    return (
+      <div className="App">
+        <Ship
+          direction={ this.state.direction }
+          showShip={ !this.state.stopped }
+        />
+        <Console
+          log={ this.state.log }
+        />
+        <Radar
+          dest={ this.state.dest }
+          dots={ this.dots }
+          self={ this.state.self }
+          setDest={ this.setDest.bind(this) }
+        />
+        <Overview
+          dest={ this.state.dest }
+          dots={ this.dots }
+          self={ this.state.self }
+        />
+        <Inventory
+          self={ this.state.self }
+        />
+      </div>
+    );
+  }
   constructor () {
     super()
     this.state = {
@@ -59,7 +94,7 @@ class App extends Component {
       intervalId: this.start(),
       log: LOG,
       caughtByPirate: false,
-      stopped: false,
+      stopped: true,
     }
   }
   get gameSpeed () {
@@ -172,25 +207,6 @@ class App extends Component {
       s.log.push(`[AUTOPILOT] Destination set.`)
     }
     this.setState(s)
-  }
-  render () {
-    return (
-      <div className="App">
-        <Console log={ this.state.log } />
-        <Ship direction={ this.state.direction } />
-        <Radar
-          dest={ this.state.dest }
-          dots={ this.dots }
-          self={ this.state.self }
-          setDest={ this.setDest.bind(this) }
-        />
-        <Overview
-          dest={ this.state.dest }
-          dots={ this.dots }
-          self={ this.state.self }
-        />
-      </div>
-    );
   }
 }
 
