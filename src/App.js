@@ -68,6 +68,8 @@ class App extends Component {
         />
         <Radar
           dest={ this.state.dest }
+          direction={ this.state.direction }
+          setDirection={ this.setDirection.bind(this) }
           dots={ this.dots }
           self={ this.state.self }
           setDest={ this.setDest.bind(this) }
@@ -108,6 +110,9 @@ class App extends Component {
   }
   get dots () {
     return this.state.dots
+  }
+  setDirection () {
+    console.log('not implemented yet');
   }
   start () {
     return setInterval(this.autoPilot.bind(this), this.gameSpeed)

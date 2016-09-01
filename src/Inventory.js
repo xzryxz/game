@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import RadarArrow from './RadarArrow.js';
 
 export default class Inventory extends Component {
   render() {
@@ -21,6 +22,22 @@ export default class Inventory extends Component {
       <div className='Inventory'>
         <div className='bags'>
           { bags }
+        </div>
+        <div style={ {
+          height: '4em',
+          width: '4em',
+          marginTop: '-1em',
+          marginLeft: '-1em',
+          position: 'absolute,'
+        } }>
+          <RadarArrow direction={ {x:null,y:null} } setDirection={ this.props.setDirection } />
+          <RadarArrow direction={ {x:true,y:false} } setDirection={ this.props.setDirection } />
+          <RadarArrow direction={ {x:true,y:null} } setDirection={ this.props.setDirection } />
+          <RadarArrow direction={ {x:true,y:true} } setDirection={ this.props.setDirection } />
+          <RadarArrow direction={ {x:null,y:true} } setDirection={ this.props.setDirection } />
+          <RadarArrow direction={ {x:false,y:true} } setDirection={ this.props.setDirection } />
+          <RadarArrow direction={ {x:false,y:null} } setDirection={ this.props.setDirection } />
+          <RadarArrow direction={ {x:false,y:false} } setDirection={ this.props.setDirection } />
         </div>
       </div>
     )

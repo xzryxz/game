@@ -5,14 +5,12 @@ export default class UiDest extends Component {
     let style = {}
     if (this.props.dest.x !== null && this.props.dest.y !== null) {
       style = {
-        height: '3%',
-        width: '3%',
+        backgroundColor: 'yellow',
+        height: '1%',
+        width: '1%',
         top: this.props.dest.y + '%',
         left: this.props.dest.x + '%',
-        marginTop: '-1.5%',
-        marginLeft: '-1.5%',
         position: 'absolute',
-        border: '0.2em solid yellow',
       }
     }
     return (

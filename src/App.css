@@ -84,6 +84,22 @@
   top: 0;
   width: 50%;
 }
+.RadarArrow {
+  border-bottom: .5em solid white;
+  border-left: .5em solid transparent;
+  border-right: .5em solid transparent;
+  height: 0;
+  z-index: -1;
+  width: 0;
+}
+.RadarArrow .arrow {
+  border-bottom: 1em solid white;
+  border-left: 1em solid transparent;
+  border-right: 1em solid transparent;
+  height: 0;
+  z-index: -1;
+  width: 0;
+}
 .RadarUiReadout {
   margin-left: 3px;
 }
