@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 export default class RadarArrow extends Component {
   render() {
-    let direction = this.props.direction
+    const direction = this.props.direction
     let rotation = 0
     if (direction.x === true && direction.y === false) rotation = 45
     else if (direction.x === true && direction.y === null) rotation = 90
@@ -11,12 +11,19 @@ export default class RadarArrow extends Component {
     else if (direction.x === false && direction.y === true) rotation = 225
     else if (direction.x === false && direction.y === null) rotation = 270
     else if (direction.x === false && direction.y === false) rotation = 315
+    function onClick () {
+      this.props.modifyDestBasedOnDir(direction)
+    }
 
     return (
-      <div className="RadarArrow">
-        <div className='arrow' style={ {
-          transform: `rotate(${ rotation }deg)`,
-        } }/>
+      <div className='RadarArrow'>
+        <div
+          onClick={ onClick.bind(this) }
+          className={ this.props.arrowClass }
+          style={ {
+            transform: `rotate(${ rotation }deg)`,
+          } }
+        />
       </div>
     )
   }

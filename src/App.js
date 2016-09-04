@@ -1,29 +1,28 @@
 import React, { Component } from 'react';
 import Console from './Console.js';
 import Overview from './Overview.js';
-import Ship from './Ship.js';
 import Radar from './Radar.js';
+import RadarControls from './RadarControls.js';
 import Inventory from './Inventory.js';
 import './App.css';
 
 const INVENTORY = [
   { name: 'food', quantity: Infinity},
-  { name: 'fuel', quantity: Infinity},
-  { name: 'minerals', quantity: 0},
-  { name: 'space currency', quantity: 0},
   { name: 'water', quantity: Infinity},
+  { name: 'fuel', quantity: Infinity},
+  { name: '$', quantity: 0},
 ]
 const LOG = [
   `[SYSTEM] System online.`,
   `[SYSTEM] Starting services.`,
-  `[SYSTEM] Detected distress call nearby.`,
-  `[SYSTEM] Setting destination.`,
+  `[SYSTEM] Distress call nearby.`,
+  `[SYSTEM] Starting Autopilot.`,
 ]
 const GAMESPEED = 2000
-const SELF = {x:59, y:66, inventory: INVENTORY}
+const SELF = {x:53, y:57, inventory: INVENTORY}
 const DEST = {x:52, y:58}
 const DOTS = [
-  { x:52, y:58, type: 'beacon', color: 'green', name: 'rescue beacon', },
+  { x:52, y:58, type: 'signal', color: 'green', name: 'distress call', },
   { x:52, y:58, type: 'loot', color: 'transparent', name: 'spooky wreck', },
   { x:52, y:58, type: 'ship', color: 'transparent', name: 'ghost pirate', },
 ].concat(generateDots(100, {
@@ -54,25 +53,19 @@ function generateDots (n, dot) {
   return dots
 }
 
-
 class App extends Component {
   render () {
     return (
       <div className="App">
-        <Ship
-          direction={ this.state.direction }
-          showShip={ !this.state.stopped }
-        />
         <Console
           log={ this.state.log }
         />
         <Radar
           dest={ this.state.dest }
           direction={ this.state.direction }
-          setDirection={ this.setDirection.bind(this) }
           dots={ this.dots }
           self={ this.state.self }
-          setDest={ this.setDest.bind(this) }
+          setDest={ this._setDest.bind(this) }
         />
         <Overview
           dest={ this.state.dest }
@@ -82,20 +75,26 @@ class App extends Component {
         <Inventory
           self={ this.state.self }
         />
+        <RadarControls
+          direction={ this.state.direction }
+          modifyDestBasedOnDir={ this._modifyDestBasedOnDir.bind(this) }
+          stopped={ this.state.stopped }
+        />
       </div>
     );
   }
   constructor () {
     super()
     this.state = {
-      gameSpeed: GAMESPEED,
-      direction: {x:null, y:null},
-      self: SELF,
-      dest: DEST,
-      dots: DOTS,
-      intervalId: this.start(),
-      log: LOG,
       caughtByPirate: false,
+      dest: DEST,
+      direction: {x:null, y:null},
+      dots: DOTS,
+      gameSpeed: GAMESPEED,
+      intervalId: this._start(),
+      log: LOG,
+      ticks: 0,
+      self: SELF,
       stopped: true,
     }
   }
@@ -111,13 +110,19 @@ class App extends Component {
   get dots () {
     return this.state.dots
   }
-  setDirection () {
-    console.log('not implemented yet');
+  _modifyDestBasedOnDir (direction) {
+    const s = this.state
+    let d = s.dest
+    if (direction.x === true) d.x++
+    if (direction.x === false) d.x--
+    if (direction.y === true) d.y++
+    if (direction.y === false) d.y--
+    this._setDest(d)
   }
-  start () {
-    return setInterval(this.autoPilot.bind(this), this.gameSpeed)
+  _start () {
+    return setInterval(this._autoPilot.bind(this), this.gameSpeed)
   }
-  stopShip () {
+  _stopShip () {
     let s = this.state
     clearInterval(s.intervalId)
     s.intervalId = null
@@ -125,47 +130,48 @@ class App extends Component {
     s.log.push(`[AUTOPILOT] Ship stopped.`)
     this.setState(s)
   }
-  autoPilot () {
-    let s = this.state
-    s.log.push(`[AUTOPILOT] Currently at ${ s.self.x },${ s.self.y }.`)
-    if (s.dest.x === null && s.dest.y === null) {
-      s.log.push(`[AUTOPILOT] No destination found.`)
-      this.setState(s)
-      this.stopShip()
-    } else {
-      this.moveOnce()
-      this.localScan()
-      this.encounters()
-    }
+  _autoPilot () {
+    this._increaseTick()
+    this._tick()
   }
-  encounters () {
+  _increaseTick () {
     let s = this.state
-    if (s.caughtByPirate && !s.stopped) {
-      s.caughtByPirate = false // auto win
-      s.log.push(`[AUTOPILOT] Escapive maneuver!`)
-      this.setState(s)
-    }
+    s.ticks++
+    this.setState(s)
+  }
+  _tick () {
+    this._addTravelPath()
+    this._moveOnce()
+    this._localScan()
+    this._encounters()
+  }
+  _encounters () {
+    let s = this.state
     if (s.caughtByPirate && s.stopped) {
-      this.battle()
+      this._battle()
     }
   }
-  battle () {
+  _battle () {
     let s = this.state
     let pirate = s.scan.filter((dot, i) => { return dot.name.indexOf('pirate') >= 0 ? dot : false })[0]
-    s.log.push(`[${ pirate.name.toUpperCase() }] Ye shouldn't 'ave stopped 'ere fool!`)
+    s.log.push(`[${ pirate.name.toUpperCase() }] Ye shouldn't 'ave stopped 'ere fools!`)
+    s.log.push(`[${ pirate.name.toUpperCase() }] Get 'em!`)
     let victory = Math.random() - 0.5
     if (victory > 0) {
+      s.log.push(`[AUTOPILOT] Aiming lazer blasters.`)
       s.log.push(`[AUTOPILOT] Enemy eliminated.`)
       s.caughtByPirate = false
     } else {
+      s.log.push(`[AUTOPILOT] Incoming missiles!`)
       s.log.push(`[${ pirate.name.toUpperCase() }] NOW YE DIE, YARR!`)
       s.log.push(`[AUTOPILOT] Ship is taking damage!`)
       s.log.push(`[${ pirate.name.toUpperCase() }] HA-HA-HA-HA!`)
     }
     this.setState(s)
   }
-  addTravelPath () {
+  _addTravelPath () {
     let s = this.state
+    s.log.push(`[AUTOPILOT] Round: ${ s.ticks }. Position: ${ s.self.x },${ s.self.y }.`)
     s.dots.push({
       x: s.self.x,
       y: s.self.y,
@@ -175,20 +181,23 @@ class App extends Component {
     })
     this.setState(s)
   }
-  moveOnce () {
-    this.addTravelPath()
+  _moveOnce () {
     let s = this.state
-    s.stopped = s.self.x === s.dest.x && s.self.y === s.dest.y
-    if (s.stopped) this.stopShip()
+    let shouldStop = s.self.x === s.dest.x && s.self.y === s.dest.y
+    if (shouldStop) {
+      this._stopShip()
+    } else {
+      s.direction = {x:null, y:null}
+      if (s.self.x < s.dest.x) { s.self.x++; s.direction.x = true }
+      if (s.self.y > s.dest.y) { s.self.y--; s.direction.y = false }
+      if (s.self.x > s.dest.x) { s.self.x--; s.direction.x = false }
+      if (s.self.y < s.dest.y) { s.self.y++; s.direction.y = true }
+    }
+    s.stopped = shouldStop
     s.log.push(`[AUTOPILOT] ${ s.stopped ? 'Ship has arrived at set destination.' : 'Moving at full speed.'}`)
-    s.direction = {x:null, y:null}
-    if (s.self.x < s.dest.x) { s.self.x++; s.direction.x = true }
-    if (s.self.y > s.dest.y) { s.self.y--; s.direction.y = false }
-    if (s.self.x > s.dest.x) { s.self.x--; s.direction.x = false }
-    if (s.self.y < s.dest.y) { s.self.y++; s.direction.y = true }
     this.setState(s)
   }
-  localScan (type) {
+  _localScan (type) {
     let s = this.state
     const result = this.dots.filter((dot) => { return dot.x === s.self.x && dot.y === s.self.y ? dot : false })
     s.log.push(`[SCANNER] ${ result.filter((dot) => { return dot.type === 'ship' ? dot : false }).length > 0 ? 'You are not alone.' : 'You are in dark space.'}`)
@@ -201,14 +210,14 @@ class App extends Component {
     s.scan = result
     this.setState(s)
   }
-  setDest (dest) {
+  _setDest (dest) {
     let s = this.state
     if (s.stopped && s.caughtByPirate) {
       s.log.push(`[${ s.scan.filter((dot) => { return dot.name.indexOf('pirate') >= 0 ? dot : false })[0].name.toUpperCase() }] Gotha! YARRR!`)
     } else {
       s.dest = dest
-      this.stopShip()
-      s.intervalId = this.start()
+      this._stopShip()
+      s.intervalId = this._start()
       s.log.push(`[AUTOPILOT] Destination set.`)
     }
     this.setState(s)

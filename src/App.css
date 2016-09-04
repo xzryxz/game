@@ -14,15 +14,15 @@
 .self {
   height: 2em;
   left: 50%;
-  margin-left: -1em;
-  margin-top: -1em;
+  margin-left: 1em;
+  margin-top: .5em;
   opacity: .1;
   position: absolute;
   top: 50%;
   width: 2em;
 }
 .self .compass {
-  border-bottom: 1em solid white;
+  border-bottom: 1em solid yellow;
   border-left: 1em solid transparent;
   border-right: 1em solid transparent;
   height: 0;
@@ -71,9 +71,28 @@
 }
 .Console .log {
   height: 100%;
-  overflow-y: hidden;
+  overflow-y: auto;
+  padding-top: 1.5em;
   width: 100%;
   z-index: 1;
+}
+
+.Inventory {
+  top: 75%;
+  font-size: 1.2em;
+  height: 25%;
+  left: 0;
+  position: absolute;
+  text-transform: capitalize;
+  width: 50%;
+}
+.Inventory .bags {
+  padding: 1em;
+}
+.Inventory .bags div {
+  background-color: rgba(255,255,255, .1);
+  border-bottom: 1px solid black;
+  padding: .1em;
 }
 
 .Radar {
@@ -84,33 +103,44 @@
   top: 0;
   width: 50%;
 }
-.RadarArrow {
-  border-bottom: .5em solid white;
-  border-left: .5em solid transparent;
-  border-right: .5em solid transparent;
-  height: 0;
-  z-index: -1;
-  width: 0;
-}
-.RadarArrow .arrow {
-  border-bottom: 1em solid white;
-  border-left: 1em solid transparent;
-  border-right: 1em solid transparent;
-  height: 0;
-  z-index: -1;
-  width: 0;
-}
 .RadarUiReadout {
   margin-left: 3px;
 }
 .RadarUiReadout .name {
   text-transform: capitalize;
 }
+.RadarControls {
+  align-items: center;
+  display: flex;
+  height: 25%;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  top: 50%;
+  width: 50%;
+}
+.RadarArrow > div {
+  border-bottom: 2em solid white;
+  border-left: 2em solid transparent;
+  border-right: 2em solid transparent;
+  height: 0;
+  position: absolute;
+  width: 0;
+}
+.RadarArrow > div.x_null__y_false { margin-top: -6em; } /* initial/up */
+.RadarArrow > div.x_true__y_false { margin-top: -4em; margin-left: 4em; } /* right+up */
+.RadarArrow > div.x_true__y_null { margin-left: 6em; } /* right */
+.RadarArrow > div.x_true__y_true { margin-left: 4em; margin-top: 4em; } /* right+down */
+.RadarArrow > div.x_null__y_true { margin-top: 6em; } /* down */
+.RadarArrow > div.x_false__y_true { margin-left: -4em; margin-top: 4em; } /* left+down */
+.RadarArrow > div.x_false__y_null { margin-left: -6em; } /* left */
+.RadarArrow > div.x_false__y_false { margin-left: -4em; margin-top: -4em; } /* left+up */
+
 
 .Overview {
   bottom: 0;
   height: 50%;
-  overflow-y: hidden;
+  overflow-y: auto;
   position: absolute;
   right: 0;
   text-align: left;
@@ -132,22 +162,4 @@
 .Overview table td {
   padding: 1px 3px;
   text-overflow: ellipsis;
-}
-
-.Inventory {
-  bottom: 0;
-  font-size: 1.5em;
-  height: 50%;
-  left: 0;
-  position: absolute;
-  text-transform: capitalize;
-  width: 50%;
-}
-.Inventory .bags {
-  padding: 1em;
-}
-.Inventory .bags div {
-  background-color: rgba(255,255,255, .1);
-  border-bottom: 1px solid black;
-  padding: .1em;
 }

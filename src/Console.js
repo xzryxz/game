@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 export default class Console extends Component {
-  render() {
+  render () {
     return (
       <div className='Console'>
         <ul className='tabs'>
@@ -19,7 +19,7 @@ export default class Console extends Component {
         </ul>
         <div className='log'>
           {
-            this.activeLog.reverse().map((msg, i) => {
+            this.activeLog.map((msg, i) => {
               return (<div key={ i }> { msg } </div>)
             })
           }
