@@ -6,39 +6,25 @@ import RadarControls from './RadarControls.js';
 import Inventory from './Inventory.js';
 import './App.css';
 
-const INVENTORY = [
-  { name: 'food', quantity: Infinity},
-  { name: 'water', quantity: Infinity},
-  { name: 'fuel', quantity: Infinity},
-  { name: '$', quantity: 0},
-]
 const LOG = [
   `[SYSTEM] System online.`,
   `[SYSTEM] Starting services.`,
   `[SYSTEM] Distress call nearby.`,
   `[SYSTEM] Starting Autopilot.`,
 ]
-const GAMESPEED = 2000
-const SELF = {x:53, y:57, inventory: INVENTORY}
+const GAMESPEED = 100
 const DEST = {x:52, y:58}
+const DIFFICULTY = 0.9
 const DOTS = [
-  { x:52, y:58, type: 'signal', color: 'green', name: 'distress call', },
+  { x:52, y:58, type: 'signal', color: 'blue', name: 'distress call', },
   { x:52, y:58, type: 'loot', color: 'transparent', name: 'spooky wreck', },
   { x:52, y:58, type: 'ship', color: 'transparent', name: 'ghost pirate', },
-].concat(generateDots(100, {
-  color: 'rgba(255,0,0, 0.25)',
+].concat(generateDots(250, {
+  color: 'rgba(255,0,0, 0.15)',
   name: 'bloody pirate' ,
   type: 'ship',
-})).concat(generateDots(3, {
+})).concat(generateDots(5, {
   color: 'green',
-  name: 'space junk',
-  type: 'beacon',
-})).concat(generateDots(2, {
-  color: 'blue',
-  name: 'deep space mining company',
-  type: 'station',
-})).concat(generateDots(1, {
-  color: 'blue',
   name: 'military storage facility',
   type: 'station',
 }))
@@ -86,15 +72,25 @@ class App extends Component {
   constructor () {
     super()
     this.state = {
-      caughtByPirate: false,
+      piratesInbound: false,
       dest: DEST,
       direction: {x:null, y:null},
       dots: DOTS,
       gameSpeed: GAMESPEED,
+      difficulty: DIFFICULTY,
       intervalId: this._start(),
       log: LOG,
       ticks: 0,
-      self: SELF,
+      self: {
+        x:53,
+        y:57,
+        inventory: [
+          { name: 'food', quantity: Infinity},
+          { name: 'water', quantity: Infinity},
+          { name: 'fuel', quantity: Infinity},
+          { name: '$', quantity: 0},
+        ]
+      },
       stopped: true,
     }
   }
@@ -147,7 +143,7 @@ class App extends Component {
   }
   _encounters () {
     let s = this.state
-    if (s.caughtByPirate && s.stopped) {
+    if (s.piratesInbound && s.stopped) {
       this._battle()
     }
   }
@@ -156,11 +152,38 @@ class App extends Component {
     let pirate = s.scan.filter((dot, i) => { return dot.name.indexOf('pirate') >= 0 ? dot : false })[0]
     s.log.push(`[${ pirate.name.toUpperCase() }] Ye shouldn't 'ave stopped 'ere fools!`)
     s.log.push(`[${ pirate.name.toUpperCase() }] Get 'em!`)
-    let victory = Math.random() - 0.5
-    if (victory > 0) {
+
+    /**
+     * difficulty should be 5 or more to win every time "take one hit then shoot em down"
+     * @type {Float}
+     */
+    const extra = s.difficulty * 0.1
+
+    /**
+     * Float number from 0 to 1
+     * @type {Float}
+     */
+    const zeroPointSomething = Math.random()
+
+    /**
+     * Float number from -0.5 to 0.5
+     * @type {Float}
+     */
+    const aMatterOfWhoShootsFirst = zeroPointSomething - 0.5
+
+    /**
+     * @type {Boolean}
+     */
+    const result = aMatterOfWhoShootsFirst + extra > 0
+
+    /**
+     * Action!
+     */
+    if (result) {
       s.log.push(`[AUTOPILOT] Aiming lazer blasters.`)
       s.log.push(`[AUTOPILOT] Enemy eliminated.`)
-      s.caughtByPirate = false
+      this.loot(100)
+      s.piratesInbound = false
     } else {
       s.log.push(`[AUTOPILOT] Incoming missiles!`)
       s.log.push(`[${ pirate.name.toUpperCase() }] NOW YE DIE, YARR!`)
@@ -172,13 +195,7 @@ class App extends Component {
   _addTravelPath () {
     let s = this.state
     s.log.push(`[AUTOPILOT] Round: ${ s.ticks }. Position: ${ s.self.x },${ s.self.y }.`)
-    s.dots.push({
-      x: s.self.x,
-      y: s.self.y,
-      type: 'bookmark',
-      color: 'rgba(255,255,255, 0.1)',
-      name: 'travel path',
-    })
+    s.dots.push({ x: s.self.x, y: s.self.y, type: 'bookmark', color: 'rgba(255,255,255, 0.1)', name: 'travel path', })
     this.setState(s)
   }
   _moveOnce () {
@@ -203,7 +220,7 @@ class App extends Component {
     s.log.push(`[SCANNER] ${ result.filter((dot) => { return dot.type === 'ship' ? dot : false }).length > 0 ? 'You are not alone.' : 'You are in dark space.'}`)
     result.forEach((dot) => {
       if (dot.name.indexOf('pirate') >= 0) {
-        s.caughtByPirate = true
+        s.piratesInbound = true
         s.log.push(`[${dot.name.toUpperCase()}] YARRRRRR!`)
       }
     })
@@ -212,7 +229,7 @@ class App extends Component {
   }
   _setDest (dest) {
     let s = this.state
-    if (s.stopped && s.caughtByPirate) {
+    if (s.stopped && s.piratesInbound) {
       s.log.push(`[${ s.scan.filter((dot) => { return dot.name.indexOf('pirate') >= 0 ? dot : false })[0].name.toUpperCase() }] Gotha! YARRR!`)
     } else {
       s.dest = dest
@@ -220,6 +237,12 @@ class App extends Component {
       s.intervalId = this._start()
       s.log.push(`[AUTOPILOT] Destination set.`)
     }
+    this.setState(s)
+  }
+  loot (dollars) {
+    let s = this.state
+    s.self.inventory[3].quantity += dollars
+    s.log.push(`[AUTOPILOT] Lootet ${ dollars } dollars.`)
     this.setState(s)
   }
 }
