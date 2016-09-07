@@ -41,8 +41,16 @@ function generateDots (n, dot) {
 
 class App extends Component {
   render () {
+    const h = window.innerHeight
+    const w = window.innerWidth
+    const low = h > w ? w : h
     return (
-      <div className="App">
+      <div className="App" style={{
+        height: low + 'px',
+        width: low + 'px',
+        marginLeft: '-' + (low / 2) + 'px',
+        marginTop: '-' + (low / 2) + 'px',
+      }}>
         <Console
           log={ this.state.log }
         />
@@ -242,7 +250,7 @@ class App extends Component {
   loot (dollars) {
     let s = this.state
     s.self.inventory[3].quantity += dollars
-    s.log.push(`[AUTOPILOT] Lootet ${ dollars } dollars.`)
+    s.log.push(`[AUTOPILOT] Looted ${ dollars } dollars.`)
     this.setState(s)
   }
 }
