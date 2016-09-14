@@ -1,6 +1,38 @@
 # End of Adventure
 
 
+# App
+
+- App
+  - UI
+    - CARGO
+    - OVERVIEW
+    - COMPASS
+    - RADAR
+    - CMDLN
+    - LOG
+      - TABS
+  - World
+    - Tick
+      - Encounters
+        - Autopilot
+          - Systems check
+            - Scan
+             - Battle
+            - Destination
+              - Move
+    - Entities
+      -  Entity
+        - ID
+        - Name
+        - Stats
+          - Armor
+          - Damage
+          - Speed
+          - Energy
+          - Tech
+
+
 
 ## Stats
 
