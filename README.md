@@ -5,9 +5,9 @@
 
 - App
   - UI
-    - CARGO
-    - OVERVIEW
-    - COMPASS
+    - INVNTRY
+    - OVRVIEW
+    - CONTRLS
     - RADAR
     - CMDLN
     - LOG
