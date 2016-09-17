@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class Overview extends Component {
+export default class uiOverview extends Component {
   getRange (x, y) {
     function difference (a, b) { return Math.abs(a - b) }
     const xx = this.props.self.x
@@ -33,7 +33,7 @@ export default class Overview extends Component {
       return this.getRange(a.x, a.y) - this.getRange(b.x, b.y)
     })
     return (
-      <div className="Overview">
+      <div className="uiOverview">
         <table>
           <thead>
             <tr>

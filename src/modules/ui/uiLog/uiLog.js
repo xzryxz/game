@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+// import UI_LOGTABS from './UI_LOG_TABS/UI_LOG_TABS'
 
-export default class Console extends Component {
+export default class UI_LOG extends Component {
   render () {
     return (
       <div className='Console'>

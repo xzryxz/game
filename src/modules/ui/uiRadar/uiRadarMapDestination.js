@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class UiDest extends Component {
+export default class uiRadarMapDest extends Component {
   render() {
     let style = {}
     if (this.props.dest.x !== null && this.props.dest.y !== null) {

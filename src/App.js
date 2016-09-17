@@ -1,10 +1,25 @@
-import React, { Component } from 'react';
-import Console from './Console.js';
-import Overview from './Overview.js';
-import Radar from './Radar.js';
-import RadarControls from './RadarControls.js';
-import Inventory from './Inventory.js';
-import './App.css';
+import React, { Component } from 'react'
+import ui from './modules/ui/ui'
+// import Wrld from './modules/Wrld'
+// import Wrld_Entts from './modules/Wrld_Entts'
+// import Wrld_Entts_Entt from './modules/Wrld_Entts_Entt'
+// import Wrld_Entts_Entt_ID from './modules/Wrld_Entts_Entt_ID'
+// import Wrld_Entts_Entt_Nm from './modules/Wrld_Entts_Entt_Nm'
+// import Wrld_Entts_Entt_Stts from './modules/Wrld_Entts_Entt_Stts'
+// import Wrld_Entts_Entt_Stts_Armr from './modules/Wrld_Entts_Entt_Stts_Armr'
+// import Wrld_Entts_Entt_Stts_Dmg from './modules/Wrld_Entts_Entt_Stts_Dmg'
+// import Wrld_Entts_Entt_Stts_Enrg from './modules/Wrld_Entts_Entt_Stts_Enrg'
+// import Wrld_Entts_Entt_Stts_Spd from './modules/Wrld_Entts_Entt_Stts_Spd'
+// import Wrld_Entts_Entt_Stts_Tch from './modules/Wrld_Entts_Entt_Stts_Tch'
+// import Wrld_Tck from './modules/Wrld_Tck'
+// import Wrld_Tck_Encntrs from './modules/Wrld_Tck_Encntrs'
+// import Wrld_Tck_Encntrs_Atplt from './modules/Wrld_Tck_Encntrs_Atplt'
+// import Wrld_Tck_Encntrs_Atplt_SstmsChck from './modules/Wrld_Tck_Encntrs_Atplt_SstmsChck'
+// import Wrld_Tck_Encntrs_Atplt_SstmsChck_Dstntn from './modules/Wrld_Tck_Encntrs_Atplt_SstmsChck_Dstntn'
+// import Wrld_Tck_Encntrs_Atplt_SstmsChck_Dstntn_Mv from './modules/Wrld_Tck_Encntrs_Atplt_SstmsChck_Dstntn_Mv'
+// import Wrld_Tck_Encntrs_Atplt_SstmsChck_Scn from './modules/Wrld_Tck_Encntrs_Atplt_SstmsChck_Scn'
+// import Wrld_Tck_Encntrs_Atplt_SstmsChck_Scn_Bttl from './modules/Wrld_Tck_Encntrs_Atplt_SstmsChck_Scn_Bttl'
+import './App.css'
 
 const LOG = [
   `[SYSTEM] System online.`,
@@ -12,7 +27,7 @@ const LOG = [
   `[SYSTEM] Distress call nearby.`,
   `[SYSTEM] Starting Autopilot.`,
 ]
-const GAMESPEED = 100
+const GAMESPEED = 10000
 const DEST = {x:52, y:58}
 const DIFFICULTY = 0.9
 const DOTS = [
@@ -32,14 +47,14 @@ const DOTS = [
 function generateDots (n, dot) {
   let dots = []
   for (let i = 0; i < n; i++ ) {
-    let x = Math.floor((Math.random() * 100));
-    let y = Math.floor((Math.random() * 100));
-        dots.push(Object.assign({ x, y }, dot))
+    let x = Math.floor((Math.random() * 100))
+    let y = Math.floor((Math.random() * 100))
+    dots.push(Object.assign({ x, y }, dot))
   }
   return dots
 }
 
-class App extends Component {
+export default class App extends Component {
   render () {
     const h = window.innerHeight
     const w = window.innerWidth
@@ -51,31 +66,14 @@ class App extends Component {
         marginLeft: '-' + (low / 2) + 'px',
         marginTop: '-' + (low / 2) + 'px',
       }}>
-        <Console
-          log={ this.state.log }
-        />
-        <Radar
-          dest={ this.state.dest }
-          direction={ this.state.direction }
+        <UI
           dots={ this.dots }
-          self={ this.state.self }
           setDest={ this._setDest.bind(this) }
-        />
-        <Overview
-          dest={ this.state.dest }
-          dots={ this.dots }
-          self={ this.state.self }
-        />
-        <Inventory
-          self={ this.state.self }
-        />
-        <RadarControls
-          direction={ this.state.direction }
           modifyDestBasedOnDir={ this._modifyDestBasedOnDir.bind(this) }
-          stopped={ this.state.stopped }
+          state={ this.state }
         />
       </div>
-    );
+    )
   }
   constructor () {
     super()
@@ -254,5 +252,3 @@ class App extends Component {
     this.setState(s)
   }
 }
-
-export default App;

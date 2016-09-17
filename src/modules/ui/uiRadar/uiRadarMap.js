@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import RadarUiLatitude from './RadarUiLatitude.js';
-import RadarUiDest from './RadarUiDest.js';
-import RadarUiDot from './RadarUiDot.js';
-import RadarUiReadout from './RadarUiReadout.js';
+import uiRadarMapDestination from './uiRadarMapDestination/uiRadarMapDestination'
+import uiRadarMapDot from './uiRadarMapDot/uiRadarMapDot'
+import uiRadarMapLatitude from './uiRadarMapLatitude/uiRadarMapLatitude'
+import uiRadarMapReadout from './uiRadarMapReadout/uiRadarMapReadout'
 
-export default class RadarUi extends Component {
+export default class uiRadarMap extends Component {
   render() {
     const Dots = this.props.dots.map((dot, index) => {
-      return <RadarUiDot dot={ dot } key={ index } />
+      return <uiRadarMapDot dot={ dot } key={ index } />
     })
     const Latitudes = this.getSpace().map((latitude, index) => {
-     return <RadarUiLatitude
+     return <uiRadarMapLatitude
         cursor={ this.state.cursor }
         setCursor={ this.setCursor.bind(this) }
         setDest={ this.props.setDest }
@@ -20,9 +20,9 @@ export default class RadarUi extends Component {
     return (
       <div onMouseLeave={ this.clearCursor.bind(this) }>
         { Dots }
-        <RadarUiDest dest={ this.props.dest } />
-        <RadarUiDot dot={ this.props.self } />
-        <RadarUiReadout cursor={ this.state.cursor } dots={ this.props.dots } />
+        <uiRadarMapDestination dest={ this.props.dest } />
+        <uiRadarMapDot dot={ this.props.self } />
+        <uiRadarMapReadout cursor={ this.state.cursor } dots={ this.props.dots } />
         { Latitudes }
       </div>
     )

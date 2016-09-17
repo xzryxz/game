@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class UiSelf extends Component {
+export default class uiRadarMapDot extends Component {
   render() {
     return (
       <div style={ {
