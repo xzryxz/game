@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 // import UiLogTabs from './UiLogTabs'
+import './UiLog.css'
 
 export default class UiLog extends Component {
   render () {
@@ -20,7 +21,7 @@ export default class UiLog extends Component {
         </ul>
         <div className='log'>
           {
-            this.activeLog.map((msg, i) => {
+            this.activeLog.reverse().map((msg, i) => {
               return (<div key={ i }> { msg } </div>)
             })
           }

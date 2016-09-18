@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './UiOverview.css'
 
 export default class UiOverview extends Component {
   getRange (x, y) {

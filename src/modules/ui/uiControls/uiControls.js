@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import UiControlsDirection from './UiControlsDirection'
 import UiControlsArrow from './UiControlsArrow'
+import './UiControls.css'
 
 export default class UiControls extends Component {
   render() {

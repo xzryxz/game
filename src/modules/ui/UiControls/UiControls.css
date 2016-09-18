@@ -1,0 +1,92 @@
+.UiControls {
+    align-items: center;
+    display: flex;
+    height: 33%;
+    justify-content: center;
+    left: 34%;
+    position: absolute;
+    top: 0;
+    width: 33%;
+}
+
+.UiControlsArrow>div {
+    border-bottom: 1em solid white;
+    border-left: 1em solid transparent;
+    border-right: 1em solid transparent;
+    height: 0;
+    position: absolute;
+    width: 0;
+}
+
+.UiControlsArrow>div.x_null__y_false {
+    /* initial/up */
+    margin-top: -3em;
+}
+
+.UiControlsArrow>div.x_true__y_false {
+    /* right+up */
+    margin-top: -2em;
+    margin-left: 2em;
+}
+
+.UiControlsArrow>div.x_true__y_null {
+    /* right */
+    margin-left: 3em;
+}
+
+.UiControlsArrow>div.x_true__y_true {
+    /* right+down */
+    margin-left: 2em;
+    margin-top: 2em;
+}
+
+.UiControlsArrow>div.x_null__y_true {
+    /* down */
+    margin-top: 3em;
+}
+
+.UiControlsArrow>div.x_false__y_true {
+    /* left+down */
+    margin-left: -2em;
+    margin-top: 2em;
+}
+
+.UiControlsArrow>div.x_false__y_null {
+    /* left */
+    margin-left: -3em;
+}
+
+.UiControlsArrow>div.x_false__y_false {
+    /* left+up */
+    margin-left: -2em;
+    margin-top: -2em;
+}
+
+.UiControlsDirection {
+    height: 2em;
+    left: 50%;
+    margin-left: -.5em;
+    margin-top: -.5em;
+    opacity: 1;
+    position: absolute;
+    top: 50%;
+    width: 2em;
+}
+
+.UiControlsDirection .direction {
+    border-bottom: 1em solid yellow;
+    border-left: 1em solid transparent;
+    border-right: 1em solid transparent;
+    height: 0;
+    z-index: -1;
+    width: 0;
+}
+
+.UiControlsDirection.full-speed {
+    opacity: 1;
+    z-index: 1;
+}
+
+.UiControlsDirection.hide {
+    display: none;
+}

@@ -1,0 +1,117 @@
+.UiLog {
+    height: 50%;
+    left: 0;
+    top: 0;
+    width: 50%;
+}
+
+.UiLog .UiLogTabs {
+    background-color: black;
+    list-style: none;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+}
+
+.UiLog .UiLogTabs li {
+    display: inline;
+    margin: 1px;
+    padding: 0;
+}
+
+.UiLog .UiLogTabs li span {
+    background-color: black;
+    padding: 0 10px;
+}
+
+.UiLog .UiLogTabs li span:hover {
+    background-color: white;
+    color: black;
+}
+
+.UiLog .UiLogTabs li.active span {
+    background-color: white;
+    color: black;
+    font-weight: bold;
+}
+
+.UiLog .log {
+    height: 100%;
+    overflow-y: auto;
+    padding-top: 1.5em;
+    width: 100%;
+    z-index: 1;
+}
+
+.UiInventory {
+    top: 75%;
+    font-size: 1.2em;
+    height: 25%;
+    left: 0;
+    position: absolute;
+    text-transform: capitalize;
+    width: 50%;
+}
+
+.UiInventory .bags {
+    padding: 1em;
+}
+
+.UiInventory .bags div {
+    background-color: rgba(255, 255, 255, .1);
+    border-bottom: 1px solid black;
+    padding: .1em;
+}
+
+
+/* left+up */
+
+.UiRadar {
+    cursor: none;
+    height: 50%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50%;
+}
+
+.UiRadarMapReadout {
+    margin-left: 3px;
+}
+
+.UiRadarMapReadout .name {
+    text-transform: capitalize;
+}
+
+.UiOverview {
+    bottom: 0;
+    height: 50%;
+    overflow-y: auto;
+    position: absolute;
+    right: 0;
+    text-align: left;
+    text-transform: capitalize;
+    width: 50%;
+}
+
+.UiOverview table tr.is-hostile td {
+    color: red;
+}
+
+.UiOverview table tr.is-local td {
+    color: green;
+}
+
+.UiOverview table tr.is-destination td {
+    color: yellow;
+}
+
+.UiOverview table th {
+    text-decoration: underline;
+}
+
+.UiOverview table td {
+    padding: 1px 3px;
+    text-overflow: ellipsis;
+}

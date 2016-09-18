@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import UiRadarMap from './UiRadarMap'
+import './UiRadar.css'
 
 export default class UiRadar extends Component {
   render () {

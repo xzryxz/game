@@ -1,0 +1,52 @@
+.UiLog {
+    left: 0;
+    text-align: center;
+    position: fixed;
+    top: 33%;
+    width: 100%;
+}
+
+.UiLog .log {
+    height: 100%;
+    overflow-y: auto;
+    padding-top: 1.5em;
+    width: 100%;
+    z-index: 1;
+}
+.UiLog .log div:nth-child(1) { font-size: 1.5em; }
+.UiLog .log div:nth-child(2) { font-size: 1.4em; }
+.UiLog .log div:nth-child(3) { font-size: 1.3em; }
+.UiLog .log div:nth-child(4) { font-size: 1.2em; }
+.UiLog .log div:nth-child(5) { font-size: 1.1em; }
+
+.UiLog .UiLogTabs {
+    background-color: black;
+    list-style: none;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+}
+
+.UiLog .UiLogTabs li {
+    display: inline;
+    margin: 1px;
+    padding: 0;
+}
+
+.UiLog .UiLogTabs li span {
+    background-color: black;
+    padding: 0 10px;
+}
+
+.UiLog .UiLogTabs li span:hover {
+    background-color: white;
+    color: black;
+}
+
+.UiLog .UiLogTabs li.active span {
+    background-color: white;
+    color: black;
+    font-weight: bold;
+}

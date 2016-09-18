@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
+import './UiInventory.css'
 
 export default class UiInventory extends Component {
   render() {
     let bag = (item, index) => {
       return (
-        <div key={ index }>
-          <div style={{float: 'right'}}>
-            { item.quantity === Infinity ? "\u221E" : item.quantity }
-          </div>
-          <div>
-            { item.name }
-          </div>
-        </div>
+        <li key={ index }>
+          <span> { item.name }:&nbsp;</span><span>{ item.quantity === Infinity ? "\u221E" : item.quantity } </span>
+        </li>
       )
     }
     let bags = this.props.self.inventory.map((item, index) => {
@@ -19,17 +15,9 @@ export default class UiInventory extends Component {
     })
     return (
       <div className='UiInventory'>
-        <div className='bags'>
+        <ul className='bags'>
           { bags }
-        </div>
-        <div style={ {
-          height: '4em',
-          width: '4em',
-          marginTop: '-1em',
-          marginLeft: '-1em',
-          position: 'absolute,'
-        } }>
-        </div>
+        </ul>
       </div>
     )
   }

@@ -1,0 +1,16 @@
+.UiRadar {
+    cursor: none;
+    height: 33%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 33%;
+}
+
+.UiRadarMapReadout {
+    margin-left: 3px;
+}
+
+.UiRadarMapReadout .name {
+    text-transform: capitalize;
+}

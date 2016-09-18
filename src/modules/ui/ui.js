@@ -5,6 +5,7 @@ import UiInventory from './UiInventory/UiInventory'
 import UiLog from './UiLog/UiLog'
 import UiOverview from './UiOverview/UiOverview'
 import UiRadar from './UiRadar/UiRadar'
+import './Ui.css'
 
 export default class Ui extends Component {
   render () {

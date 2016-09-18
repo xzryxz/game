@@ -1,0 +1,33 @@
+
+
+.UiOverview {
+    top: 0;
+    height: 33%;
+    overflow-y: auto;
+    position: absolute;
+    left: 0;
+    text-align: left;
+    text-transform: capitalize;
+    width: 33%;
+}
+
+.UiOverview table tr.is-hostile td {
+    color: red;
+}
+
+.UiOverview table tr.is-local td {
+    color: green;
+}
+
+.UiOverview table tr.is-destination td {
+    color: yellow;
+}
+
+.UiOverview table th {
+    text-decoration: underline;
+}
+
+.UiOverview table td {
+    padding: 1px 3px;
+    text-overflow: ellipsis;
+}

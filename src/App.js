@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import Ui from './modules/Ui/Ui'
-import World from './modules/World/World'
+// import World from './modules/World/World'
 import './App.css'
 
-const LOG = [ `[SYSTEM] System online.`,
-              `[SYSTEM] Starting services.`,
-              `[SYSTEM] Distress call nearby.`,
-              `[SYSTEM] Starting Autopilot.`, ]
-const GAMESPEED = 10000
-const DEST = {x:52, y:58}
-const DIFFICULTY = 0.9
+const LOG = [`[SYSTEM] System online.`,
+    `[SYSTEM] Starting services.`,
+    `[SYSTEM] Distress call nearby.`,
+    `[SYSTEM] Starting Autopilot.`,
+]
+const GAMESPEED = 100
+const DESTINATION = {x: 52, y: 58}
+const DIFFICULTY = 0.999999999
 const DOTS = [ { x:52, y:58, type: 'signal', color: 'blue', name: 'distress call', },
                { x:52, y:58, type: 'loot', color: 'transparent', name: 'spooky wreck', },
               { x:52, y:58, type: 'ship', color: 'transparent', name: 'ghost pirate', },
@@ -44,7 +45,6 @@ export default class App extends Component {
         height: low + 'px',
         width: low + 'px',
         marginLeft: '-' + (low / 2) + 'px',
-        marginTop: '-' + (low / 2) + 'px',
       }}>
         <Ui
           dots={ this.dots }
@@ -60,7 +60,7 @@ export default class App extends Component {
     super()
     this.state = {
       piratesInbound: false,
-      destination: DEST,
+      destination: DESTINATION,
       direction: {x:null, y:null},
       dots: DOTS,
       gameSpeed: GAMESPEED,
