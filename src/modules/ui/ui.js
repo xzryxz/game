@@ -14,14 +14,14 @@ export default class Ui extends Component {
           log={ this.props.state.log }
         />
         <UiRadar
-          dest={ this.props.state.dest }
+          destination={ this.props.state.destination }
           direction={ this.props.state.direction }
           dots={ this.props.dots }
           self={ this.props.state.self }
-          setDest={ this.props._setDest }
+          setDestination={ this.props.setDestination }
         />
         <UiOverview
-          dest={ this.props.state.dest }
+          destination={ this.props.state.destination }
           dots={ this.props.dots }
           self={ this.props.state.self }
         />
@@ -30,7 +30,7 @@ export default class Ui extends Component {
         />
         <UiControls
           direction={ this.props.state.direction }
-          modifyDestBasedOnDir={ this.props._modifyDestBasedOnDir }
+          modifyDestinationBasedOnDirection={ this.props.modifyDestinationBasedOnDirection }
           stopped={ this.props.state.stopped }
         />
       </div>

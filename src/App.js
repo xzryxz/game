@@ -1,48 +1,27 @@
 import React, { Component } from 'react'
 import Ui from './modules/Ui/Ui'
-// import Wrld from './modules/Wrld'
-// import Wrld_Entts from './modules/Wrld_Entts'
-// import Wrld_Entts_Entt from './modules/Wrld_Entts_Entt'
-// import Wrld_Entts_Entt_ID from './modules/Wrld_Entts_Entt_ID'
-// import Wrld_Entts_Entt_Nm from './modules/Wrld_Entts_Entt_Nm'
-// import Wrld_Entts_Entt_Stts from './modules/Wrld_Entts_Entt_Stts'
-// import Wrld_Entts_Entt_Stts_Armr from './modules/Wrld_Entts_Entt_Stts_Armr'
-// import Wrld_Entts_Entt_Stts_Dmg from './modules/Wrld_Entts_Entt_Stts_Dmg'
-// import Wrld_Entts_Entt_Stts_Enrg from './modules/Wrld_Entts_Entt_Stts_Enrg'
-// import Wrld_Entts_Entt_Stts_Spd from './modules/Wrld_Entts_Entt_Stts_Spd'
-// import Wrld_Entts_Entt_Stts_Tch from './modules/Wrld_Entts_Entt_Stts_Tch'
-// import Wrld_Tck from './modules/Wrld_Tck'
-// import Wrld_Tck_Encntrs from './modules/Wrld_Tck_Encntrs'
-// import Wrld_Tck_Encntrs_Atplt from './modules/Wrld_Tck_Encntrs_Atplt'
-// import Wrld_Tck_Encntrs_Atplt_SstmsChck from './modules/Wrld_Tck_Encntrs_Atplt_SstmsChck'
-// import Wrld_Tck_Encntrs_Atplt_SstmsChck_Dstntn from './modules/Wrld_Tck_Encntrs_Atplt_SstmsChck_Dstntn'
-// import Wrld_Tck_Encntrs_Atplt_SstmsChck_Dstntn_Mv from './modules/Wrld_Tck_Encntrs_Atplt_SstmsChck_Dstntn_Mv'
-// import Wrld_Tck_Encntrs_Atplt_SstmsChck_Scn from './modules/Wrld_Tck_Encntrs_Atplt_SstmsChck_Scn'
-// import Wrld_Tck_Encntrs_Atplt_SstmsChck_Scn_Bttl from './modules/Wrld_Tck_Encntrs_Atplt_SstmsChck_Scn_Bttl'
+import World from './modules/World/World'
 import './App.css'
 
-const LOG = [
-  `[SYSTEM] System online.`,
-  `[SYSTEM] Starting services.`,
-  `[SYSTEM] Distress call nearby.`,
-  `[SYSTEM] Starting Autopilot.`,
-]
+const LOG = [ `[SYSTEM] System online.`,
+              `[SYSTEM] Starting services.`,
+              `[SYSTEM] Distress call nearby.`,
+              `[SYSTEM] Starting Autopilot.`, ]
 const GAMESPEED = 10000
 const DEST = {x:52, y:58}
 const DIFFICULTY = 0.9
-const DOTS = [
-  { x:52, y:58, type: 'signal', color: 'blue', name: 'distress call', },
-  { x:52, y:58, type: 'loot', color: 'transparent', name: 'spooky wreck', },
-  { x:52, y:58, type: 'ship', color: 'transparent', name: 'ghost pirate', },
-].concat(generateDots(250, {
-  color: 'rgba(255,0,0, 0.15)',
-  name: 'bloody pirate' ,
-  type: 'ship',
-})).concat(generateDots(5, {
-  color: 'green',
-  name: 'military storage facility',
-  type: 'station',
-}))
+const DOTS = [ { x:52, y:58, type: 'signal', color: 'blue', name: 'distress call', },
+               { x:52, y:58, type: 'loot', color: 'transparent', name: 'spooky wreck', },
+              { x:52, y:58, type: 'ship', color: 'transparent', name: 'ghost pirate', },
+             ].concat(generateDots(250, {
+               color: 'rgba(255,0,0, 0.15)',
+               name: 'bloody pirate' ,
+               type: 'ship',
+             })).concat(generateDots(5, {
+               color: 'green',
+               name: 'military storage facility',
+               type: 'station',
+             }))
 
 function generateDots (n, dot) {
   let dots = []
@@ -55,6 +34,7 @@ function generateDots (n, dot) {
 }
 
 export default class App extends Component {
+
   render () {
     const h = window.innerHeight
     const w = window.innerWidth
@@ -68,18 +48,19 @@ export default class App extends Component {
       }}>
         <Ui
           dots={ this.dots }
-          setDest={ this._setDest.bind(this) }
-          modifyDestBasedOnDir={ this._modifyDestBasedOnDir.bind(this) }
+          setDestination={ this.setDestination.bind(this) }
+          modifyDestinationBasedOnDirection={ this.modifyDestinationBasedOnDirection.bind(this) }
           state={ this.state }
         />
       </div>
     )
   }
+
   constructor () {
     super()
     this.state = {
       piratesInbound: false,
-      dest: DEST,
+      destination: DEST,
       direction: {x:null, y:null},
       dots: DOTS,
       gameSpeed: GAMESPEED,
@@ -100,30 +81,26 @@ export default class App extends Component {
       stopped: true,
     }
   }
+
   get gameSpeed () {
     return this.state ? this.state.gameSpeed : GAMESPEED
   }
+
   set gameSpeed (gameSpeed) {
     if (typeof gameSpeed !== 'number') throw new Error('game speed must be a number')
     let s = this.state
     s.gameSpeed = gameSpeed
     this.setState(s)
   }
+
   get dots () {
     return this.state.dots
   }
-  _modifyDestBasedOnDir (direction) {
-    const s = this.state
-    let d = s.dest
-    if (direction.x === true) d.x++
-    if (direction.x === false) d.x--
-    if (direction.y === true) d.y++
-    if (direction.y === false) d.y--
-    this._setDest(d)
-  }
+
   _start () {
     return setInterval(this._autoPilot.bind(this), this.gameSpeed)
   }
+
   _stopShip () {
     let s = this.state
     clearInterval(s.intervalId)
@@ -132,27 +109,70 @@ export default class App extends Component {
     s.log.push(`[AUTOPILOT] Ship stopped.`)
     this.setState(s)
   }
+
   _autoPilot () {
     this._increaseTick()
     this._tick()
   }
+
   _increaseTick () {
     let s = this.state
     s.ticks++
     this.setState(s)
   }
+
   _tick () {
     this._addTravelPath()
     this._moveOnce()
     this._localScan()
     this._encounters()
   }
+
   _encounters () {
     let s = this.state
     if (s.piratesInbound && s.stopped) {
       this._battle()
     }
   }
+
+  _addTravelPath () {
+    let s = this.state
+    s.log.push(`[AUTOPILOT] Round: ${ s.ticks }. Position: ${ s.self.x },${ s.self.y }.`)
+    s.dots.push({ x: s.self.x, y: s.self.y, type: 'bookmark', color: 'rgba(255,255,255, 0.1)', name: 'travel path', })
+    this.setState(s)
+  }
+
+  _moveOnce () {
+    let s = this.state
+    let shouldStop = s.self.x === s.destination.x && s.self.y === s.destination.y
+    if (shouldStop) {
+      this._stopShip()
+    } else {
+      s.direction = {x:null, y:null}
+      if (s.self.x < s.destination.x) { s.self.x++; s.direction.x = true }
+      if (s.self.y > s.destination.y) { s.self.y--; s.direction.y = false }
+      if (s.self.x > s.destination.x) { s.self.x--; s.direction.x = false }
+      if (s.self.y < s.destination.y) { s.self.y++; s.direction.y = true }
+    }
+    s.stopped = shouldStop
+    s.log.push(`[AUTOPILOT] ${ s.stopped ? 'Ship has arrived at set destination.' : 'Moving at full speed.'}`)
+    this.setState(s)
+  }
+
+  _localScan (type) {
+    let s = this.state
+    const result = this.dots.filter((dot) => { return dot.x === s.self.x && dot.y === s.self.y ? dot : false })
+    s.log.push(`[SCANNER] ${ result.filter((dot) => { return dot.type === 'ship' ? dot : false }).length > 0 ? 'You are not alone.' : 'You are in dark space.'}`)
+    result.forEach((dot) => {
+      if (dot.name.indexOf('pirate') >= 0) {
+        s.piratesInbound = true
+        s.log.push(`[${dot.name.toUpperCase()}] YARRRRRR!`)
+      }
+    })
+    s.scan = result
+    this.setState(s)
+  }
+
   _battle () {
     let s = this.state
     let pirate = s.scan.filter((dot, i) => { return dot.name.indexOf('pirate') >= 0 ? dot : false })[0]
@@ -196,59 +216,38 @@ export default class App extends Component {
       s.log.push(`[AUTOPILOT] Ship is taking damage!`)
       s.log.push(`[${ pirate.name.toUpperCase() }] HA-HA-HA-HA!`)
     }
+
     this.setState(s)
   }
-  _addTravelPath () {
-    let s = this.state
-    s.log.push(`[AUTOPILOT] Round: ${ s.ticks }. Position: ${ s.self.x },${ s.self.y }.`)
-    s.dots.push({ x: s.self.x, y: s.self.y, type: 'bookmark', color: 'rgba(255,255,255, 0.1)', name: 'travel path', })
-    this.setState(s)
-  }
-  _moveOnce () {
-    let s = this.state
-    let shouldStop = s.self.x === s.dest.x && s.self.y === s.dest.y
-    if (shouldStop) {
-      this._stopShip()
-    } else {
-      s.direction = {x:null, y:null}
-      if (s.self.x < s.dest.x) { s.self.x++; s.direction.x = true }
-      if (s.self.y > s.dest.y) { s.self.y--; s.direction.y = false }
-      if (s.self.x > s.dest.x) { s.self.x--; s.direction.x = false }
-      if (s.self.y < s.dest.y) { s.self.y++; s.direction.y = true }
-    }
-    s.stopped = shouldStop
-    s.log.push(`[AUTOPILOT] ${ s.stopped ? 'Ship has arrived at set destination.' : 'Moving at full speed.'}`)
-    this.setState(s)
-  }
-  _localScan (type) {
-    let s = this.state
-    const result = this.dots.filter((dot) => { return dot.x === s.self.x && dot.y === s.self.y ? dot : false })
-    s.log.push(`[SCANNER] ${ result.filter((dot) => { return dot.type === 'ship' ? dot : false }).length > 0 ? 'You are not alone.' : 'You are in dark space.'}`)
-    result.forEach((dot) => {
-      if (dot.name.indexOf('pirate') >= 0) {
-        s.piratesInbound = true
-        s.log.push(`[${dot.name.toUpperCase()}] YARRRRRR!`)
-      }
-    })
-    s.scan = result
-    this.setState(s)
-  }
-  _setDest (dest) {
-    let s = this.state
-    if (s.stopped && s.piratesInbound) {
-      s.log.push(`[${ s.scan.filter((dot) => { return dot.name.indexOf('pirate') >= 0 ? dot : false })[0].name.toUpperCase() }] Gotha! YARRR!`)
-    } else {
-      s.dest = dest
-      this._stopShip()
-      s.intervalId = this._start()
-      s.log.push(`[AUTOPILOT] Destination set.`)
-    }
-    this.setState(s)
-  }
+
   loot (dollars) {
     let s = this.state
     s.self.inventory[3].quantity += dollars
     s.log.push(`[AUTOPILOT] Looted ${ dollars } dollars.`)
     this.setState(s)
   }
+
+  modifyDestinationBasedOnDirection (direction) {
+    const s = this.state
+    let d = s.destination
+    if (direction.x === true) d.x++
+    if (direction.x === false) d.x--
+    if (direction.y === true) d.y++
+    if (direction.y === false) d.y--
+    this.setDestination(d)
+  }
+
+  setDestination (destination) {
+    let s = this.state
+    if (s.stopped && s.piratesInbound) {
+      s.log.push(`[${ s.scan.filter((dot) => { return dot.name.indexOf('pirate') >= 0 ? dot : false })[0].name.toUpperCase() }] Gotha! YARRR!`)
+    } else {
+      s.destination = destination
+      this._stopShip()
+      s.intervalId = this._start()
+      s.log.push(`[AUTOPILOT] Destination set.`)
+    }
+    this.setState(s)
+  }
+
 }

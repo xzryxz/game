@@ -30,7 +30,7 @@ export default class UiRadarMapLatitude extends Component {
     function onMouseDown () {
       let target = {}
       Object.assign(target, cursor)
-      this.props.setDest(target)
+      this.props.setDestination(target)
     }
     return (
       <div style={ style }

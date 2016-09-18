@@ -13,14 +13,14 @@ export default class UiRadarMap extends Component {
      return <UiRadarMapLatitude
         cursor={ this.state.cursor }
         setCursor={ this.setCursor.bind(this) }
-        setDest={ this.props.setDest }
+        setDestination={ this.props.setDestination }
         key={ index }
         latitude={ latitude } />
     })
     return (
       <div onMouseLeave={ this.clearCursor.bind(this) }>
         { Dots }
-        <UiRadarMapDestination dest={ this.props.dest } />
+        <UiRadarMapDestination destination={ this.props.destination } />
         <UiRadarMapDot dot={ this.props.self } />
         <UiRadarMapReadout cursor={ this.state.cursor } dots={ this.props.dots } />
         { Latitudes }

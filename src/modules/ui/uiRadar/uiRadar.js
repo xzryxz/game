@@ -6,42 +6,42 @@ export default class UiRadar extends Component {
     return (
       <div className="UiRadar">
         <UiRadarMap
-          dest={ this.props.dest }
+          destination={ this.props.destination }
           dots={ this.props.dots }
-          onKeyDown={ this.setDestBasedOnKeyKode }
+          onKeyDown={ this.setDestinationBasedOnKeyKode }
           self={ this.props.self }
-          setDest={ this.props.setDest }
+          setDestination={ this.props.setDestination }
         />
       </div>
     )
   }
   componentWillMount () {
-    document.addEventListener('keydown', this.setDestBasedOnKeyKode.bind(this))
+    document.addEventListener('keydown', this.setDestinationBasedOnKeyKode.bind(this))
   }
-  setDestBasedOnKeyKode (e) {
-    const dest = this.props.dest
+  setDestinationBasedOnKeyKode (e) {
+    const destination = this.props.destination
     if (e.keyCode === 37) {
-      this.props.setDest({
-        x: (dest.x ? dest.x : dest.x) - 1,
-        y: (dest.y ? dest.y : dest.y),
+      this.props.setDestination({
+        x: (destination.x ? destination.x : destination.x) - 1,
+        y: (destination.y ? destination.y : destination.y),
       })
     }
     else if (e.keyCode === 38) {
-      this.props.setDest({
-        x: (dest.x ? dest.x : dest.x),
-        y: (dest.y ? dest.y : dest.y) - 1,
+      this.props.setDestination({
+        x: (destination.x ? destination.x : destination.x),
+        y: (destination.y ? destination.y : destination.y) - 1,
       })
     }
     else if (e.keyCode === 39) {
-      this.props.setDest({
-        x: (dest.x ? dest.x : dest.x) + 1,
-        y: (dest.y ? dest.y : dest.y),
+      this.props.setDestination({
+        x: (destination.x ? destination.x : destination.x) + 1,
+        y: (destination.y ? destination.y : destination.y),
       })
     }
     else if (e.keyCode === 40) {
-      this.props.setDest({
-        x: (dest.x ? dest.x : dest.x),
-        y: (dest.y ? dest.y : dest.y) + 1,
+      this.props.setDestination({
+        x: (destination.x ? destination.x : destination.x),
+        y: (destination.y ? destination.y : destination.y) + 1,
       })
     }
   }

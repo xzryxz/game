@@ -3,13 +3,13 @@ import React, { Component } from 'react';
 export default class UiRadarMapDest extends Component {
   render() {
     let style = {}
-    if (this.props.dest.x !== null && this.props.dest.y !== null) {
+    if (this.props.destination.x !== null && this.props.destination.y !== null) {
       style = {
         backgroundColor: 'yellow',
         height: '1%',
         width: '1%',
-        top: this.props.dest.y + '%',
-        left: this.props.dest.x + '%',
+        top: this.props.destination.y + '%',
+        left: this.props.destination.x + '%',
         position: 'absolute',
       }
     }

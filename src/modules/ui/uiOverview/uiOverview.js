@@ -8,7 +8,7 @@ export default class UiOverview extends Component {
     return difference(x, xx) + difference(y, yy)
   }
   isDestination (row) {
-    return row.x === this.props.dest.x && row.y === this.props.dest.y
+    return row.x === this.props.destination.x && row.y === this.props.destination.y
   }
   isLocal (row) {
     return this.getRange(row.x, row.y) === 0
