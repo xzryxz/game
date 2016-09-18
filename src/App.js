@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ui from './modules/ui/ui'
+import Ui from './modules/Ui/Ui'
 // import Wrld from './modules/Wrld'
 // import Wrld_Entts from './modules/Wrld_Entts'
 // import Wrld_Entts_Entt from './modules/Wrld_Entts_Entt'
@@ -66,7 +66,7 @@ export default class App extends Component {
         marginLeft: '-' + (low / 2) + 'px',
         marginTop: '-' + (low / 2) + 'px',
       }}>
-        <UI
+        <Ui
           dots={ this.dots }
           setDest={ this._setDest.bind(this) }
           modifyDestBasedOnDir={ this._modifyDestBasedOnDir.bind(this) }

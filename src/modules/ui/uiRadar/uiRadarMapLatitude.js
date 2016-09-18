@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class uiRadarMapLatitude extends Component {
+export default class UiRadarMapLatitude extends Component {
   render() {
     const cursor = this.props.cursor
     const latitudeAxis = this.props.latitude.axis

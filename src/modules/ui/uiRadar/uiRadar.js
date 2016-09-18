@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import uiRadarMap from './uiRadarMap/uiRadarMap'
+import UiRadarMap from './UiRadarMap'
 
-export default class uiRadar extends Component {
+export default class UiRadar extends Component {
   render () {
     return (
-      <div className="uiRadar">
-        <uiRadarMap
+      <div className="UiRadar">
+        <UiRadarMap
           dest={ this.props.dest }
           dots={ this.props.dots }
           onKeyDown={ this.setDestBasedOnKeyKode }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class uiControlsArrow extends Component {
+export default class UiControlsArrow extends Component {
   render() {
     const direction = this.props.direction
     let rotation = 0
@@ -16,7 +16,7 @@ export default class uiControlsArrow extends Component {
     }
 
     return (
-      <div className='RadarArrow'>
+      <div className='UiControlsArrow'>
         <div
           onClick={ onClick.bind(this) }
           className={ this.props.arrowClass }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class uiRadarMapReadout extends Component {
+export default class UiRadarMapReadout extends Component {
   render() {
     const cursor = this.props.cursor
     const isOver = typeof cursor.x === 'number' && typeof cursor.y === 'number'
@@ -18,7 +18,7 @@ export default class uiRadarMapReadout extends Component {
     })
 
     return (
-      <div className="uiRadarMapReadout">
+      <div className="UiRadarMapReadout">
         { isOver ? `x=${cursor.x} y=${cursor.y}` : '' }
         { readout }
       </div>

@@ -1,34 +1,34 @@
 import React, { Component } from 'react'
-// import uiCommandline from './uiCommandline'
-import uiControls from './uiControls/uiControls'
-import uiInventory from './uiInventory/uiInventory'
-import uiLog from './uiLog/uiLog'
-import uiOverview from './uiOverview/uiOverview'
-import uiRadar from './uiRadar/uiRadar'
+// import UiCommandline from './UiCommandline/UiCommandline'
+import UiControls from './UiControls/UiControls'
+import UiInventory from './UiInventory/UiInventory'
+import UiLog from './UiLog/UiLog'
+import UiOverview from './UiOverview/UiOverview'
+import UiRadar from './UiRadar/UiRadar'
 
-export default class ui extends Component {
+export default class Ui extends Component {
   render () {
     return (
       <div>
-        <uiLog
+        <UiLog
           log={ this.props.state.log }
         />
-        <uiRadar
+        <UiRadar
           dest={ this.props.state.dest }
           direction={ this.props.state.direction }
           dots={ this.props.dots }
           self={ this.props.state.self }
           setDest={ this.props._setDest }
         />
-        <uiOverview
+        <UiOverview
           dest={ this.props.state.dest }
           dots={ this.props.dots }
           self={ this.props.state.self }
         />
-        <uiInventory
+        <UiInventory
           self={ this.props.state.self }
         />
-        <uiControls
+        <UiControls
           direction={ this.props.state.direction }
           modifyDestBasedOnDir={ this.props._modifyDestBasedOnDir }
           stopped={ this.props.state.stopped }

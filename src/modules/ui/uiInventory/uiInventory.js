@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class uiInventory extends Component {
+export default class UiInventory extends Component {
   render() {
     let bag = (item, index) => {
       return (
@@ -18,7 +18,7 @@ export default class uiInventory extends Component {
       return bag(item, index)
     })
     return (
-      <div className='uiInventory'>
+      <div className='UiInventory'>
         <div className='bags'>
           { bags }
         </div>

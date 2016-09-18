@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-// import UI_LOGTABS from './UI_LOG_TABS/UI_LOG_TABS'
+// import UiLogTabs from './UiLogTabs'
 
-export default class UI_LOG extends Component {
+export default class UiLog extends Component {
   render () {
     return (
-      <div className='Console'>
-        <ul className='tabs'>
+      <div className='UiLog'>
+        <ul className='UiLogTabs'>
           {
             this.state.tabs.map((tab, index) => {
               return (
