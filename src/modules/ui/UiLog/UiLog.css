@@ -2,6 +2,7 @@
     left: 0;
     text-align: center;
     position: fixed;
+    padding-top: 3em;
     top: 33%;
     width: 100%;
 }
@@ -12,6 +13,9 @@
     padding-top: 1.5em;
     width: 100%;
     z-index: 1;
+}
+.UiLog .log div {
+  padding: .2em;
 }
 .UiLog .log div:nth-child(1) { font-size: 1.5em; }
 .UiLog .log div:nth-child(2) { font-size: 1.4em; }
