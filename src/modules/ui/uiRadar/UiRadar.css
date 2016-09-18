@@ -1,10 +1,10 @@
 .UiRadar {
     cursor: none;
-    height: 33%;
+    height: 30%;
     position: absolute;
     right: 0;
     top: 3em;
-    width: 33%;
+    width: 30%;
 }
 
 .UiRadarMapReadout {

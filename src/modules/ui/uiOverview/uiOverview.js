@@ -15,7 +15,7 @@ export default class UiOverview extends Component {
     return this.getRange(row.x, row.y) === 0
   }
   isHostile (row) {
-    return row.name.indexOf('pirate') >= 0
+    return row.name.indexOf('pirate') >= 0 && !row.dead
   }
   getClassName (row) {
     if (this.isHostile(row)) return 'is-hostile'

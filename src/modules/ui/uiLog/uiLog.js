@@ -21,7 +21,7 @@ export default class UiLog extends Component {
         </ul>
         <div className='log'>
           {
-            this.activeLog.reverse().map((msg, i) => {
+            this.activeLog.map((msg, i) => {
               return (<div key={ i }> { msg } </div>)
             })
           }
