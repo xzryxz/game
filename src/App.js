@@ -9,7 +9,7 @@ const LOG = [
   `[SYSTEM] Starting services.`,
   `[SYSTEM] System online.`,
 ]
-const GAMESPEED = 2000
+const GAMESPEED = 500
 const DESTINATION = {x: 52, y: 58}
 const DOTS = [ { x:52, y:58, type: 'signal', color: 'blue', name: 'distress call', },
                { x:52, y:58, type: 'loot', color: 'transparent', name: 'spooky wreck', },
@@ -175,7 +175,7 @@ export default class App extends Component {
     let s = this.state
     s.log.unshift(`[SCANNER] Found ${ this.dots.filter((dot) => { return dot.type === 'ship' }).length } signals.`)
     const result = this.dots.filter((dot) => { return dot.x === s.self.x && dot.y === s.self.y ? dot : false })
-    s.log.unshift(`[SCANNER] ${ result.filter((dot) => { return dot.type === 'ship' && !dot.dead ? dot : false }).length > 0 ? 'You are not alone.' : 'You are in dark space.'}`)
+    s.log.unshift(`[SCANNER] ${ result.filter((dot) => { return dot.type === 'ship' && dot.dead ? dot : false }).length > 0 ? 'You are not alone.' : 'You are in dark space.'}`)
     result.forEach((dot) => {
       if (dot.name.indexOf('pirate') >= 0 && !dot.dead) {
         if (s.stopped) s.piratesInbound = true
@@ -188,12 +188,12 @@ export default class App extends Component {
 
   _battle () {
     let s = this.state
-    let pirate = s.scan.filter((dot, i) => { return dot.name.indexOf('pirate') >= 0 ? dot : false })[0]
+    let pirate = s.scan.filter((dot, i) => { return !dot.dead && dot.name.indexOf('pirate') >= 0 ? dot : false })[0]
     if (!pirate) {
       return
     }
-      s.log.unshift(`[${ pirate.name.toUpperCase() }] Ye shouldn't 'ave stopped 'ere fools!`)
-      s.log.unshift(`[${ pirate.name.toUpperCase() }] Get 'em!`)
+    s.log.unshift(`[${ pirate.name.toUpperCase() }] Ye shouldn't 'ave stopped 'ere fools!`)
+    s.log.unshift(`[${ pirate.name.toUpperCase() }] Get 'em!`)
 
     /**
      * bonus (ie ship stats) should be 0.5 or more to win every time "take one hit then shoot em down"
@@ -224,12 +224,9 @@ export default class App extends Component {
     if (result) {
       s.log.unshift(`[AUTOPILOT] Aiming lazer blasters.`)
       s.log.unshift(`[AUTOPILOT] Enemy eliminated.`)
+      this.kill(pirate)
       this.loot(100)
       s.piratesInbound = false
-      pirate.dead = true
-      pirate.type = 'loot'
-      pirate.color = 'transparent'
-      pirate.name = `${ pirate.name }'s wreck`
     } else {
       s.log.unshift(`[AUTOPILOT] Incoming missiles!`)
       s.log.unshift(`[${ pirate.name.toUpperCase() }] NOW YE DIE, YARR!`)
@@ -237,6 +234,15 @@ export default class App extends Component {
       s.log.unshift(`[${ pirate.name.toUpperCase() }] HA-HA-HA-HA!`)
     }
 
+    this.setState(s)
+  }
+
+  kill (pirate) {
+    let s = this.state
+    pirate.dead = true
+    pirate.type = 'loot'
+    pirate.color = 'transparent'
+    pirate.name = `${ pirate.name }'s wreck`
     this.setState(s)
   }
 
