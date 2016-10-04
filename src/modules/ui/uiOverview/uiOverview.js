@@ -38,19 +38,15 @@ export default class UiOverview extends Component {
         <table>
           <thead>
             <tr>
-              <th>Type</th>
-              <th style={{width: '100%'}}>Name</th>
+              <th style={{width: '100%'}}>Type</th>
               <th>Range</th>
-              <th>X/Y</th>
             </tr>
           </thead>
           <tbody>
             { rows.map((row, i) => {return (
               <tr key={ i } className={ this.getClassName(row) } >
                 <td>{ row.type }</td>
-                <td>{ row.name }</td>
                 <td>{ this.getRange(row.x, row.y) }</td>
-                <td>{ row.x },{ row.y }</td>
               </tr>
             )}) }
           </tbody>
