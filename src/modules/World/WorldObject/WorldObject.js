@@ -4,10 +4,11 @@ import WorldObjectStats from './WorldObjectStats'
 
 export default class WorldObject {
 
-  constructor (id, name, stats) {
+  constructor (id, name, stats, position) {
     this._id = new WorldObjectId(id)
     this._name = new WorldObjectName(name)
     this._stats = new WorldObjectStats(stats)
+    this._position = position
   }
 
   get id () {
@@ -20,6 +21,10 @@ export default class WorldObject {
 
   get stats () {
     return this._stats
+  }
+
+  get position () {
+    return this._position
   }
 
 }

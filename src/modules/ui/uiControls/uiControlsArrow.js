@@ -12,7 +12,7 @@ export default class UiControlsArrow extends Component {
     else if (direction.x === false && direction.y === null) rotation = 270
     else if (direction.x === false && direction.y === false) rotation = 315
     function onClick () {
-      this.props.modifyDestinationBasedOnDirection(direction)
+      this.props.moveInDirection(direction)
     }
 
     return (

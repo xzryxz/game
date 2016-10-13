@@ -10,7 +10,7 @@ export default class UiRadar extends Component {
           destination={ this.props.destination }
           dots={ this.props.dots }
           onKeyDown={ this.setDestinationBasedOnKeyKode }
-          self={ this.props.self }
+          position={ this.props.position }
           setDestination={ this.props.setDestination }
         />
       </div>

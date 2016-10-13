@@ -1,5 +1,4 @@
-export default class WorldTickAutopilotScanBattle {
-
+export default class AutopilotTurret {
 
   _encounters () {
     let s = this.state
@@ -14,13 +13,6 @@ export default class WorldTickAutopilotScanBattle {
     pirate.type = 'loot'
     pirate.color = 'transparent'
     pirate.name = `${ pirate.name }'s wreck`
-    this.setState(s)
-  }
-
-  loot (dollars) {
-    let s = this.state
-    s.self.inventory[3].quantity += dollars
-    s.log.unshift(`[AUTOPILOT] Looted ${ dollars } dollars.`)
     this.setState(s)
   }
 

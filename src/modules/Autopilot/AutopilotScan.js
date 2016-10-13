@@ -1,6 +1,4 @@
-import WorldTickAutopilotScanBattle from './WorldTickAutopilotScanBattle'
-
-export default class WorldTickAutopilotScan {
+export default class AutopilotScan {
 
   _localScan (type) {
     let s = this.state

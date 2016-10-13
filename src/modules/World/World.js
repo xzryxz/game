@@ -1,19 +1,19 @@
 import WorldObject from './WorldObject/WorldObject'
-import WorldTick from './WorldTick/WorldTick'
 
 export default class World {
 
-  constructor () {
-    this._object = new WorldObject()
-    this._tick = new WorldTick()
+  constructor (ship) {
+    this._dots = DOTS.map((dot, index) => {
+      const position = {
+        x: dot.x,
+        y: dot.y,
+      }
+      return new WorldObject(index, dot.name, null, position)
+    })
   }
 
-  get object () {
-    return this._object
-  }
-
-  get tick () {
-    return this._tick
+  get dots () {
+    return this._dots
   }
 
 }
@@ -41,13 +41,3 @@ function generateDots (n, dot) {
   }
   return dots
 }
-
-
-const LOG = [
-  `[SYSTEM] Starting Autopilot.`,
-  `[SYSTEM] Distress call nearby.`,
-  `[SYSTEM] Starting services.`,
-  `[SYSTEM] System online.`,
-]
-const GAMESPEED = 500
-const DESTINATION = {x: 52, y: 58}

@@ -21,11 +21,11 @@ export default class UiRadarMap extends Component {
       <div onMouseLeave={ this.clearCursor.bind(this) }>
         { Dots }
         <UiRadarMapDestination destination={ this.props.destination } />
-        <UiRadarMapDot dot={ this.props.self } />
-        <UiRadarMapReadout cursor={ this.state.cursor } dots={ this.props.dots } />
         { Latitudes }
       </div>
     )
+    // <UiRadarMapReadout cursor={ this.state.cursor } dots={ this.props.dots } />
+    // <UiRadarMapDot dot={ this.props.position } />
   }
   constructor() {
     super()

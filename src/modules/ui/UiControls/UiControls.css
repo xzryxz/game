@@ -9,7 +9,7 @@
     width: 33%;
 }
 
-.UiControlsArrow>div {
+.UiControlsArrow > div {
     border-bottom: 1em solid white;
     border-left: 1em solid transparent;
     border-right: 1em solid transparent;
@@ -18,46 +18,54 @@
     width: 0;
 }
 
-.UiControlsArrow>div.x_null__y_false {
+.UiControlsArrow > div.x_null__y_false {
     /* initial/up */
+    cursor: n-resize;
     margin-top: -3em;
 }
 
-.UiControlsArrow>div.x_true__y_false {
+.UiControlsArrow > div.x_true__y_false {
     /* right+up */
+    cursor: ne-resize;
     margin-top: -2em;
     margin-left: 2em;
 }
 
-.UiControlsArrow>div.x_true__y_null {
+.UiControlsArrow > div.x_true__y_null {
     /* right */
+    cursor: e-resize;
     margin-left: 3em;
 }
 
-.UiControlsArrow>div.x_true__y_true {
+.UiControlsArrow > div.x_true__y_true {
     /* right+down */
+    cursor: se-resize;
     margin-left: 2em;
     margin-top: 2em;
 }
 
-.UiControlsArrow>div.x_null__y_true {
+.UiControlsArrow > div.x_null__y_true {
     /* down */
+    cursor: s-resize;
     margin-top: 3em;
 }
 
-.UiControlsArrow>div.x_false__y_true {
+.UiControlsArrow > div.x_false__y_true {
     /* left+down */
+    cursor: sw-resize;
     margin-left: -2em;
     margin-top: 2em;
 }
 
-.UiControlsArrow>div.x_false__y_null {
+.UiControlsArrow > div.x_false__y_null {
     /* left */
+    cursor: w-resize;
     margin-left: -3em;
 }
 
-.UiControlsArrow>div.x_false__y_false {
+.UiControlsArrow > div.x_false__y_false {
     /* left+up */
+    cursor: nw-resize;
     margin-left: -2em;
     margin-top: -2em;
 }

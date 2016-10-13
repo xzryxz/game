@@ -1,40 +1,63 @@
 import React, { Component } from 'react'
+import UiCargo from './UiCargo/UiCargo'
 // import UiCommandline from './UiCommandline/UiCommandline'
 import UiControls from './UiControls/UiControls'
-import UiInventory from './UiInventory/UiInventory'
 import UiLog from './UiLog/UiLog'
-import UiOverview from './UiOverview/UiOverview'
-import UiRadar from './UiRadar/UiRadar'
+// import UiOverview from './UiOverview/UiOverview'
+// import UiRadar from './UiRadar/UiRadar'
+import UiTime from './UiTime/UiTime'
 import './Ui.css'
 
 export default class Ui extends Component {
+
+  constructor (props) {
+    super()
+    this.state = {
+      autopilot: props.autopilot
+    }
+  }
+
+  componentDidMount () {
+    let s = this.state
+    s.autopilot.boot(this.uiUpdate.bind(this))
+    this.setState(s)
+  }
+
+  uiUpdate (autopilot) {
+    let s = this.state
+    s.autopilot = autopilot
+    this.setState(s)
+  }
+
   render () {
+    let autopilot = this.state.autopilot
+    let style = {
+      display: autopilot.time === null ? 'none': 'block'
+    }
     return (
       <div>
-        <UiLog
-          log={ this.props.state.log }
-        />
-        <UiRadar
-          destination={ this.props.state.destination }
-          direction={ this.props.state.direction }
-          dots={ this.props.dots }
-          self={ this.props.state.self }
-          setDestination={ this.props.setDestination }
-        />
-        <UiOverview
-          destination={ this.props.state.destination }
-          dots={ this.props.dots }
-          self={ this.props.state.self }
-        />
-        <UiInventory
-          self={ this.props.state.self }
-        />
-        <UiControls
-          direction={ this.props.state.direction }
-          modifyDestinationBasedOnDirection={ this.props.modifyDestinationBasedOnDirection }
-          stopped={ this.props.state.stopped }
-        />
+        <UiLog log={ autopilot.modules.log } />
+        <UiTime autopilot={ autopilot } />
+        <UiCargo cargo={ autopilot.modules.cargo } />
+        <div style={ style }>
+          <UiControls
+            direction={ autopilot.direction }
+            moveInDirection={ autopilot.moveInDirection.bind(autopilot) }
+          />
+        </div>
       </div>
     )
+    // <UiRadar
+    //   destination={ this.props.destination }
+    //   direction={ this.props.direction }
+    //   dots={ this.props.dots }
+    //   ship={ this.props.ship }
+    //   setDestination={ this.props.setDestination }
+    // />
+    // <UiOverview
+    //   destination={ this.props.destination }
+    //   dots={ this.props.dots }
+    //   ship={ this.props.ship }
+    // />
   }
 }

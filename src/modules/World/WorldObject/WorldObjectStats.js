@@ -7,8 +7,17 @@ import WorldObjectStatsTech from './WorldObjectStatsTech'
 export default class WorldObjectStats {
 
   constructor (stats) {
+    if (stats === null) {
+      stats = {
+        armor: Math.random(),
+        damage: Math.random(),
+        energy: Math.random(),
+        speed: Math.random(),
+        tech: Math.random(),
+      }
+    }
     if (typeof stats !== 'object') {
-      throw new Error(`Argument 'stats' must be object but got '${ stats }'.`)
+      throw new Error(`Argument 'stats' must be object or null but got '${ stats }'.`)
     }
     this._armor = new WorldObjectStatsArmor(stats.armor)
     this._damage = new WorldObjectStatsDamage(stats.damage)
