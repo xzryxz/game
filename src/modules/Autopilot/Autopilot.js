@@ -6,9 +6,9 @@ import Turret from './AutopilotTurret'
 
 export default class Autopilot {
 
-  constructor (props) {
-    this._world = props.world
-    this._destination = null
+  constructor (world) {
+    this.world = world
+    this._destination = {x: 50, y: 50}
     this._position = {x: 50, y: 50}
     this._intervalId = null
     this._time = null
@@ -54,15 +54,15 @@ export default class Autopilot {
 
   get direction () {
     const destination = this.destination
+    const position = this.position
+    let direction = {x:null, y:null}
     if (destination) {
-      const position = this.position
-      let direction = {x:null, y:null}
       if (position.x < destination.x) { direction.x = true } // position.x++;
       if (position.y > destination.y) { direction.y = false } // position.y--;
       if (position.x > destination.x) { direction.x = false } // position.x--;
       if (position.y < destination.y) { direction.y = true } // position.y++;
-      return direction
     }
+    return direction
   }
 
   get intervalId () {
@@ -103,6 +103,7 @@ export default class Autopilot {
     if (direction.y === true) coordinates.y++
     if (direction.y === false) coordinates.y--
     this.destination = coordinates
+    this.uiUpdateFn(this)
   }
 
 }

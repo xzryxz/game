@@ -8,7 +8,7 @@ export default class World {
         x: dot.x,
         y: dot.y,
       }
-      return new WorldObject(index, dot.name, null, position)
+      return new WorldObject(index, dot.name, null, position, dot.type)
     })
   }
 
@@ -19,9 +19,9 @@ export default class World {
 }
 
 
-const DOTS = [ { x:52, y:58, type: 'signal', color: 'blue', name: 'distress call', },
-               { x:52, y:58, type: 'loot', color: 'transparent', name: 'spooky wreck', },
-              { x:52, y:58, type: 'ship', color: 'transparent', name: 'ghost pirate', },
+const DOTS = [ { x:50, y:50, type: 'signal', color: 'blue', name: 'distress call', },
+               { x:50, y:50, type: 'loot', color: 'transparent', name: 'spooky wreck', },
+              { x:50, y:50, type: 'ship', color: 'transparent', name: 'ghost pirate', },
              ].concat(generateDots(250, {
                color: 'rgba(255,0,0, 0.15)',
                name: 'bloody pirate' ,

@@ -3,7 +3,7 @@ import UiCargo from './UiCargo/UiCargo'
 // import UiCommandline from './UiCommandline/UiCommandline'
 import UiControls from './UiControls/UiControls'
 import UiLog from './UiLog/UiLog'
-// import UiOverview from './UiOverview/UiOverview'
+import UiOverview from './UiOverview/UiOverview'
 // import UiRadar from './UiRadar/UiRadar'
 import UiTime from './UiTime/UiTime'
 import './Ui.css'
@@ -45,6 +45,11 @@ export default class Ui extends Component {
             moveInDirection={ autopilot.moveInDirection.bind(autopilot) }
           />
         </div>
+        <UiOverview
+          destination={ autopilot.destination }
+          dots={ autopilot.world.dots }
+          position={ autopilot.position }
+        />
       </div>
     )
     // <UiRadar
@@ -53,11 +58,6 @@ export default class Ui extends Component {
     //   dots={ this.props.dots }
     //   ship={ this.props.ship }
     //   setDestination={ this.props.setDestination }
-    // />
-    // <UiOverview
-    //   destination={ this.props.destination }
-    //   dots={ this.props.dots }
-    //   ship={ this.props.ship }
     // />
   }
 }

@@ -73,12 +73,19 @@
 .UiControlsDirection {
     height: 2em;
     left: 50%;
-    margin-left: -.5em;
-    margin-top: -.5em;
+    /*margin-left: -.5em;*/
+    /*margin-top: -.5em;*/
     opacity: 1;
     position: absolute;
     top: 50%;
     width: 2em;
+}
+.UiControlsDirection.full-speed {
+  opacity: 1;
+  z-index: 1;
+}
+.UiControlsDirection.hide {
+  display: none;
 }
 
 .UiControlsDirection .direction {
@@ -88,13 +95,4 @@
     height: 0;
     z-index: -1;
     width: 0;
-}
-
-.UiControlsDirection.full-speed {
-    opacity: 1;
-    z-index: 1;
-}
-
-.UiControlsDirection.hide {
-    display: none;
 }

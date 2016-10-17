@@ -1,11 +1,10 @@
-
-
 .UiOverview {
-    top: 3em;
+    top: 0;
     height: 33%;
     overflow-y: auto;
     position: absolute;
     left: 0;
+    padding: 1em;
     text-align: left;
     text-transform: capitalize;
     width: 33%;
@@ -16,7 +15,7 @@
 }
 
 .UiOverview table tr.is-local td {
-    color: green;
+    color: lightgreen;
 }
 
 .UiOverview table tr.is-destination td {

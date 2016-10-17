@@ -1,31 +1,19 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import UiOverviewRow from './UiOverviewRow'
 import './UiOverview.css'
 
 export default class UiOverview extends Component {
-  getRange (x, y) {
-    function difference (a, b) { return Math.abs(a - b) }
-    const xx = this.props.self.x
-    const yy = this.props.self.y
-    return difference(x, xx) + difference(y, yy)
+
+  constructor (props) {
+    super()
+    this._destination = props.destination
+    this._dots = props.dots
+    this._position = props.position
   }
-  isDestination (row) {
-    return row.x === this.props.destination.x && row.y === this.props.destination.y
-  }
-  isLocal (row) {
-    return this.getRange(row.x, row.y) === 0
-  }
-  isHostile (row) {
-    return row.name.indexOf('pirate') >= 0 && !row.dead
-  }
-  getClassName (row) {
-    if (this.isHostile(row)) return 'is-hostile'
-    if (this.isLocal(row)) return 'is-local'
-    else if (this.isDestination(row)) return 'is-destination'
-    else return null
-  }
-  render () {
+
+  get output () {
     const hidden = ['loot', 'ship', 'wreck']
-    const rows = this.props.dots.filter((dot) => {
+    return this._dots.filter((dot) => {
       if (dot.type === 'bookmark') return false
       else if (this.getRange(dot.x, dot.y) === 0) return dot
       else if (hidden.indexOf(dot.type) >= 0) return false
@@ -33,6 +21,48 @@ export default class UiOverview extends Component {
     }).sort((a, b) => {
       return this.getRange(a.x, a.y) - this.getRange(b.x, b.y)
     })
+  }
+
+  getRange (x, y) {
+    function _diff (a, b) {
+      return Math.abs(a - b)
+    }
+    const xx = this._position.x
+    const yy = this._position.y
+    return _diff(x, xx) + _diff(y, yy)
+  }
+
+  getRows (rows) {
+    return rows.map((row, index) => {
+      return (
+        <UiOverviewRow key={ index }
+          isDestination={ this.isDestination(row) }
+          isHostile={ this.isHostile(row) }
+          isLocal={ this.isLocal(row) }
+          type={ row.type }
+          range={ this.getRange(row.position.x, row.position.y) }
+        />
+      )
+    })
+  }
+
+  isDestination (row) {
+    const x = row.position.x
+    const y = row.position.y
+    return x === this._destination.x && y === this._destination.y
+  }
+
+  isHostile (row) {
+    return row.name.value.indexOf('pirate') >= 0 && !row.dead
+  }
+
+  isLocal (row) {
+    const x = row.position.x
+    const y = row.position.y
+    return this.getRange(x, y) === 0
+  }
+
+  render () {
     return (
       <div className="UiOverview">
         <table>
@@ -43,15 +73,11 @@ export default class UiOverview extends Component {
             </tr>
           </thead>
           <tbody>
-            { rows.map((row, i) => {return (
-              <tr key={ i } className={ this.getClassName(row) } >
-                <td>{ row.type }</td>
-                <td>{ this.getRange(row.x, row.y) }</td>
-              </tr>
-            )}) }
+            { this.getRows(this.output) }
           </tbody>
         </table>
       </div>
     )
   }
+
 }
