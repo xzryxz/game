@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react'
-// import UiCommandline from './UiCommandline/UiCommandline'
+import UiCommandline from './UiCommandline/UiCommandline'
 import UiControls from './UiControls/UiControls'
 import UiDestination from './UiDestination/UiDestination'
 import UiLogs from './UiLogs/UiLogs'
@@ -10,7 +10,6 @@ import UiPosition from './UiPosition/UiPosition'
 import UiRadar from './UiRadar/UiRadar'
 import UiResources from './UiResources/UiResources'
 import UiTime from './UiTime/UiTime'
-import './Ui.css'
 
 
 export default class Ui extends Component {
@@ -41,6 +40,7 @@ export default class Ui extends Component {
     return (
       <div>
         <UiControls autopilot={ autopilot } />
+        <UiCommandline autopilot={ autopilot } />
         <UiDestination autopilot={ autopilot } />
         <UiLogs autopilot={ autopilot } />
         <UiOverview autopilot={ autopilot } />

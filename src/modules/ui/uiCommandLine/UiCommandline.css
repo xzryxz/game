@@ -1,0 +1,22 @@
+.UiCommandline {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  cursor: text;
+  font-size: 2em;
+  height: 2em;
+  left: 0.5em;
+  outline: 0;
+  padding: 0.5em;
+  position: absolute;
+  right: 0.5em;
+  top: 34%;
+  white-space: pre-wrap;
+}
+
+.UiCommandline:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.UiCommandline:focus {
+  background-color: rgba(255, 255, 255, 0.3);
+}
