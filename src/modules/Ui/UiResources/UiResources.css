@@ -1,16 +1,12 @@
 .UiResources {
-  bottom: 0;
-  font-size: 1.5em;
-  left: 0;
-  position: fixed;
+  display: inline-block;
   text-transform: capitalize;
-  width: 100%;
 }
 
 .UiResources ul {
   list-style: none;
   margin: 0;
-  padding: 1em;
+  padding: 0;
 }
 
 .UiResources ul li {

@@ -1,0 +1,33 @@
+.Ui {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-content: stretch;
+}
+
+.Ui .statusbar {
+  flex: 0 0 auto;
+  padding: 1em;
+}
+
+.Ui .instruments {
+  flex: 0 0 33%;
+  overflow: hidden;
+  padding: 1em;
+}
+
+.Ui .instruments {
+  display: flex;
+}
+
+.Ui .instruments .navigation {
+  width: 34%;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.Ui .terminal {
+  flex: 1 0 auto;
+  padding: 1em;
+}

@@ -10,7 +10,7 @@ import UiPosition from './UiPosition/UiPosition'
 import UiRadar from './UiRadar/UiRadar'
 import UiResources from './UiResources/UiResources'
 import UiTime from './UiTime/UiTime'
-
+import './Ui.css'
 
 export default class Ui extends Component {
 
@@ -38,16 +38,24 @@ export default class Ui extends Component {
   render () {
     const autopilot = this.state.autopilot
     return (
-      <div>
-        <UiControls autopilot={ autopilot } />
-        <UiCommandline autopilot={ autopilot } />
-        <UiDestination autopilot={ autopilot } />
-        <UiLogs autopilot={ autopilot } />
-        <UiOverview autopilot={ autopilot } />
-        <UiPosition autopilot={ autopilot } />
-        <UiRadar autopilot={ autopilot } />
-        <UiResources autopilot={ autopilot } />
-        <UiTime autopilot={ autopilot } />
+      <div className='Ui'>
+        <div className='statusbar'>
+          <UiResources autopilot={ autopilot } />
+          <UiTime autopilot={ autopilot } />
+        </div>
+        <div className='instruments'>
+          <UiOverview autopilot={ autopilot } />
+          <div className='navigation'>
+            <UiDestination autopilot={ autopilot } />
+            <UiPosition autopilot={ autopilot } />
+            <UiControls autopilot={ autopilot } />
+          </div>
+          <UiRadar autopilot={ autopilot } />
+        </div>
+        <div className='terminal'>
+          <UiCommandline autopilot={ autopilot } />
+          <UiLogs autopilot={ autopilot } />
+        </div>
       </div>
     )
   }

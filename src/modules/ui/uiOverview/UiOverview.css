@@ -1,11 +1,9 @@
 .UiOverview {
-  height: 33%;
-  left: 0;
-  padding: 1em;
-  position: absolute;
+  display: inline-block;
+  height: 100%;
+  overflow-y: auto;
   text-align: left;
   text-transform: capitalize;
-  top: 0;
   width: 33%;
 }
 
@@ -13,22 +11,22 @@
   border-collapse: collapse;
 }
 
-.UiOverview table th:first-of-type {
+.UiOverview table thead th:first-of-type {
   width: 100%;
 }
 
-.UiOverview table th,
-.UiOverview table td {
+.UiOverview table thead th,
+.UiOverview table tbody td {
   padding: 0.2em 0.4em;
   text-overflow: ellipsis;
 }
 
-.UiOverview table tr.is-hostile {
+.UiOverview table tbody tr.is-hostile {
   background-color: rgba(255,0,0, 0.15);
   color: red;
 }
 
-.UiOverview table tr.is-destination {
+.UiOverview table tbody tr.is-destination {
   background-color: rgba(255,255,0, 0.15);
   color: yellow;
 }

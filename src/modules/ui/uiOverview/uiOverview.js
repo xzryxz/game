@@ -16,7 +16,7 @@ export default class UiOverview extends Component {
       return dot
     }).sort((a, b) => {
       return this.getRange(a.position.x, a.position.y) - this.getRange(b.position.x, b.position.y)
-    }).slice(0, 10)
+    })
   }
 
   getRange (x: number, y: number): number {

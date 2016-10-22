@@ -7,7 +7,7 @@ import './UiCommandline.css'
 export default class UiCommandline extends Component {
 
   componentDidMount () {
-    this.refs.cmd.focus()
+    this.refs.commandline.focus()
   }
 
   onKeyPress (event) {
@@ -22,7 +22,7 @@ export default class UiCommandline extends Component {
       <div className='UiCommandline'
         contentEditable={ true }
         onKeyPress={ this.onKeyPress }
-        ref='cmd'
+        ref='commandline'
       />
     )
   }
