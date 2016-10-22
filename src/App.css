@@ -2,15 +2,19 @@ body {
   background-color: black;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .App {
-    bottom: 0;
-    color: white;
-    cursor: crosshair;
-    font-family: monospace;
-    font-size: 0.7em;
-    left: 50%;
-    position: absolute;
-    right: 0;
-    top: 0;
-    z-index: -1;
+  bottom: 0;
+  color: white;
+  cursor: crosshair;
+  font-family: monospace;
+  font-size: 0.9em;
+  left: 50%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -1;
 }

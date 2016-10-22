@@ -1,35 +1,21 @@
-import WorldObjectId from './WorldObjectId'
-import WorldObjectName from './WorldObjectName'
+// @flow
+
+import { Map } from 'immutable'
 import WorldObjectStats from './WorldObjectStats'
+
 
 export default class WorldObject {
 
-  constructor (id, name, stats, position, type) {
-    this._id = new WorldObjectId(id)
-    this._name = new WorldObjectName(name)
-    this._stats = new WorldObjectStats(stats)
-    this._position = position
-    this._type = type
-  }
+  name: string
+  stats: Object
+  position: Object
+  type: string
 
-  get id () {
-    return this._id
-  }
-
-  get name () {
-    return this._name
-  }
-
-  get name () {
-    return this._name
-  }
-
-  get position () {
-    return this._position
-  }
-
-  get type () {
-    return this._type
+  constructor (props: Map<*,*>) {
+    this.name = props.get('name')
+    this.position = props.get('position')
+    this.stats = new WorldObjectStats()
+    this.type = props.get('type')
   }
 
 }

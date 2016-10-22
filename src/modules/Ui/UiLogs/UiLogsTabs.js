@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
-export default class UiLogTabs extends Component {
+
+export default class UiLogsTabs extends Component {
 
   constructor () {
     super()
@@ -8,7 +9,7 @@ export default class UiLogTabs extends Component {
 
   render () {
     return (
-      <ul className='UiLogTabs'>
+      <ul className='UiLogsTabs'>
       {
         this.state.tabs.map((tab, index) => {
           return (

@@ -1,108 +1,73 @@
+// @flow
+
+// import { Map as map } from 'immutable'
 import Cargo from './AutopilotCargo'
 import Engine from './AutopilotEngine'
-import Log from './AutopilotLog'
-import Scan from './AutopilotScan'
+import Logger from './AutopilotLogger'
+import Scanner from './AutopilotScanner'
 import Turret from './AutopilotTurret'
+
 
 export default class Autopilot {
 
-  constructor (world) {
-    this.world = world
-    this._destination = {x: 50, y: 50}
-    this._position = {x: 50, y: 50}
-    this._intervalId = null
-    this._time = null
-    this._modules = {
+  destination: Object
+  modules: Object
+  position: Object
+  time: number
+  uiUpdateFn: Function
+  world: Object
+
+  constructor (world: Object) {
+    this.destination = {x: 50, y: 50}
+    this.modules = {
       cargo: new Cargo(),
       engine: new Engine(),
-      log: new Log(),
-      scan: new Scan(),
+      logger: new Logger(),
+      scanner: new Scanner(),
       turret: new Turret(),
     }
+    this.position = {x: 50, y: 50}
+    this.time = 0
+    this.world = world
+    document.addEventListener('keydown', this.setDestinationBasedOnKeyKode.bind(this))
   }
 
-  _clearInterval () {
-    clearInterval(this.intervalId)
-    this.intervalId = null
-  }
-
-  _tick () {
-    this._increaseTick()
-    // this._localScan()
-    // this._encounters()
-    // if (destination) this.engine.warp()
-    this.uiUpdateFn(this)
-  }
-
-  _increaseTick () {
-    if (this._time === null) {
-      this._time = 0
-      this.modules.log.write(`[SYSTEM] Autopilot initiated.`)
-    } else {
-      this._time++
-    }
-  }
-
-  get destination () {
-    return this._destination
-  }
-
-  set destination (coordinates) {
-    this._destination = coordinates
-    this.modules.log.write(`[SYSTEM] Destination set to ${ coordinates.x },${ coordinates.y }.`)
-  }
-
-  get direction () {
-    const destination = this.destination
-    const position = this.position
-    let direction = {x:null, y:null}
-    if (destination) {
-      if (position.x < destination.x) { direction.x = true } // position.x++;
-      if (position.y > destination.y) { direction.y = false } // position.y--;
-      if (position.x > destination.x) { direction.x = false } // position.x--;
-      if (position.y < destination.y) { direction.y = true } // position.y++;
-    }
-    return direction
-  }
-
-  get intervalId () {
-    return this._intervalId
-  }
-
-  set intervalId (id) {
-    if (this.intervalId !== null) {
-      this._clearInterval()
-    }
-    if (this.intervalId === null) {
-      this._intervalId = id
-    }
-  }
-
-  get modules () {
-    return this._modules
-  }
-
-  get position () {
-    return this._position
-  }
-
-  get time () {
-    return this._time
-  }
-
-  boot (uiUpdateFn) {
+  boot (uiUpdateFn: Function): void {
     this.uiUpdateFn = uiUpdateFn
-    this.modules.log.write(`[SYSTEM] System online.`)
-    this.intervalId = setInterval(this._tick.bind(this), 2000)
+    setInterval(this.tick.bind(this), 2000)
   }
 
-  moveInDirection (direction) {
-    let coordinates = this.position
-    if (direction.x === true) coordinates.x++
-    if (direction.x === false) coordinates.x--
-    if (direction.y === true) coordinates.y++
-    if (direction.y === false) coordinates.y--
-    this.destination = coordinates
+  setDestination (coordinates: Object): void {
+    if (typeof coordinates.x === 'number' && typeof coordinates.y === 'number') {
+      this.destination = coordinates
+      this.modules.logger.log(`[SYSTEM] Destination set to ${ coordinates.x },${ coordinates.y }.`)
+      this.uiUpdateFn(this)
+    }
+  }
+
+  setDestinationBasedOnKeyKode (event: Object) {
+    const destination = Object.assign({}, this.destination)
+    switch (event.keyCode) {
+      case 37: destination.x--
+        break
+      case 38: destination.y--
+        break
+      case 39: destination.x++
+        break
+      case 40: destination.y++
+        break
+      default: break
+    }
+    if (destination !== this.destination) {
+      this.setDestination(destination)
+    }
+  }
+
+  tick (): void {
+    this.time++
+    // this.localScan()
+    // this.encounters()
+    // if (destination) this.engine.warp()
     this.uiUpdateFn(this)
   }
 

@@ -1,11 +1,11 @@
+// @flow
+
 export default class WorldObjectStatsTech {
 
-  constructor () {
-    this._value = 0.5
-  }
+  value: number
 
-  get value () {
-    return this._value
+  constructor (value: number) {
+    this.value = value
   }
 
 }

@@ -1,43 +1,50 @@
+// @flow
+
 import React, { Component } from 'react';
 
+
 export default class UiRadarMapLatitude extends Component {
-  render() {
+
+  getStyle (): Object {
     const cursor = this.props.cursor
     const latitudeAxis = this.props.latitude.axis
     const latitudeValue = this.props.latitude.value
     const status = cursor[latitudeAxis] === latitudeValue
-    const highlight = {
-      true: 'rgba(255,255,255, 0.5)',
-      false: 'rgba(255,255,255, 0.1)',
-    }
-    const style = {
+    return {
+      backgroundColor: `rgba(255,255,255, ${ status ? 0.5 : 0.03 })`,
       height: latitudeAxis === 'y' ? '1%' : '100%',
-      width: latitudeAxis === 'x' ? '1%' : '100%',
+      left: latitudeAxis === 'x' ? latitudeValue + '%' : 0,
       position: 'absolute',
       top: latitudeAxis === 'y' ? latitudeValue + '%' : 0,
-      left: latitudeAxis === 'x' ? latitudeValue + '%' : 0,
-      backgroundColor: highlight[status],
+      width: latitudeAxis === 'x' ? '1%' : '100%',
     }
-    function onMouseEnter (event) {
-      event.target.style.zIndex--
-      let c = cursor
-      c[latitudeAxis] = latitudeValue
-      this.props.setCursor(c)
-    }
-    function onMouseLeave (event) {
-      event.target.style.zIndex++
-    }
-    function onMouseDown () {
-      let target = {}
-      Object.assign(target, cursor)
-      this.props.setDestination(target)
-    }
+  }
+
+  onMouseEnter (event: Object): void {
+    event.target.style.zIndex--
+    let c = this.props.cursor
+    c[this.props.latitude.axis] = this.props.latitude.value
+    this.props.setCursor(c)
+  }
+
+  onMouseLeave (event: Object): void {
+    event.target.style.zIndex++
+  }
+
+  onMouseDown (): void {
+    let target = {}
+    Object.assign(target, this.props.cursor)
+    this.props.setDestination(target)
+  }
+
+  render () {
     return (
-      <div style={ style }
-        onMouseEnter={ onMouseEnter.bind(this) }
-        onMouseLeave={ onMouseLeave.bind(this) }
-        onMouseDown={ onMouseDown.bind(this) }
+      <div style={ this.getStyle() }
+        onMouseEnter={ this.onMouseEnter.bind(this) }
+        onMouseLeave={ this.onMouseLeave.bind(this) }
+        onMouseDown={ this.onMouseDown.bind(this) }
       />
     )
   }
+
 }

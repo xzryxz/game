@@ -1,44 +1,72 @@
+// @flow
+
 import React, { Component } from 'react'
 import UiControlsDirection from './UiControlsDirection'
 import UiControlsArrow from './UiControlsArrow'
 import './UiControls.css'
 
+
 export default class UiControls extends Component {
 
-  constructor (props) {
+  autopilot: Object
+
+  constructor (props: Object) {
     super()
-    this.moveInDirection = props.moveInDirection
-    this.stopped = props.direction.x === null && props.direction.y === null
+    this.autopilot = props.autopilot
   }
 
-  getRotation (direction) {
+  getDirection (): Object {
+    const destination = this.autopilot.destination
+    const position = this.autopilot.position
+    let direction = { x: undefined, y: undefined }
+    if (destination) {
+      if (position.x < destination.x) { direction.x = true } // position.x++;
+      if (position.y > destination.y) { direction.y = false } // position.y--;
+      if (position.x > destination.x) { direction.x = false } // position.x--;
+      if (position.y < destination.y) { direction.y = true } // position.y++;
+    }
+    return direction
+  }
+
+  setDestinationInDirection (direction: Object): void {
+    const coordinates = Object.assign({}, this.autopilot.destination)
+    if (direction.x === true) coordinates.x++
+    if (direction.x === false) coordinates.x--
+    if (direction.y === true) coordinates.y++
+    if (direction.y === false) coordinates.y--
+    this.autopilot.setDestination(coordinates)
+  }
+
+  getRotation (direction: Object) {
     let rotation = 0
     if (direction.x === true && direction.y === false) rotation = 45
-    else if (direction.x === true && direction.y === null) rotation = 90
+    else if (direction.x === true && direction.y === undefined) rotation = 90
     else if (direction.x === true && direction.y === true) rotation = 135
-    else if (direction.x === null && direction.y === true) rotation = 180
+    else if (direction.x === undefined && direction.y === true) rotation = 180
     else if (direction.x === false && direction.y === true) rotation = 225
-    else if (direction.x === false && direction.y === null) rotation = 270
+    else if (direction.x === false && direction.y === undefined) rotation = 270
     else if (direction.x === false && direction.y === false) rotation = 315
     return rotation
+  }
+
+  isMoving (): boolean {
+    const direction = this.getDirection()
+    return direction.x !== undefined || direction.y !== undefined
   }
 
   render() {
     return (
       <div className='UiControls'>
         <div>
-          <UiControlsDirection
-            rotation={ this.getRotation(this.props.direction) }
-            showShip={ !this.stopped }
-          />
-          <UiControlsArrow arrowClass='x_null__y_false' rotation={ this.getRotation({x:null,y:false}) } direction={ {x:null,y:false} } moveInDirection={ this.moveInDirection } />
-          <UiControlsArrow arrowClass='x_true__y_false' rotation={ this.getRotation({x:true,y:false}) } direction={ {x:true,y:false} } moveInDirection={ this.moveInDirection } />
-          <UiControlsArrow arrowClass='x_true__y_null' rotation={ this.getRotation({x:true,y:null}) } direction={ {x:true,y:null} } moveInDirection={ this.moveInDirection } />
-          <UiControlsArrow arrowClass='x_true__y_true' rotation={ this.getRotation({x:true,y:true}) } direction={ {x:true,y:true} } moveInDirection={ this.moveInDirection } />
-          <UiControlsArrow arrowClass='x_null__y_true' rotation={ this.getRotation({x:null,y:true}) } direction={ {x:null,y:true} } moveInDirection={ this.moveInDirection } />
-          <UiControlsArrow arrowClass='x_false__y_true' rotation={ this.getRotation({x:false,y:true}) } direction={ {x:false,y:true} } moveInDirection={ this.moveInDirection } />
-          <UiControlsArrow arrowClass='x_false__y_null' rotation={ this.getRotation({x:false,y:null}) } direction={ {x:false,y:null} } moveInDirection={ this.moveInDirection } />
-          <UiControlsArrow arrowClass='x_false__y_false' rotation={ this.getRotation({x:false,y:false}) } direction={ {x:false,y:false} } moveInDirection={ this.moveInDirection } />
+          { this.isMoving() && <UiControlsDirection rotation={ this.getRotation(this.getDirection()) } /> }
+          <UiControlsArrow arrowClass='x_void__y_false' direction={ {x:undefined,y:false} } setDestinationInDirection={ this.setDestinationInDirection.bind(this) } />
+          <UiControlsArrow arrowClass='x_true__y_false' direction={ {x:true,y:false} } setDestinationInDirection={ this.setDestinationInDirection.bind(this) } />
+          <UiControlsArrow arrowClass='x_true__y_void' direction={ {x:true,y:undefined} } setDestinationInDirection={ this.setDestinationInDirection.bind(this) } />
+          <UiControlsArrow arrowClass='x_true__y_true' direction={ {x:true,y:true} } setDestinationInDirection={ this.setDestinationInDirection.bind(this) } />
+          <UiControlsArrow arrowClass='x_void__y_true' direction={ {x:undefined,y:true} } setDestinationInDirection={ this.setDestinationInDirection.bind(this) } />
+          <UiControlsArrow arrowClass='x_false__y_true' direction={ {x:false,y:true} } setDestinationInDirection={ this.setDestinationInDirection.bind(this) } />
+          <UiControlsArrow arrowClass='x_false__y_void' direction={ {x:false,y:undefined} } setDestinationInDirection={ this.setDestinationInDirection.bind(this) } />
+          <UiControlsArrow arrowClass='x_false__y_false' direction={ {x:false,y:false} } setDestinationInDirection={ this.setDestinationInDirection.bind(this) } />
         </div>
       </div>
     )

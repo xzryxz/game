@@ -1,22 +1,27 @@
+// @flow
+
 import React, { Component } from 'react'
 import './UiDestination.css'
 
 export default class UiDestination extends Component {
 
-  constructor (props) {
+  autopilot: Object
+
+  constructor (props: Object) {
     super()
-    this._autopilot = props.autopilot
+    this.autopilot = props.autopilot
   }
 
-  get destination () {
-    const d = this._autopilot.destination
-    return d === null ? '-' : d
+  getDestination (): string {
+    const x = this.autopilot.destination.x
+    const y = this.autopilot.destination.y
+    return `${ x },${ y }`
   }
 
   render () {
     return (
       <div className='UiDestination'>
-        Destination: { this.destination }
+        Destination: { this.getDestination() }
       </div>
     )
   }

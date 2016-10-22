@@ -1,4 +1,4 @@
-.UiLog {
+.UiLogs {
     left: 0;
     text-align: center;
     position: fixed;
@@ -7,31 +7,31 @@
     width: 100%;
 }
 
-.UiLog .log div {
+.UiLogs .logs div {
     padding: .5em 0 0;
 }
 
-.UiLog .log div:nth-child(1) {
+.UiLogs .logs div:nth-child(1) {
     font-size: 1.5em;
 }
 
-.UiLog .log div:nth-child(2) {
+.UiLogs .logs div:nth-child(2) {
     font-size: 1.4em;
 }
 
-.UiLog .log div:nth-child(3) {
+.UiLogs .logs div:nth-child(3) {
     font-size: 1.3em;
 }
 
-.UiLog .log div:nth-child(4) {
+.UiLogs .logs div:nth-child(4) {
     font-size: 1.2em;
 }
 
-.UiLog .log div:nth-child(5) {
+.UiLogs .logs div:nth-child(5) {
     font-size: 1.1em;
 }
 
-.UiLog .UiLogTabs {
+.UiLogs .UiLogsTabs {
     background-color: black;
     list-style: none;
     text-align: center;
@@ -41,23 +41,23 @@
     z-index: 1;
 }
 
-.UiLog .UiLogTabs li {
+.UiLogs .UiLogsTabs li {
     display: inline;
     margin: 1px;
     padding: 0;
 }
 
-.UiLog .UiLogTabs li span {
+.UiLogs .UiLogsTabs li span {
     background-color: black;
     padding: 0 10px;
 }
 
-.UiLog .UiLogTabs li span:hover {
+.UiLogs .UiLogsTabs li span:hover {
     background-color: white;
     color: black;
 }
 
-.UiLog .UiLogTabs li.active span {
+.UiLogs .UiLogsTabs li.active span {
     background-color: white;
     color: black;
     font-weight: bold;

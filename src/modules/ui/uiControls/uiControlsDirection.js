@@ -1,20 +1,20 @@
+// @flow
+
 import React, { Component } from 'react';
+
 
 export default class UiControlsDirection extends Component {
 
-  getClassName () {
-    let c = 'UiControlsDirection'
-    if (this.props.showShip) c += ' full-speed'
-    else c += ' hide'
-    return c
+  getStyle (): Object {
+    return {
+      transform: `rotate(${ this.props.rotation }deg)`,
+    }
   }
 
   render() {
     return (
-      <div className={ this.getClassName() }>
-        <div className='direction' style={ {
-          transform: `rotate(${ this.props.rotation }deg)`,
-        } }/>
+      <div className='UiControlsDirection'>
+        <div className='direction' style={ this.getStyle() } />
       </div>
     )
   }

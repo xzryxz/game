@@ -1,9 +1,12 @@
+// @flow
+
 import React, { Component } from 'react'
+
 
 export default class UiControlsArrow extends Component {
 
-  onClick () {
-    this.props.moveInDirection(this.props.direction)
+  onClick (): void {
+    this.props.setDestinationInDirection(this.props.direction)
   }
 
   render() {

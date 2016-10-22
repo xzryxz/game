@@ -1,43 +1,71 @@
+// @flow
+
+import { List as list, Map as map } from 'immutable'
 import WorldObject from './WorldObject/WorldObject'
+
 
 export default class World {
 
-  constructor (ship) {
-    this._dots = DOTS.map((dot, index) => {
-      const position = {
-        x: dot.x,
-        y: dot.y,
+  dots: list<WorldObject>
+
+  constructor () {
+    this.populateWorld()
+  }
+
+  generateDots (amount: number, template: Object): list<*> {
+    return list().withMutations((dots) => {
+      for (let i = 0; i < amount; i++ ) {
+        let x = Math.floor((Math.random() * 100))
+        let y = Math.floor((Math.random() * 100))
+        dots.push(Object.assign({ x, y }, template))
       }
-      return new WorldObject(index, dot.name, null, position, dot.type)
     })
   }
 
-  get dots () {
-    return this._dots
+  getRandomPirates (amount: number): list<*> {
+    const template = {
+      name: 'pirate' ,
+      type: 'ship',
+    }
+    return this.generateDots(amount, template)
   }
 
-}
-
-
-const DOTS = [ { x:50, y:50, type: 'signal', color: 'blue', name: 'distress call', },
-               { x:50, y:50, type: 'loot', color: 'transparent', name: 'spooky wreck', },
-              { x:50, y:50, type: 'ship', color: 'transparent', name: 'ghost pirate', },
-             ].concat(generateDots(250, {
-               color: 'rgba(255,0,0, 0.15)',
-               name: 'bloody pirate' ,
-               type: 'ship',
-             })).concat(generateDots(5, {
-               color: 'green',
-               name: 'military storage facility',
-               type: 'station',
-             }))
-
-function generateDots (n, dot) {
-  let dots = []
-  for (let i = 0; i < n; i++ ) {
-    let x = Math.floor((Math.random() * 100))
-    let y = Math.floor((Math.random() * 100))
-    dots.unshift(Object.assign({ x, y }, dot))
+  getRandomSignals (amount: number): list<*> {
+    const randomDots = this.generateDots(amount, {})
+    let signals = []
+    for (let dot of randomDots) {
+      const x = dot.x
+      const y = dot.y
+      signals.push({ x, y, type: 'signal', name: 'distress call', })
+      signals.push({ x, y, type: 'loot', name: 'spooky wreck', })
+      signals.push({ x, y, type: 'ship', name: 'ghost pirate', })
+    }
+    return list(signals)
   }
-  return dots
+
+  getRandomStations (amount: number): list<*> {
+    const template = {
+      name: 'military storage facility',
+      type: 'station',
+    }
+    return this.generateDots(amount, template)
+  }
+
+  populateWorld (): void {
+    this.dots = list()
+      .concat(this.getRandomSignals(1))
+      .concat(this.getRandomPirates(250))
+      .concat(this.getRandomStations(5))
+      .map((dot) => {
+        return new WorldObject(map({
+          name: dot.name,
+          position: {
+            x: dot.x,
+            y: dot.y,
+          },
+          type: dot.type,
+        }))
+      })
+  }
+
 }

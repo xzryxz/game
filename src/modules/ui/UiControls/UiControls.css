@@ -1,98 +1,94 @@
 .UiControls {
-    align-items: center;
-    display: flex;
-    height: 33%;
-    justify-content: center;
-    left: 33%;
-    position: absolute;
-    top: 0;
-    width: 33%;
+  align-items: center;
+  display: flex;
+  height: 33%;
+  justify-content: center;
+  left: 33%;
+  position: absolute;
+  top: 0;
+  width: 33%;
 }
+
 
 .UiControlsArrow > div {
-    border-bottom: 1em solid white;
-    border-left: 1em solid transparent;
-    border-right: 1em solid transparent;
-    height: 0;
-    position: absolute;
-    width: 0;
+  border-bottom: 1em solid white;
+  border-left: 1em solid transparent;
+  border-right: 1em solid transparent;
+  height: 0;
+  position: absolute;
+  width: 0;
 }
 
-.UiControlsArrow > div.x_null__y_false {
-    /* initial/up */
-    cursor: n-resize;
-    margin-top: -3em;
+.UiControlsArrow > div.x_void__y_false {
+  /* initial/up */
+  cursor: n-resize;
+  margin-top: -3em;
 }
 
 .UiControlsArrow > div.x_true__y_false {
-    /* right+up */
-    cursor: ne-resize;
-    margin-top: -2em;
-    margin-left: 2em;
+  /* right+up */
+  transform: rotate(45deg);
+  cursor: ne-resize;
+  margin-top: -2em;
+  margin-left: 2em;
 }
 
-.UiControlsArrow > div.x_true__y_null {
-    /* right */
-    cursor: e-resize;
-    margin-left: 3em;
+.UiControlsArrow > div.x_true__y_void {
+  /* right */
+  transform: rotate(90deg);
+  cursor: e-resize;
+  margin-left: 3em;
 }
 
 .UiControlsArrow > div.x_true__y_true {
-    /* right+down */
-    cursor: se-resize;
-    margin-left: 2em;
-    margin-top: 2em;
+  /* right+down */
+  transform: rotate(135deg);
+  cursor: se-resize;
+  margin-left: 2em;
+  margin-top: 2em;
 }
 
-.UiControlsArrow > div.x_null__y_true {
-    /* down */
-    cursor: s-resize;
-    margin-top: 3em;
+.UiControlsArrow > div.x_void__y_true {
+  /* down */
+  transform: rotate(180deg);
+  cursor: s-resize;
+  margin-top: 3em;
 }
 
 .UiControlsArrow > div.x_false__y_true {
-    /* left+down */
-    cursor: sw-resize;
-    margin-left: -2em;
-    margin-top: 2em;
+  /* left+down */
+  transform: rotate(225deg);
+  cursor: sw-resize;
+  margin-left: -2em;
+  margin-top: 2em;
 }
 
-.UiControlsArrow > div.x_false__y_null {
-    /* left */
-    cursor: w-resize;
-    margin-left: -3em;
+.UiControlsArrow > div.x_false__y_void {
+  /* left */
+  transform: rotate(270deg);
+  cursor: w-resize;
+  margin-left: -3em;
 }
 
 .UiControlsArrow > div.x_false__y_false {
-    /* left+up */
-    cursor: nw-resize;
-    margin-left: -2em;
-    margin-top: -2em;
+  /* left+up */
+  transform: rotate(315deg);
+  cursor: nw-resize;
+  margin-left: -2em;
+  margin-top: -2em;
 }
 
+
 .UiControlsDirection {
-    height: 2em;
-    left: 50%;
-    /*margin-left: -.5em;*/
-    /*margin-top: -.5em;*/
-    opacity: 1;
-    position: absolute;
-    top: 50%;
-    width: 2em;
-}
-.UiControlsDirection.full-speed {
-  opacity: 1;
-  z-index: 1;
-}
-.UiControlsDirection.hide {
-  display: none;
+  height: 2em;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  width: 2em;
 }
 
 .UiControlsDirection .direction {
-    border-bottom: 1em solid yellow;
-    border-left: 1em solid transparent;
-    border-right: 1em solid transparent;
-    height: 0;
-    z-index: -1;
-    width: 0;
+  border-bottom: 1em solid yellow;
+  border-left: 1em solid transparent;
+  border-right: 1em solid transparent;
 }

@@ -53,7 +53,7 @@ export default class UiOverview extends Component {
   }
 
   isHostile (row) {
-    return row.name.value.indexOf('pirate') >= 0 && !row.dead
+    return row.name.indexOf('pirate') >= 0 && !row.dead
   }
 
   isLocal (row) {

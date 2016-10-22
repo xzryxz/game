@@ -1,49 +1,35 @@
+// @flow
+
 import React, { Component } from 'react';
-import UiRadarMapDestination from './UiRadarMapDestination'
 import UiRadarMapDot from './UiRadarMapDot'
 import UiRadarMapLatitude from './UiRadarMapLatitude'
 import UiRadarMapReadout from './UiRadarMapReadout'
 
+
 export default class UiRadarMap extends Component {
-  render() {
-    const Dots = this.props.dots.map((dot, index) => {
-      return <UiRadarMapDot dot={ dot } key={ index } />
-    })
-    const Latitudes = this.getSpace().map((latitude, index) => {
-     return <UiRadarMapLatitude
-        cursor={ this.state.cursor }
-        setCursor={ this.setCursor.bind(this) }
-        setDestination={ this.props.setDestination }
-        key={ index }
-        latitude={ latitude } />
-    })
-    return (
-      <div onMouseLeave={ this.clearCursor.bind(this) }>
-        { Dots }
-        <UiRadarMapDestination destination={ this.props.destination } />
-        { Latitudes }
-      </div>
-    )
-    // <UiRadarMapReadout cursor={ this.state.cursor } dots={ this.props.dots } />
-    // <UiRadarMapDot dot={ this.props.position } />
-  }
-  constructor() {
+
+  state: Object
+
+  constructor () {
     super()
     this.state = {
       cursor: {}
     }
   }
-  clearCursor() {
+
+  clearCursor ():void {
     let s = this.state
     s.cursor = {}
     this.setState(s)
   }
-  setCursor(cursor) {
+
+  setCursor (cursor: Object): void {
     let s = this.state
     s.cursor = cursor
     this.setState(s)
   }
-  getAxis (axis) {
+
+  getAxis (axis: string): Array<Object> {
     let array = []
     for (let i = 0; i < 100; i++ ) {
       array.push({
@@ -53,7 +39,34 @@ export default class UiRadarMap extends Component {
     }
     return array
   }
-  getSpace () {
+
+  getSpace (): Array<Object> {
     return this.getAxis('y').concat(this.getAxis('x'))
   }
+
+  render () {
+    const Dots = this.props.autopilot.world.dots.map((dot, index) => {
+      return <UiRadarMapDot dot={ dot } key={ index } />
+    })
+    const Latitudes = this.getSpace().map((latitude, index) => {
+      return (
+        <UiRadarMapLatitude key={ index }
+          cursor={ this.state.cursor }
+          latitude={ latitude }
+          setCursor={ this.setCursor.bind(this) }
+          setDestination={ this.props.autopilot.setDestination.bind(this.props.autopilot) }
+        />
+      )
+    })
+    return (
+      <div className='UiRadarMap' onMouseLeave={ this.clearCursor.bind(this) }>
+        { Dots }
+        { Latitudes }
+        <UiRadarMapDot dot={ {type: 'destination', position: this.props.autopilot.destination} } />
+        <UiRadarMapDot dot={ {type: 'position', position: this.props.autopilot.position} } />
+        <UiRadarMapReadout cursor={ this.state.cursor } dots={ this.props.autopilot.world.dots } />
+      </div>
+    )
+  }
+
 }

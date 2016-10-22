@@ -1,13 +1,22 @@
-import WorldObjectStatsArmor from './WorldObjectStatsArmor'
-import WorldObjectStatsDamage from './WorldObjectStatsDamage'
-import WorldObjectStatsEnergy from './WorldObjectStatsEnergy'
-import WorldObjectStatsSpeed from './WorldObjectStatsSpeed'
-import WorldObjectStatsTech from './WorldObjectStatsTech'
+// @flow
+
+import Armor from './WorldObjectStatsArmor'
+import Damage from './WorldObjectStatsDamage'
+import Energy from './WorldObjectStatsEnergy'
+import Speed from './WorldObjectStatsSpeed'
+import Tech from './WorldObjectStatsTech'
+
 
 export default class WorldObjectStats {
 
-  constructor (stats) {
-    if (stats === null) {
+  armor: Armor
+  damage: Damage
+  energy: Energy
+  speed: Speed
+  tech: Tech
+
+  constructor (stats?: Object) {
+    if (stats === undefined) {
       stats = {
         armor: Math.random(),
         damage: Math.random(),
@@ -16,35 +25,11 @@ export default class WorldObjectStats {
         tech: Math.random(),
       }
     }
-    if (typeof stats !== 'object') {
-      throw new Error(`Argument 'stats' must be object or null but got '${ stats }'.`)
-    }
-    this._armor = new WorldObjectStatsArmor(stats.armor)
-    this._damage = new WorldObjectStatsDamage(stats.damage)
-    this._energy = new WorldObjectStatsEnergy(stats.energy)
-    this._speed = new WorldObjectStatsSpeed(stats.speed)
-    this._tech = new WorldObjectStatsTech(stats.tech)
+    this.armor = new Armor(stats.armor)
+    this.damage = new Damage(stats.damage)
+    this.energy = new Energy(stats.energy)
+    this.speed = new Speed(stats.speed)
+    this.tech = new Tech(stats.tech)
   }
-
-  get armor () {
-    return this._armor
-  }
-
-  get damage () {
-    return this._damage
-  }
-
-  get energy () {
-    return this._energy
-  }
-
-  get speed () {
-    return this._speed
-  }
-
-  get tech () {
-    return this._tech
-  }
-
 
 }

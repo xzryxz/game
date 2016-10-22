@@ -1,10 +1,15 @@
+// @flow
+
 import React, { Component } from 'react'
 import Autopilot from './modules/Autopilot/Autopilot'
 import Ui from './modules/Ui/Ui'
 import World from './modules/World/World'
 import './App.css'
 
+
 export default class App extends Component {
+
+  autopilot: Object
 
   constructor () {
     super()
@@ -12,7 +17,7 @@ export default class App extends Component {
     this.autopilot = new Autopilot(world)
   }
 
-  get style () {
+  getStyle (): Object {
     const h = window.innerHeight
     const w = window.innerWidth
     const low = h > w ? w : h
@@ -25,7 +30,7 @@ export default class App extends Component {
 
   render () {
     return (
-      <div className="App" style={ this.style }>
+      <div className='App' style={ this.getStyle() }>
         <Ui autopilot={ this.autopilot } />
       </div>
     )

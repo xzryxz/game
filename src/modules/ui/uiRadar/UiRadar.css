@@ -1,16 +1,37 @@
 .UiRadar {
-    cursor: none;
-    height: 30%;
-    position: absolute;
-    right: 0;
-    top: 3em;
-    width: 30%;
+  /*cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=);*/
+  height: 30%;
+  position: absolute;
+  right: 1em;
+  top: 1em;
+  width: 30%;
 }
 
 .UiRadarMapReadout {
-    margin-left: 3px;
+  margin-left: 3px;
 }
 
-.UiRadarMapReadout .name {
-    text-transform: capitalize;
+.UiRadarMapReadout span {
+  text-transform: capitalize;
+}
+
+.UiRadarMapDot {
+  height: 1%;
+  position: absolute;
+  width: 1%;
+}
+.UiRadarMapDot.destination {
+  background-color: yellow;
+}
+.UiRadarMapDot.position {
+  background-color: white;
+}
+.UiRadarMapDot.ship {
+  background-color: rgba(255, 0, 0, 0.15);
+}
+.UiRadarMapDot.signal {
+  background-color: blue;
+}
+.UiRadarMapDot.station {
+  background-color: green;
 }
