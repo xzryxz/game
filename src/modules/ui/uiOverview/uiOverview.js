@@ -1,80 +1,68 @@
+// @flow
+
 import React, { Component } from 'react'
 import UiOverviewRow from './UiOverviewRow'
 import './UiOverview.css'
 
+
 export default class UiOverview extends Component {
 
-  constructor (props) {
-    super()
-    this._destination = props.destination
-    this._dots = props.dots
-    this._position = props.position
-  }
-
-  get output () {
-    const hidden = ['loot', 'ship', 'wreck']
-    return this._dots.filter((dot) => {
-      if (dot.type === 'bookmark') return false
-      else if (this.getRange(dot.x, dot.y) === 0) return dot
-      else if (hidden.indexOf(dot.type) >= 0) return false
-      else return dot
+  getFilteredDots (): Array<Object> {
+    const hiddenTypes = ['loot', 'ship', 'wreck']
+    return this.props.autopilot.world.dots.filter((dot) => {
+      if (dot.type === 'travelpath') return false
+      if (this.getRange(dot.x, dot.y) === 0) return dot
+      if (hiddenTypes.indexOf(dot.type) >= 0) return false
+      return dot
     }).sort((a, b) => {
-      return this.getRange(a.x, a.y) - this.getRange(b.x, b.y)
-    })
+      return this.getRange(a.position.x, a.position.y) - this.getRange(b.position.x, b.position.y)
+    }).slice(0, 10)
   }
 
-  getRange (x, y) {
-    function _diff (a, b) {
-      return Math.abs(a - b)
-    }
-    const xx = this._position.x
-    const yy = this._position.y
-    return _diff(x, xx) + _diff(y, yy)
+  getRange (x: number, y: number): number {
+    const getDiff = (a: number, b: number): number => Math.abs(a - b)
+    return getDiff(x, this.props.autopilot.position.x) + getDiff(y, this.props.autopilot.position.y)
   }
 
-  getRows (rows) {
-    return rows.map((row, index) => {
+  getRows (rows: Array<Object>): Array<React.Element<*>> {
+    return rows.map((dot, index) => {
       return (
         <UiOverviewRow key={ index }
-          isDestination={ this.isDestination(row) }
-          isHostile={ this.isHostile(row) }
-          isLocal={ this.isLocal(row) }
-          type={ row.type }
-          range={ this.getRange(row.position.x, row.position.y) }
+          className={ this.getRowClassName(dot) }
+          position={ dot.position }
+          range={ this.getRange(dot.position.x, dot.position.y) }
+          setDestination={ this.props.autopilot.setDestination.bind(this.props.autopilot) }
+          type={ dot.type }
         />
       )
     })
   }
 
-  isDestination (row) {
-    const x = row.position.x
-    const y = row.position.y
-    return x === this._destination.x && y === this._destination.y
+  getRowClassName (dot: Object): string|void {
+    if (this.isDestination(dot.position)) return 'is-destination'
+    if (this.isHostile(dot.name)) return 'is-hostile'
   }
 
-  isHostile (row) {
-    return row.name.indexOf('pirate') >= 0 && !row.dead
+  isDestination (coordinates: Object): boolean {
+    const destination = this.props.autopilot.destination
+    return coordinates.x === destination.x && coordinates.y === destination.y
   }
 
-  isLocal (row) {
-    const x = row.position.x
-    const y = row.position.y
-    return this.getRange(x, y) === 0
+  isHostile (name: string): boolean {
+    return name.indexOf('pirate') >= 0
   }
 
   render () {
     return (
-      <div className="UiOverview">
+      <div className='UiOverview'>
         <table>
           <thead>
             <tr>
-              <th style={{width: '100%'}}>Type</th>
-              <th>Range</th>
+              <th> Type </th>
+              <th> Range </th>
             </tr>
           </thead>
-          <tbody>
-            { this.getRows(this.output) }
-          </tbody>
+          <tbody children={ this.getRows(this.getFilteredDots()) } />
         </table>
       </div>
     )

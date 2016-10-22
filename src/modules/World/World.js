@@ -53,9 +53,9 @@ export default class World {
 
   populateWorld (): void {
     this.dots = list()
-      .concat(this.getRandomSignals(1))
+      .concat(this.getRandomSignals(3))
+      .concat(this.getRandomStations(10))
       .concat(this.getRandomPirates(250))
-      .concat(this.getRandomStations(5))
       .map((dot) => {
         return new WorldObject(map({
           name: dot.name,

@@ -1,28 +1,19 @@
+// @flow
+
 import React, { Component } from 'react'
+
 
 export default class UiOverviewRow extends Component {
 
-  constructor (props) {
-    super()
-    this._isDestination = props.isDestination
-    this._isHostile = props.isHostile
-    this._isLocal = props.isLocal
-    this._range = props.range
-    this._type = props.type
-  }
-
-  getClassName () {
-    if (this._isHostile) return 'is-hostile'
-    if (this._isLocal) return 'is-local'
-    else if (this._isDestination) return 'is-destination'
-    else return null
+  onClick () {
+    this.props.setDestination(this.props.position)
   }
 
   render () {
     return (
-      <tr className={ this.getClassName() } >
-        <td>{ this._type }</td>
-        <td>{ this._range }</td>
+      <tr className={ this.props.className } onClick={ this.onClick.bind(this) } >
+        <td>{ this.props.type }</td>
+        <td>{ this.props.range }</td>
       </tr>
     )
   }

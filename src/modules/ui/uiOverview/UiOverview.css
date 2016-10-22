@@ -1,32 +1,38 @@
 .UiOverview {
-    top: 0;
-    height: 33%;
-    overflow-y: auto;
-    position: absolute;
-    left: 0;
-    padding: 1em;
-    text-align: left;
-    text-transform: capitalize;
-    width: 33%;
+  height: 33%;
+  left: 0;
+  padding: 1em;
+  position: absolute;
+  text-align: left;
+  text-transform: capitalize;
+  top: 0;
+  width: 33%;
 }
 
-.UiOverview table tr.is-hostile td {
-    color: red;
+.UiOverview table {
+  border-collapse: collapse;
 }
 
-.UiOverview table tr.is-local td {
-    color: lightgreen;
+.UiOverview table th:first-of-type {
+  width: 100%;
 }
 
-.UiOverview table tr.is-destination td {
-    color: yellow;
-}
-
-.UiOverview table th {
-    text-decoration: underline;
-}
-
+.UiOverview table th,
 .UiOverview table td {
-    padding: 1px 3px;
-    text-overflow: ellipsis;
+  padding: 0.2em 0.4em;
+  text-overflow: ellipsis;
+}
+
+.UiOverview table tr.is-hostile {
+  background-color: rgba(255,0,0, 0.15);
+  color: red;
+}
+
+.UiOverview table tr.is-destination {
+  background-color: rgba(255,255,0, 0.15);
+  color: yellow;
+}
+
+.UiOverview table tbody tr:hover {
+  background-color: rgba(255,255,255, 0.15);
 }

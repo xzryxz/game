@@ -1,21 +1,13 @@
 // @flow
 
 import React, { Component } from 'react'
-import { Map as map, IndexedIterable } from 'immutable'
 import './UiResources.css'
 
 
 export default class UiResources extends Component {
 
-  resources: map<string, number>
-
-  constructor (props: Object) {
-    super()
-    this.resources = props.resources
-  }
-
-  getResources (): IndexedIterable<*> {
-    const resources = this.resources
+  getResources (): Array<*> {
+    const resources = this.props.autopilot.modules.cargo.resources
     return resources.keySeq().map((label, index) => {
       const quantity = resources.get(label)
       return (

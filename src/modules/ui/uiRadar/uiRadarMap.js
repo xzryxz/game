@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 import UiRadarMapDot from './UiRadarMapDot'
 import UiRadarMapLatitude from './UiRadarMapLatitude'
-import UiRadarMapReadout from './UiRadarMapReadout'
 
 
 export default class UiRadarMap extends Component {
@@ -64,7 +63,6 @@ export default class UiRadarMap extends Component {
         { Latitudes }
         <UiRadarMapDot dot={ {type: 'destination', position: this.props.autopilot.destination} } />
         <UiRadarMapDot dot={ {type: 'position', position: this.props.autopilot.position} } />
-        <UiRadarMapReadout cursor={ this.state.cursor } dots={ this.props.autopilot.world.dots } />
       </div>
     )
   }

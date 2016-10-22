@@ -25,32 +25,28 @@ export default class Ui extends Component {
   }
 
   componentDidMount () {
-    let state = this.state
-    state.autopilot.boot(this.uiUpdate.bind(this))
-    this.setState(state)
+    const nextState = this.state
+    nextState.autopilot.boot(this.uiUpdate.bind(this))
+    this.setState(nextState)
   }
 
   uiUpdate (autopilot: Object) {
-    let state = this.state
-    state.autopilot = autopilot
-    this.setState(state)
+    const nextState = this.state
+    nextState.autopilot = autopilot
+    this.setState(nextState)
   }
 
   render () {
-    let autopilot = this.state.autopilot
+    const autopilot = this.state.autopilot
     return (
       <div>
         <UiControls autopilot={ autopilot } />
         <UiDestination autopilot={ autopilot } />
-        <UiLogs logs={ autopilot.modules.logger.logs } />
-        <UiOverview
-          destination={ autopilot.destination }
-          dots={ autopilot.world.dots }
-          position={ autopilot.position }
-        />
+        <UiLogs autopilot={ autopilot } />
+        <UiOverview autopilot={ autopilot } />
         <UiPosition autopilot={ autopilot } />
         <UiRadar autopilot={ autopilot } />
-        <UiResources resources={ autopilot.modules.cargo.resources } />
+        <UiResources autopilot={ autopilot } />
         <UiTime autopilot={ autopilot } />
       </div>
     )

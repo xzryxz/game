@@ -34,6 +34,7 @@ export default class Autopilot {
 
   boot (uiUpdateFn: Function): void {
     this.uiUpdateFn = uiUpdateFn
+    this.modules.logger.log(`[SYSTEM] System online.`)
     setInterval(this.tick.bind(this), 2000)
   }
 
@@ -46,20 +47,20 @@ export default class Autopilot {
   }
 
   setDestinationBasedOnKeyKode (event: Object) {
-    const destination = Object.assign({}, this.destination)
+    const coordinates = Object.assign({}, this.destination)
     switch (event.keyCode) {
-      case 37: destination.x--
+      case 37: coordinates.x--
         break
-      case 38: destination.y--
+      case 38: coordinates.y--
         break
-      case 39: destination.x++
+      case 39: coordinates.x++
         break
-      case 40: destination.y++
+      case 40: coordinates.y++
         break
       default: break
     }
-    if (destination !== this.destination) {
-      this.setDestination(destination)
+    if (coordinates.x !== this.destination.x || coordinates.y !== this.destination.y) {
+      this.setDestination(coordinates)
     }
   }
 
