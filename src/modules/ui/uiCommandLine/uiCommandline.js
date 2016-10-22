@@ -6,6 +6,10 @@ import './UiCommandline.css'
 
 export default class UiCommandline extends Component {
 
+  componentDidMount () {
+    this.refs.cmd.focus()
+  }
+
   onKeyPress (event) {
     console.log(`key with code ${ event.keyCode } was pressed`);
     if (event.keyCode === 13) {
@@ -18,6 +22,7 @@ export default class UiCommandline extends Component {
       <div className='UiCommandline'
         contentEditable={ true }
         onKeyPress={ this.onKeyPress }
+        ref='cmd'
       />
     )
   }
