@@ -15,7 +15,9 @@ export default class AutopilotLogger {
     if (typeof entry !== 'string' || entry === '') {
       throw new Error(`Argument 'entry' must be a non empty string but got '${ entry }'.`)
     }
-    if (this.logs.length && this.logs[0].indexOf('[SYSTEM] Destination set to') === 0) {
+    if (this.logs.length
+      && this.logs[0].indexOf('[SYSTEM] Destination set to') === 0
+      && entry.indexOf('[SYSTEM] Destination set to') === 0) {
       this.logs.shift()
     }
     this.logs.unshift(entry)

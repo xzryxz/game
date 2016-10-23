@@ -9,7 +9,7 @@ export default class UiLogs extends Component {
 
   getOutput (): Array<*> {
     const logs = this.props.autopilot.modules.logger.logs
-    return logs.map((text, index) => <div key={ index } children={ text } />)
+    return logs.map((text, index) => <div key={ index } children={ text } />).slice(0,10)
   }
 
   render () {

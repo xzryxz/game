@@ -11,25 +11,18 @@
     padding: .5em 0 0;
 }
 
-.UiLogs .logs div:nth-child(1) {
-    font-size: 1.5em;
-}
+.UiLogs .logs div { font-size: 1.2rem; }
 
-.UiLogs .logs div:nth-child(2) {
-    font-size: 1.4em;
-}
-
-.UiLogs .logs div:nth-child(3) {
-    font-size: 1.3em;
-}
-
-.UiLogs .logs div:nth-child(4) {
-    font-size: 1.2em;
-}
-
-.UiLogs .logs div:nth-child(5) {
-    font-size: 1.1em;
-}
+/*.UiLogs .logs div:nth-child(1) { font-size: 1.5rem; }*/
+/*.UiLogs .logs div:nth-child(2) { font-size: 1.45rem; }*/
+/*.UiLogs .logs div:nth-child(3) { font-size: 1.4rem; }*/
+/*.UiLogs .logs div:nth-child(4) { font-size: 1.35rem; }*/
+/*.UiLogs .logs div:nth-child(5) { font-size: 1.3rem; }*/
+/*.UiLogs .logs div:nth-child(6) { font-size: 1.25rem; }*/
+/*.UiLogs .logs div:nth-child(7) { font-size: 1.2rem; }*/
+/*.UiLogs .logs div:nth-child(8) { font-size: 1.15rem; }*/
+/*.UiLogs .logs div:nth-child(9) { font-size: 1.1rem; }*/
+/*.UiLogs .logs div:nth-child(10) { font-size: 1rem; }*/
 
 .UiLogs .UiLogsTabs {
     background-color: black;

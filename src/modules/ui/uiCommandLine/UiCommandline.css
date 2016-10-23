@@ -1,22 +1,29 @@
-.UiCommandline {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
+.UiCommandline input {
+  background-color: rgba(255, 255, 255, 0.01);
+  border: 1px solid rgba(255,255,255, 0.2);
+  color: lightgoldenrodyellow;
+  letter-spacing: 0.15rem;
   cursor: text;
-  font-size: 2em;
-  /*height: 2em;*/
-  /*left: 0.5em;*/
+  font-family: monospace;
+  font-size: 1rem;
+  font-weight: normal;
   outline: 0;
   padding: 0.5em;
-  /*position: absolute;*/
-  /*right: 0.5em;*/
-  /*top: 34%;*/
-  white-space: pre-wrap;
+  text-align: center;
+  text-shadow: 0 0 0.1rem orange, 0 0 0.1rem orange;
+  text-transform: uppercase;
+  width: 100%;
 }
 
-.UiCommandline:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+.UiCommandline input:hover {
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
-.UiCommandline:focus {
-  background-color: rgba(255, 255, 255, 0.3);
+.UiCommandline input:focus {
+  border: 1px solid rgba(255,255,255, 0.1);
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.UiCommandline input::selection {
+  background: orange;
 }
