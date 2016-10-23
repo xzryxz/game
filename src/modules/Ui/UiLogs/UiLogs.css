@@ -1,57 +1,41 @@
 .UiLogs {
-  /*left: 0;*/
+  padding: 1em;
   text-align: center;
-  /*position: fixed;*/
-  /*padding-top: 4em;*/
-  /*top: 33%;*/
-  /*width: 100%;*/
 }
 
 .UiLogs .logs div {
-    padding: .5em 0 0;
+  font-size: 1.2rem;
+  padding: .5em 0 0;
 }
 
-.UiLogs .logs div { font-size: 1.2rem; }
-
-/*.UiLogs .logs div:nth-child(1) { font-size: 1.5rem; }*/
-/*.UiLogs .logs div:nth-child(2) { font-size: 1.45rem; }*/
-/*.UiLogs .logs div:nth-child(3) { font-size: 1.4rem; }*/
-/*.UiLogs .logs div:nth-child(4) { font-size: 1.35rem; }*/
-/*.UiLogs .logs div:nth-child(5) { font-size: 1.3rem; }*/
-/*.UiLogs .logs div:nth-child(6) { font-size: 1.25rem; }*/
-/*.UiLogs .logs div:nth-child(7) { font-size: 1.2rem; }*/
-/*.UiLogs .logs div:nth-child(8) { font-size: 1.15rem; }*/
-/*.UiLogs .logs div:nth-child(9) { font-size: 1.1rem; }*/
-/*.UiLogs .logs div:nth-child(10) { font-size: 1rem; }*/
-
 .UiLogs .UiLogsTabs {
-    background-color: black;
-    list-style: none;
-    text-align: center;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    z-index: 1;
+  background-color: black;
+  list-style: none;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
 }
 
 .UiLogs .UiLogsTabs li {
-    display: inline;
-    margin: 1px;
-    padding: 0;
+  display: inline;
+  margin: 1px;
+  padding: 0;
 }
 
 .UiLogs .UiLogsTabs li span {
-    background-color: black;
-    padding: 0 10px;
+  background-color: black;
+  padding: 0 10px;
 }
 
 .UiLogs .UiLogsTabs li span:hover {
-    background-color: white;
-    color: black;
+  background-color: white;
+  color: black;
 }
 
 .UiLogs .UiLogsTabs li.active span {
-    background-color: white;
-    color: black;
-    font-weight: bold;
+  background-color: white;
+  color: black;
+  font-weight: bold;
 }

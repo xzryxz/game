@@ -18,6 +18,12 @@ export default class UiRadarMapLatitude extends Component {
       width: latitudeAxis === 'x' ? '1%' : '100%',
     }
   }
+  
+  onMouseDown (): void {
+    let target = {}
+    Object.assign(target, this.props.cursor)
+    this.props.setDestination(target)
+  }
 
   onMouseEnter (event: Object): void {
     event.target.style.zIndex--
@@ -28,12 +34,6 @@ export default class UiRadarMapLatitude extends Component {
 
   onMouseLeave (event: Object): void {
     event.target.style.zIndex++
-  }
-
-  onMouseDown (): void {
-    let target = {}
-    Object.assign(target, this.props.cursor)
-    this.props.setDestination(target)
   }
 
   render () {

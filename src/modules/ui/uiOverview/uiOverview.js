@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react'
+import { List as list } from 'immutable'
 import UiOverviewRow from './UiOverviewRow'
 import './UiOverview.css'
 
@@ -8,11 +9,11 @@ import './UiOverview.css'
 export default class UiOverview extends Component {
 
   getFilteredDots (): Array<Object> {
-    const hiddenTypes = ['loot', 'ship', 'wreck']
+    const hiddenTypes = list(['loot', 'ship', 'wreck'])
     return this.props.autopilot.world.dots.filter((dot) => {
       if (dot.type === 'travelpath') return false
       if (this.getRange(dot.x, dot.y) === 0) return dot
-      if (hiddenTypes.indexOf(dot.type) >= 0) return false
+      if (hiddenTypes.includes(dot.type)) return false
       return dot
     }).sort((a, b) => {
       return this.getRange(a.position.x, a.position.y) - this.getRange(b.position.x, b.position.y)
