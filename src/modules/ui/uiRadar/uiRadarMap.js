@@ -40,7 +40,14 @@ export default class UiRadarMap extends Component {
   }
 
   getSpace (): Array<Object> {
-    return this.getAxis('y').concat(this.getAxis('x'))
+    const a = []
+    const x = this.getAxis('x')
+    const y = this.getAxis('y')
+    const n = x.length
+    for (let i = 0; i < n; i++) {
+      a.push(x[i], y[i])
+    }
+    return a
   }
 
   render () {

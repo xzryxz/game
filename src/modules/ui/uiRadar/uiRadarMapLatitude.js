@@ -18,7 +18,7 @@ export default class UiRadarMapLatitude extends Component {
       width: latitudeAxis === 'x' ? '1%' : '100%',
     }
   }
-  
+
   onMouseDown (): void {
     let target = {}
     Object.assign(target, this.props.cursor)
