@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import UiRadarMapDot from './UiRadarMapDot'
 import UiRadarMapLatitude from './UiRadarMapLatitude'
 

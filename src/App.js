@@ -1,21 +1,16 @@
 // @flow
 
 import React, { Component } from 'react'
-import Autopilot from './modules/Autopilot/Autopilot'
 import Ui from './modules/Ui/Ui'
-import World from './modules/World/World'
 import './App.css'
 
 
 export default class App extends Component {
 
-  autopilot: Object
   state: Object
 
   constructor () {
     super()
-    const world = new World()
-    this.autopilot = new Autopilot(world)
     this.state = {
       appSize: this.getAppSize()
     }
@@ -50,7 +45,7 @@ export default class App extends Component {
   render () {
     return (
       <div className='App' style={ this.getStyle() }>
-        <Ui autopilot={ this.autopilot } />
+        <Ui />
       </div>
     )
   }

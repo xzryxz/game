@@ -5,6 +5,7 @@
   "devDependencies": {
     "flow": "^0.2.3",
     "immutable": "^3.8.1",
+    "react-redux": "^4.4.5",
     "react-scripts": "0.2.1",
     "redux": "^3.6.0"
   },

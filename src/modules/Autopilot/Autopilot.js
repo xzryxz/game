@@ -1,6 +1,5 @@
 // @flow
 
-// import { Map as map } from 'immutable'
 import Cargo from './AutopilotCargo'
 import Engine from './AutopilotEngine'
 import Logger from './AutopilotLogger'

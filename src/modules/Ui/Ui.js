@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import UiCommandline from './UiCommandline/UiCommandline'
 import UiControls from './UiControls/UiControls'
 import UiDestination from './UiDestination/UiDestination'
@@ -12,12 +13,14 @@ import UiResources from './UiResources/UiResources'
 import UiTime from './UiTime/UiTime'
 import './Ui.css'
 
-export default class Ui extends Component {
+
+class UiComponent extends Component {
 
   state: Object
 
-  constructor (props: Object) {
+  constructor (props) {
     super()
+    console.log('props', props);
     this.state = {
       autopilot: props.autopilot
     }
@@ -50,7 +53,7 @@ export default class Ui extends Component {
             <UiPosition autopilot={ autopilot } />
             <UiControls autopilot={ autopilot } />
           </div>
-          <UiRadar autopilot={ autopilot } />
+          <UiRadar />
         </div>
         <div className='terminal'>
           <UiCommandline autopilot={ autopilot } />
@@ -60,3 +63,13 @@ export default class Ui extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    autopilot: state.boot
+  }
+}
+
+const Ui = connect(mapStateToProps)(UiComponent)
+
+export default Ui

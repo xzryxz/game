@@ -1,11 +1,12 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import UiRadarMap from './UiRadarMap'
 import './UiRadar.css'
 
 
-export default class UiRadar extends Component {
+export default class UiRadarComponent extends Component {
 
   render () {
     return (
@@ -16,3 +17,11 @@ export default class UiRadar extends Component {
   }
 
 }
+
+const mapStateToProps = (state) => ({
+  autopilot: state.destination
+})
+
+const UiRadar = connect(mapStateToProps)(UiRadarComponent)
+
+export default UiRadar
