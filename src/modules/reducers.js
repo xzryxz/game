@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux'
 import Autopilot from './Autopilot/Autopilot'
 import World from './World/World'
 
@@ -6,28 +5,23 @@ import World from './World/World'
 const world = new World()
 const initialState = new Autopilot(world)
 
-const boot = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
+  const autopilot = Object.assign({}, state)
   switch (action.type) {
-    case 'BOOT':
-      return state
+    case 'TICK':
+      autopilot.time++
+      return autopilot
+    case 'SET_DESTINATION':
+      const coordinates = action.coordinates
+      autopilot.destination = coordinates
+      autopilot.modules.logger.log(`[SYSTEM] Destination set to ${ coordinates.x },${ coordinates.y }.`)
+      return autopilot
+    case 'RUN_COMMAND':
+      autopilot.modules.logger.log(`[ERROR] ${ action.command }: Command not found.`)
+      return autopilot
     default:
-      return state
+      return autopilot
   }
 }
 
-const destination = (state = initialState, action) => {
-  switch (action.type) {
-    case 'DESTINATION':
-      console.log('dispatched DESTINATION');
-      return state
-    default:
-      return state
-  }
-}
-
-const reducers = combineReducers({
-  boot,
-  destination,
-})
-
-export default reducers
+export default reducer

@@ -1,16 +1,17 @@
 // @flow
 
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { List as list } from 'immutable'
 import UiOverviewRow from './UiOverviewRow'
 import './UiOverview.css'
 
 
-export default class UiOverview extends Component {
+class UiOverview extends Component {
 
   getFilteredDots (): Array<Object> {
     const hiddenTypes = list(['loot', 'ship', 'wreck'])
-    return this.props.autopilot.world.dots.filter((dot) => {
+    return this.props.dots.filter((dot) => {
       if (dot.type === 'travelpath') return false
       if (this.getRange(dot.x, dot.y) === 0) return dot
       if (hiddenTypes.includes(dot.type)) return false
@@ -22,7 +23,7 @@ export default class UiOverview extends Component {
 
   getRange (x: number, y: number): number {
     const getDiff = (a: number, b: number): number => Math.abs(a - b)
-    return getDiff(x, this.props.autopilot.position.x) + getDiff(y, this.props.autopilot.position.y)
+    return getDiff(x, this.props.position.x) + getDiff(y, this.props.position.y)
   }
 
   getRows (rows: Array<Object>): Array<React.Element<*>> {
@@ -32,7 +33,6 @@ export default class UiOverview extends Component {
           className={ this.getRowClassName(dot) }
           position={ dot.position }
           range={ this.getRange(dot.position.x, dot.position.y) }
-          setDestination={ this.props.autopilot.setDestination.bind(this.props.autopilot) }
           type={ dot.type }
         />
       )
@@ -45,7 +45,7 @@ export default class UiOverview extends Component {
   }
 
   isDestination (coordinates: Object): boolean {
-    const destination = this.props.autopilot.destination
+    const destination = this.props.destination
     return coordinates.x === destination.x && coordinates.y === destination.y
   }
 
@@ -70,3 +70,13 @@ export default class UiOverview extends Component {
   }
 
 }
+
+const mapStateToProps = (state) => ({
+  destination: state.destination,
+  dots: state.world.dots,
+  position: state.position,
+})
+
+const connected = connect(mapStateToProps)(UiOverview)
+
+export default connected

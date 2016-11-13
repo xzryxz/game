@@ -1,9 +1,11 @@
 // @flow
 
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { setDestination } from './../../actions'
 
 
-export default class UiOverviewRow extends Component {
+class UiOverviewRow extends Component {
 
   onClick () {
     this.props.setDestination(this.props.position)
@@ -19,3 +21,11 @@ export default class UiOverviewRow extends Component {
   }
 
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  setDestination: (coordinates) => dispatch(setDestination(coordinates))
+})
+
+const connected = connect(null, mapDispatchToProps)(UiOverviewRow)
+
+export default connected

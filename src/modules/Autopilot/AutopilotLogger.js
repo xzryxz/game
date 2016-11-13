@@ -5,7 +5,7 @@ export default class AutopilotLogger {
   logs: Array<string>
 
   constructor () {
-    this.logs = []
+    this.logs = [`[SYSTEM] System online.`]
   }
 
   isDestinationEntry (entry: string): boolean {
@@ -20,6 +20,7 @@ export default class AutopilotLogger {
       this.logs.shift()
     }
     this.logs.unshift(entry)
+    this.logs = this.logs.slice(0,10)
   }
 
 }

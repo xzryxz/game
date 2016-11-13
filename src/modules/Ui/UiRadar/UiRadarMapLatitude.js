@@ -1,6 +1,8 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { setDestination } from './../../actions'
 
 
 export default class UiRadarMapLatitude extends Component {
@@ -47,3 +49,15 @@ export default class UiRadarMapLatitude extends Component {
   }
 
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  setDestination: (coordinates) => {
+    if (typeof coordinates.x === 'number' && typeof coordinates.y === 'number') {
+      dispatch(setDestination(coordinates))
+    }
+  }
+})
+
+const connected = connect(null, mapDispatchToProps)(UiRadarMapLatitude)
+
+export default connected

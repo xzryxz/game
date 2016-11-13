@@ -1,24 +1,25 @@
+// @flow
+
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import './UiTime.css'
 
-export default class UiTime extends Component {
-
-  constructor (props) {
-    super()
-    this._autopilot = props.autopilot
-  }
-
-  get time () {
-    const t = this._autopilot.time
-    return t === null ? '-' : t
-  }
+class UiTime extends Component {
 
   render () {
     return (
       <div className='UiTime'>
-        Time: { this.time }
+        Time: { this.props.time }
       </div>
     )
   }
 
 }
+
+const mapStateToProps = (state) => ({
+  time: state.time
+})
+
+const connected = connect(mapStateToProps)(UiTime)
+
+export default connected

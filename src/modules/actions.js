@@ -1,12 +1,19 @@
-export const boot = () => {
+export const tick = () => {
   return {
-    type: 'BOOT',
+    type: 'TICK',
   }
 }
 
-export const destination = (coordinates) => {
+export const setDestination = (coordinates) => {
   return {
-    type: 'DESTINATION',
+    type: 'SET_DESTINATION',
     coordinates,
+  }
+}
+
+export const runCommand = (command) => {
+  return {
+    type: 'RUN_COMMAND',
+    command,
   }
 }

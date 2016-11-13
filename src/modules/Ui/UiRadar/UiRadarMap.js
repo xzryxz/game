@@ -1,11 +1,12 @@
 // @flow
 
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import UiRadarMapDot from './UiRadarMapDot'
 import UiRadarMapLatitude from './UiRadarMapLatitude'
 
 
-export default class UiRadarMap extends Component {
+class UiRadarMap extends Component {
 
   state: Object
 
@@ -51,7 +52,7 @@ export default class UiRadarMap extends Component {
   }
 
   render () {
-    const Dots = this.props.autopilot.world.dots.map((dot, index) => {
+    const Dots = this.props.dots.map((dot, index) => {
       return <UiRadarMapDot dot={ dot } key={ index } />
     })
     const Latitudes = this.getSpace().map((latitude, index) => {
@@ -60,7 +61,6 @@ export default class UiRadarMap extends Component {
           cursor={ this.state.cursor }
           latitude={ latitude }
           setCursor={ this.setCursor.bind(this) }
-          setDestination={ this.props.autopilot.setDestination.bind(this.props.autopilot) }
         />
       )
     })
@@ -68,10 +68,20 @@ export default class UiRadarMap extends Component {
       <div className='UiRadarMap' onMouseLeave={ this.clearCursor.bind(this) }>
         { Dots }
         { Latitudes }
-        <UiRadarMapDot dot={ {type: 'destination', position: this.props.autopilot.destination} } />
-        <UiRadarMapDot dot={ {type: 'position', position: this.props.autopilot.position} } />
+        <UiRadarMapDot dot={ {type: 'destination', position: this.props.destination} } />
+        <UiRadarMapDot dot={ {type: 'position', position: this.props.position} } />
       </div>
     )
   }
 
 }
+
+const mapStateToProps = (state) => ({
+  destination: state.destination,
+  dots: state.world.dots,
+  position: state.position,
+})
+
+const connected = connect(mapStateToProps)(UiRadarMap)
+
+export default connected

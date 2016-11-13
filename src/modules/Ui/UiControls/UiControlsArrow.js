@@ -1,12 +1,23 @@
 // @flow
 
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { setDestination } from './../../actions'
 
 
-export default class UiControlsArrow extends Component {
+class UiControlsArrow extends Component {
 
   onClick (): void {
-    this.props.setDestinationInDirection(this.props.direction)
+    this.setDestinationInDirection(this.props.direction)
+  }
+
+  setDestinationInDirection (direction: Object): void {
+    const coordinates = Object.assign({}, this.props.destination)
+    if (direction.x === true) coordinates.x++
+    if (direction.x === false) coordinates.x--
+    if (direction.y === true) coordinates.y++
+    if (direction.y === false) coordinates.y--
+    this.props.setDestination(coordinates)
   }
 
   render() {
@@ -24,3 +35,15 @@ export default class UiControlsArrow extends Component {
   }
 
 }
+
+const mapStateToProps = (state) => ({
+  destination: state.destination
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  setDestination: (coordinates) => dispatch(setDestination(coordinates))
+})
+
+const connected = connect(mapStateToProps, mapDispatchToProps)(UiControlsArrow)
+
+export default connected

@@ -1,20 +1,15 @@
 // @flow
 
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import './UiPosition.css'
 
-export default class UiPosition extends Component {
 
-  autopilot: Object
-
-  constructor (props: Object) {
-    super()
-    this.autopilot = props.autopilot
-  }
+class UiPosition extends Component {
 
   getPosition (): string {
-    const x = this.autopilot.position.x
-    const y = this.autopilot.position.y
+    const x = this.props.position.x
+    const y = this.props.position.y
     return `${ x },${ y }`
   }
 
@@ -27,3 +22,11 @@ export default class UiPosition extends Component {
   }
 
 }
+
+const mapStateToProps = (state) => ({
+  position: state.position
+})
+
+const connected = connect(mapStateToProps)(UiPosition)
+
+export default connected

@@ -1,14 +1,15 @@
 // @flow
 
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 // import UiLogTabs from './UiLogTabs'
 import './UiLogs.css'
 
 
-export default class UiLogs extends Component {
+class UiLogs extends Component {
 
   getOutput (): Array<*> {
-    const logs = this.props.autopilot.modules.logger.logs.slice(0,10)
+    const logs = this.props.logs
     return logs.map((text, index) => <div key={ index } children={ text } />)
   }
 
@@ -21,3 +22,11 @@ export default class UiLogs extends Component {
   }
 
 }
+
+const mapStateToProps = (state) => ({
+  logs: state.modules.logger.logs
+})
+
+const connected = connect(mapStateToProps)(UiLogs)
+
+export default connected

@@ -1,11 +1,13 @@
 // @flow
 
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { runCommand } from './../../actions'
 import { List as list } from 'immutable'
 import './UiCommandline.css'
 
 
-export default class UiCommandline extends Component {
+class UiCommandline extends Component {
 
   componentDidMount () {
     this.refs.inputElement.focus()
@@ -18,8 +20,7 @@ export default class UiCommandline extends Component {
     if (tabOrArrowKeys.includes(keyCode)) {
       event.preventDefault()
     } else if (keyCode === 13 && command.length) {
-      this.props.autopilot.modules.logger.log(`[ERROR] ${ command }: Command not found.`)
-      this.props.autopilot.uiUpdateFn(this.props.autopilot)
+      this.props.runCommand(command)
       this.refs.inputElement.value = null
     }
   }
@@ -33,3 +34,11 @@ export default class UiCommandline extends Component {
   }
 
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  runCommand: (command) => dispatch(runCommand(command))
+})
+
+const connected = connect(null, mapDispatchToProps)(UiCommandline)
+
+export default connected

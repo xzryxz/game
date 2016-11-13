@@ -1,20 +1,15 @@
 // @flow
 
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import './UiDestination.css'
 
-export default class UiDestination extends Component {
 
-  autopilot: Object
-
-  constructor (props: Object) {
-    super()
-    this.autopilot = props.autopilot
-  }
+class UiDestination extends Component {
 
   getDestination (): string {
-    const x = this.autopilot.destination.x
-    const y = this.autopilot.destination.y
+    const x = this.props.destination.x
+    const y = this.props.destination.y
     return `${ x },${ y }`
   }
 
@@ -27,3 +22,11 @@ export default class UiDestination extends Component {
   }
 
 }
+
+const mapStateToProps = (state) => ({
+  destination: state.destination
+})
+
+const connected = connect(mapStateToProps)(UiDestination)
+
+export default connected

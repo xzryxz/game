@@ -1,13 +1,14 @@
 // @flow
 
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import './UiResources.css'
 
 
-export default class UiResources extends Component {
+class UiResources extends Component {
 
   getResources (): Array<*> {
-    const resources = this.props.autopilot.modules.cargo.resources
+    const resources = this.props.resources
     return resources.keySeq().map((label, index) => {
       const quantity = resources.get(label)
       return (
@@ -29,3 +30,11 @@ export default class UiResources extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  resources: state.modules.cargo.resources,
+})
+
+const connected = connect(mapStateToProps)(UiResources)
+
+export default connected

@@ -1,23 +1,17 @@
 // @flow
 
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import UiControlsDirection from './UiControlsDirection'
 import UiControlsArrow from './UiControlsArrow'
 import './UiControls.css'
 
 
-export default class UiControls extends Component {
-
-  autopilot: Object
-
-  constructor (props: Object) {
-    super()
-    this.autopilot = props.autopilot
-  }
+class UiControls extends Component {
 
   getDirection (): Object {
-    const destination = this.autopilot.destination
-    const position = this.autopilot.position
+    const destination = this.props.destination
+    const position = this.props.position
     let direction = { x: undefined, y: undefined }
     if (destination) {
       if (position.x < destination.x) { direction.x = true } // position.x++;
@@ -26,15 +20,6 @@ export default class UiControls extends Component {
       if (position.y < destination.y) { direction.y = true } // position.y++;
     }
     return direction
-  }
-
-  setDestinationInDirection (direction: Object): void {
-    const coordinates = Object.assign({}, this.autopilot.destination)
-    if (direction.x === true) coordinates.x++
-    if (direction.x === false) coordinates.x--
-    if (direction.y === true) coordinates.y++
-    if (direction.y === false) coordinates.y--
-    this.autopilot.setDestination(coordinates)
   }
 
   getRotation (direction: Object) {
@@ -59,17 +44,26 @@ export default class UiControls extends Component {
       <div className='UiControls'>
         <div>
           { this.isMoving() && <UiControlsDirection rotation={ this.getRotation(this.getDirection()) } /> }
-          <UiControlsArrow arrowClass='x_void__y_false' direction={ {x:undefined,y:false} } setDestinationInDirection={ this.setDestinationInDirection.bind(this) } />
-          <UiControlsArrow arrowClass='x_true__y_false' direction={ {x:true,y:false} } setDestinationInDirection={ this.setDestinationInDirection.bind(this) } />
-          <UiControlsArrow arrowClass='x_true__y_void' direction={ {x:true,y:undefined} } setDestinationInDirection={ this.setDestinationInDirection.bind(this) } />
-          <UiControlsArrow arrowClass='x_true__y_true' direction={ {x:true,y:true} } setDestinationInDirection={ this.setDestinationInDirection.bind(this) } />
-          <UiControlsArrow arrowClass='x_void__y_true' direction={ {x:undefined,y:true} } setDestinationInDirection={ this.setDestinationInDirection.bind(this) } />
-          <UiControlsArrow arrowClass='x_false__y_true' direction={ {x:false,y:true} } setDestinationInDirection={ this.setDestinationInDirection.bind(this) } />
-          <UiControlsArrow arrowClass='x_false__y_void' direction={ {x:false,y:undefined} } setDestinationInDirection={ this.setDestinationInDirection.bind(this) } />
-          <UiControlsArrow arrowClass='x_false__y_false' direction={ {x:false,y:false} } setDestinationInDirection={ this.setDestinationInDirection.bind(this) } />
+          <UiControlsArrow arrowClass='x_void__y_false' direction={ {x:undefined,y:false} } />
+          <UiControlsArrow arrowClass='x_true__y_false' direction={ {x:true,y:false} } />
+          <UiControlsArrow arrowClass='x_true__y_void' direction={ {x:true,y:undefined} } />
+          <UiControlsArrow arrowClass='x_true__y_true' direction={ {x:true,y:true} } />
+          <UiControlsArrow arrowClass='x_void__y_true' direction={ {x:undefined,y:true} } />
+          <UiControlsArrow arrowClass='x_false__y_true' direction={ {x:false,y:true} } />
+          <UiControlsArrow arrowClass='x_false__y_void' direction={ {x:false,y:undefined} } />
+          <UiControlsArrow arrowClass='x_false__y_false' direction={ {x:false,y:false} } />
         </div>
       </div>
     )
   }
 
 }
+
+const mapStateToProps = (state) => ({
+  destination: state.destination,
+  position: state.position,
+})
+
+const connected = connect(mapStateToProps)(UiControls)
+
+export default connected
