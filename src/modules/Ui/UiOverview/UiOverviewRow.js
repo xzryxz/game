@@ -23,7 +23,7 @@ class UiOverviewRow extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  setDestination: (coordinates) => dispatch(setDestination(coordinates))
+  setDestination: (coord) => dispatch(setDestination(coord))
 })
 
 const connected = connect(null, mapDispatchToProps)(UiOverviewRow)

@@ -24,7 +24,7 @@ class UiLogs extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  logs: state.modules.logger.logs
+  logs: state.logs
 })
 
 const connected = connect(mapStateToProps)(UiLogs)

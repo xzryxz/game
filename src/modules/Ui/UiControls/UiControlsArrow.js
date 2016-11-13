@@ -12,12 +12,12 @@ class UiControlsArrow extends Component {
   }
 
   setDestinationInDirection (direction: Object): void {
-    const coordinates = Object.assign({}, this.props.destination)
-    if (direction.x === true) coordinates.x++
-    if (direction.x === false) coordinates.x--
-    if (direction.y === true) coordinates.y++
-    if (direction.y === false) coordinates.y--
-    this.props.setDestination(coordinates)
+    const coord = Object.assign({}, this.props.destination)
+    if (direction.x === true) coord.x++
+    if (direction.x === false) coord.x--
+    if (direction.y === true) coord.y++
+    if (direction.y === false) coord.y--
+    this.props.setDestination(coord)
   }
 
   render() {
@@ -41,7 +41,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  setDestination: (coordinates) => dispatch(setDestination(coordinates))
+  setDestination: (coord) => dispatch(setDestination(coord))
 })
 
 const connected = connect(mapStateToProps, mapDispatchToProps)(UiControlsArrow)

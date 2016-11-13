@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { setDestination } from './../../actions'
 
 
-export default class UiRadarMapLatitude extends Component {
+class UiRadarMapLatitude extends Component {
 
   getStyle (): Object {
     const cursor = this.props.cursor
@@ -51,9 +51,9 @@ export default class UiRadarMapLatitude extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  setDestination: (coordinates) => {
-    if (typeof coordinates.x === 'number' && typeof coordinates.y === 'number') {
-      dispatch(setDestination(coordinates))
+  setDestination: (coord) => {
+    if (typeof coord.x === 'number' && typeof coord.y === 'number') {
+      dispatch(setDestination(coord))
     }
   }
 })

@@ -44,9 +44,9 @@ class UiOverview extends Component {
     if (this.isHostile(dot.name)) return 'is-hostile'
   }
 
-  isDestination (coordinates: Object): boolean {
+  isDestination (coord: Object): boolean {
     const destination = this.props.destination
-    return coordinates.x === destination.x && coordinates.y === destination.y
+    return coord.x === destination.x && coord.y === destination.y
   }
 
   isHostile (name: string): boolean {
