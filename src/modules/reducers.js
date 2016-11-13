@@ -23,7 +23,21 @@ const reducer = (state: Object = initialState, action: Object) => {
       log(`[SYSTEM] Destination set to ${ action.coord.x },${ action.coord.y }.`)
       return autopilot
     case 'RUN_COMMAND':
-      log(`[ERROR] ${ action.command }: Command not found.`)
+      if (action.command === 'STOP') {
+        log(`[SYSTEM] Stopped.`)
+      } else if (action.command === 'DOCK') {
+        log(`[SYSTEM] Docking.`)
+      } else if (action.command === 'AUTO') {
+        log(`[SYSTEM] Autopiloting.`)
+      } else if (action.command === 'WARP') {
+        log(`[SYSTEM] Warping.`)
+        if (autopilot.position.x < autopilot.destination.x) autopilot.position.x++
+        if (autopilot.position.y > autopilot.destination.y) autopilot.position.y--
+        if (autopilot.position.x > autopilot.destination.x) autopilot.position.x--
+        if (autopilot.position.y < autopilot.destination.y) autopilot.position.y++
+      } else {
+        log(`[ERROR] ${ action.command }: Command not found.`)
+      }
       return autopilot
     default:
       return autopilot
