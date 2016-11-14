@@ -6,10 +6,10 @@ export const tick = () => {
   }
 }
 
-export const setDestination = (coord: Object) => {
+export const setDestination = (coordinates: Object) => {
   return {
     type: 'SET_DESTINATION',
-    coord,
+    coordinates,
   }
 }
 

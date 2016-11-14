@@ -1,7 +1,7 @@
 // @flow
 
 import { List as list, Map as map } from 'immutable'
-import WorldObject from './WorldObject/WorldObject'
+import WorldObject from './WorldObject'
 
 
 export default class World {

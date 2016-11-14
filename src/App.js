@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react'
-import Ui from './modules/Ui/Ui'
+import Ui from './modules/Ui'
 import './App.css'
 
 

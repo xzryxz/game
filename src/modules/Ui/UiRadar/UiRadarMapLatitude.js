@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { setDestination } from './../../actions'
+import { setDestination } from './../../../actions/autopilot'
 
 
 class UiRadarMapLatitude extends Component {
@@ -51,9 +51,9 @@ class UiRadarMapLatitude extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  setDestination: (coord) => {
-    if (typeof coord.x === 'number' && typeof coord.y === 'number') {
-      dispatch(setDestination(coord))
+  setDestination: (coordinates) => {
+    if (typeof coordinates.x === 'number' && typeof coordinates.y === 'number') {
+      dispatch(setDestination(coordinates))
     }
   }
 })

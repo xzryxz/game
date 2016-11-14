@@ -44,9 +44,9 @@ class UiOverview extends Component {
     if (this.isHostile(dot.name)) return 'is-hostile'
   }
 
-  isDestination (coord: Object): boolean {
+  isDestination (coordinates: Object): boolean {
     const destination = this.props.destination
-    return coord.x === destination.x && coord.y === destination.y
+    return coordinates.x === destination.x && coordinates.y === destination.y
   }
 
   isHostile (name: string): boolean {
@@ -72,9 +72,9 @@ class UiOverview extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  destination: state.destination,
+  destination: state.autopilot.destination,
   dots: state.world.dots,
-  position: state.position,
+  position: state.autopilot.position,
 })
 
 const connected = connect(mapStateToProps)(UiOverview)

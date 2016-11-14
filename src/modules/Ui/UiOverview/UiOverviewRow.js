@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { setDestination } from './../../actions'
+import { setDestination } from './../../../actions/autopilot'
 
 
 class UiOverviewRow extends Component {
@@ -23,7 +23,7 @@ class UiOverviewRow extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  setDestination: (coord) => dispatch(setDestination(coord))
+  setDestination: (coordinates) => dispatch(setDestination(coordinates))
 })
 
 const connected = connect(null, mapDispatchToProps)(UiOverviewRow)

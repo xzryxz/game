@@ -2,16 +2,16 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { setDestination } from './../actions'
-import UiCommandline from './UiCommandline/UiCommandline'
-import UiControls from './UiControls/UiControls'
-import UiDestination from './UiDestination/UiDestination'
-import UiLogs from './UiLogs/UiLogs'
-import UiOverview from './UiOverview/UiOverview'
-import UiPosition from './UiPosition/UiPosition'
-import UiRadar from './UiRadar/UiRadar'
-import UiResources from './UiResources/UiResources'
-import UiTime from './UiTime/UiTime'
+import { setDestination } from './../../actions/autopilot'
+import UiCommandline from './UiCommandline'
+import UiControls from './UiControls'
+import UiDestination from './UiDestination'
+import UiLogs from './UiLogs'
+import UiOverview from './UiOverview'
+import UiPosition from './UiPosition'
+import UiRadar from './UiRadar'
+import UiResources from './UiResources'
+import UiTime from './UiTime'
 import './Ui.css'
 
 
@@ -24,20 +24,20 @@ class Ui extends Component {
   }
 
   setDestinationBasedOnKeyKode (keyCode: number) {
-    const coord = Object.assign({}, this.props.destination)
+    const coordinates = Object.assign({}, this.props.destination)
     switch (keyCode) {
-      case 37: coord.x--
+      case 37: coordinates.x--
         break
-      case 38: coord.y--
+      case 38: coordinates.y--
         break
-      case 39: coord.x++
+      case 39: coordinates.x++
         break
-      case 40: coord.y++
+      case 40: coordinates.y++
         break
       default: break
     }
-    if (coord.x !== this.props.destination.x || coord.y !== this.props.destination.y) {
-      this.props.setDestination(coord)
+    if (coordinates.x !== this.props.destination.x || coordinates.y !== this.props.destination.y) {
+      this.props.setDestination(coordinates)
     }
   }
 
@@ -67,11 +67,11 @@ class Ui extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  destination: state.destination
+  destination: state.autopilot.destination
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  setDestination: (coord) => dispatch(setDestination(coord))
+  setDestination: (coordinates) => dispatch(setDestination(coordinates))
 })
 
 const connected = connect(mapStateToProps, mapDispatchToProps)(Ui)

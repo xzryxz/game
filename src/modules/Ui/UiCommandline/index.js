@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { runCommand } from './../../actions'
+import { runCommand } from './../../../actions/autopilot'
 import { List as list } from 'immutable'
 import './UiCommandline.css'
 

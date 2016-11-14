@@ -14,9 +14,8 @@ export default class Autopilot {
   modules: Object
   position: Object
   time: number
-  world: Object
 
-  constructor (world: Object) {
+  constructor () {
     this.destination = {x: 50, y: 50}
     this.logs = []
     this.modules = {
@@ -28,7 +27,6 @@ export default class Autopilot {
     }
     this.position = {x: 50, y: 50}
     this.time = 0
-    this.world = world
   }
 
 }

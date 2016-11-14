@@ -60,8 +60,8 @@ class UiControls extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  destination: state.destination,
-  position: state.position,
+  destination: state.autopilot.destination,
+  position: state.autopilot.position,
 })
 
 const connected = connect(mapStateToProps)(UiControls)
