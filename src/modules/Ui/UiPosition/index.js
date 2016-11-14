@@ -24,7 +24,10 @@ class UiPosition extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  position: state.autopilot.position
+  position: {
+    x: state.autopilot.position.x,
+    y: state.autopilot.position.y,
+  },
 })
 
 const connected = connect(mapStateToProps)(UiPosition)

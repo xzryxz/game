@@ -1,7 +1,7 @@
 // @flow
 
-export const populate = () => {
+export const DESTROY = () => {
   return {
-    type: 'POPULATE',
+    type: 'DESTROY',
   }
 }

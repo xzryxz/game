@@ -79,7 +79,10 @@ class UiRadarMap extends Component {
 const mapStateToProps = (state) => ({
   destination: state.autopilot.destination,
   dots: state.world.dots,
-  position: state.autopilot.position,
+  position: {
+    x: state.autopilot.position.x,
+    y: state.autopilot.position.y,
+  },
 })
 
 const connected = connect(mapStateToProps)(UiRadarMap)
