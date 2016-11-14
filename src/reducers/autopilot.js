@@ -1,46 +1,53 @@
 // @flow
 
-import Autopilot from './../modules/Autopilot'
+import { Map as map } from 'immutable'
 
 
-const initialAutopilot = new Autopilot()
+const logs = [`[SYSTEM] System online.`]
+const destination = {x: 50, y: 50}
+const position = {x: 50, y: 50}
+const resources = map({
+  dollars: 0,
+  fuel: Infinity,
+})
+const initialState = {
+  destination,
+  logs,
+  position,
+  resources,
+}
 
-initialAutopilot.logs.push(`[SYSTEM] System online.`)
-
-const autopilot = (prevState: Object = initialAutopilot, action: Object) => {
-  const state = Object.assign({}, prevState)
-  const log = (message) => {
-    state.logs.unshift(message)
-    state.logs = state.logs.splice(0, 10)
+const reducer = (state: Object = initialState, action: Object) => {
+  const nextState = Object.assign({}, state)
+  const print = (message) => {
+    nextState.logs.unshift(message)
+    nextState.logs = nextState.logs.splice(0, 10)
   }
   switch (action.type) {
-    case 'TICK':
-      state.time++
-      return state
     case 'SET_DESTINATION':
-      state.destination = action.coordinates
-      log(`[SYSTEM] Destination set to ${ action.coordinates.x },${ action.coordinates.y }.`)
-      return state
+      nextState.destination = action.coordinates
+      print(`[SYSTEM] Destination set to ${ action.coordinates.x },${ action.coordinates.y }.`)
+      return nextState
     case 'RUN_COMMAND':
-      if (action.command === 'STOP') {
-        log(`[SYSTEM] Stopped.`)
-      } else if (action.command === 'DOCK') {
-        log(`[SYSTEM] Docking.`)
-      } else if (action.command === 'AUTO') {
-        log(`[SYSTEM] Autopiloting.`)
-      } else if (action.command === 'WARP') {
-        log(`[SYSTEM] Warping.`)
-        if (state.position.x < state.destination.x) state.position.x++
-        if (state.position.y > state.destination.y) state.position.y--
-        if (state.position.x > state.destination.x) state.position.x--
-        if (state.position.y < state.destination.y) state.position.y++
+      if (action.command === 'STOP' || action.command === 'S') {
+        print(`[SYSTEM] Stopped.`)
+      } else if (action.command === 'DOCK' || action.command === 'D') {
+        print(`[SYSTEM] Docking.`)
+      } else if (action.command === 'AUTO' || action.command === 'A') {
+        print(`[SYSTEM] Autopiloting.`)
+      } else if (action.command === 'WARP' || action.command === 'W') {
+        print(`[SYSTEM] Warping.`)
+        if (nextState.position.x < nextState.destination.x) nextState.position.x++
+        if (nextState.position.y > nextState.destination.y) nextState.position.y--
+        if (nextState.position.x > nextState.destination.x) nextState.position.x--
+        if (nextState.position.y < nextState.destination.y) nextState.position.y++
       } else {
-        log(`[ERROR] ${ action.command }: Command not found.`)
+        print(`[ERROR] ${ action.command }: Command not found.`)
       }
-      return state
+      return nextState
     default:
       return state
   }
 }
 
-export default autopilot
+export default reducer

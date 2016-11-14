@@ -2,6 +2,7 @@
 
 import { Map as map } from 'immutable'
 
+
 export default class AutopilotCargo {
 
   resources: map<string, number>

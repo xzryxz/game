@@ -32,7 +32,7 @@ class UiResources extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  resources: state.autopilot.modules.cargo.resources,
+  resources: state.autopilot.resources,
 })
 
 const connected = connect(mapStateToProps)(UiResources)

@@ -1,15 +1,14 @@
 // @flow
 
-import World from './../modules/World'
-
-
-const initialState = new World()
+const initialState = {
+  time: 0
+}
 
 const reducer = (state: Object = initialState, action: Object) => {
   switch (action.type) {
-    case 'POPULATE':
-      // TODO: Implement
+    case 'TICK':
       const nextState = Object.assign({}, state)
+      nextState.time++
       return nextState
     default:
       return state

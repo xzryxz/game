@@ -17,7 +17,7 @@ class UiTime extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  time: state.autopilot.time
+  time: state.tick.time
 })
 
 const connected = connect(mapStateToProps)(UiTime)
