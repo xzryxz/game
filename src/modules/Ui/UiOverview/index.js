@@ -13,7 +13,7 @@ class UiOverview extends Component {
     const hiddenTypes = list(['loot', 'ship', 'wreck'])
     return this.props.dots.filter((dot) => {
       if (dot.type === 'travelpath') return false
-      if (this.getRange(dot.x, dot.y) === 0) return dot
+      if (this.getRange(dot.position.x, dot.position.y) === 0) return dot
       if (hiddenTypes.includes(dot.type)) return false
       return dot
     }).sort((a, b) => {
@@ -22,6 +22,7 @@ class UiOverview extends Component {
   }
 
   getRange (x: number, y: number): number {
+    if (x === undefined) debugger
     const getDiff = (a: number, b: number): number => Math.abs(a - b)
     return getDiff(x, this.props.position.x) + getDiff(y, this.props.position.y)
   }
@@ -40,8 +41,8 @@ class UiOverview extends Component {
   }
 
   getRowClassName (dot: Object): string|void {
-    if (this.isDestination(dot.position)) return 'is-destination'
     if (this.isHostile(dot.name)) return 'is-hostile'
+    if (this.isDestination(dot.position)) return 'is-destination'
   }
 
   isDestination (coordinates: Object): boolean {
@@ -72,9 +73,15 @@ class UiOverview extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  destination: state.autopilot.destination,
+  destination: {
+    x: state.autopilot.destination.x,
+    y: state.autopilot.destination.y,
+  },
   dots: state.world.dots,
-  position: state.autopilot.position,
+  position: {
+    x: state.autopilot.position.x,
+    y: state.autopilot.position.y,
+  },
 })
 
 const connected = connect(mapStateToProps)(UiOverview)

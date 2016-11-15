@@ -10,6 +10,7 @@ const reducer = (state: Object = initialState, action: Object) => {
     case 'DESTROY':
       const nextState = Object.assign({}, state)
       // TODO: Implement
+      console.log('destroying', action.dot);
       return nextState
     default:
       return state

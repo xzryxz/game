@@ -1,8 +1,9 @@
 // @flow
 
-export const tick = () => {
+export const runCommand = (command: Object) => {
   return {
-    type: 'TICK',
+    type: 'RUN_COMMAND',
+    command,
   }
 }
 
@@ -13,9 +14,8 @@ export const setDestination = (coordinates: Object) => {
   }
 }
 
-export const runCommand = (command: Object) => {
+export const tick = () => {
   return {
-    type: 'RUN_COMMAND',
-    command,
+    type: 'TICK',
   }
 }

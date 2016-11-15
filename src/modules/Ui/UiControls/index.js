@@ -34,7 +34,7 @@ class UiControls extends Component {
     return rotation
   }
 
-  isMoving (): boolean {
+  hasDestination (): boolean {
     const direction = this.getDirection()
     return direction.x !== undefined || direction.y !== undefined
   }
@@ -43,7 +43,7 @@ class UiControls extends Component {
     return (
       <div className='UiControls'>
         <div>
-          { this.isMoving() && <UiControlsDirection rotation={ this.getRotation(this.getDirection()) } /> }
+          { this.hasDestination() && <UiControlsDirection rotation={ this.getRotation(this.getDirection()) } /> }
           <UiControlsArrow arrowClass='x_void__y_false' direction={ {x:undefined,y:false} } />
           <UiControlsArrow arrowClass='x_true__y_false' direction={ {x:true,y:false} } />
           <UiControlsArrow arrowClass='x_true__y_void' direction={ {x:true,y:undefined} } />
@@ -60,8 +60,14 @@ class UiControls extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  destination: state.autopilot.destination,
-  position: state.autopilot.position,
+  destination: {
+    x: state.autopilot.destination.x,
+    y: state.autopilot.destination.y
+  },
+  position: {
+    x: state.autopilot.position.x,
+    y: state.autopilot.position.y
+  },
 })
 
 const connected = connect(mapStateToProps)(UiControls)
