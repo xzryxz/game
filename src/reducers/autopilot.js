@@ -6,12 +6,14 @@ import { Map as map } from 'immutable'
 const initialState = {
   active: false,
   destination: { x: 50, y: 50, },
-  // logs: [`[SYSTEM] System online.`],
   logs: [],
   position: { x: 50, y: 50, },
   resources: map({
+    ammo: 0,
     dollars: 0,
-    fuel: Infinity,
+    fuel: 0,
+    parts: 0,
+    water: 0,
   }),
   time: 0,
 }
@@ -30,7 +32,6 @@ const reducer = (state: Object = initialState, action: Object) => {
   }
   switch (action.type) {
     case 'SET_DESTINATION':
-      // print(`[SYSTEM] Destination ${ coordinates.x }, ${ coordinates.y }`)
       nextState.destination.x = coordinates.x
       nextState.destination.y = coordinates.y
       return nextState
@@ -53,10 +54,7 @@ const reducer = (state: Object = initialState, action: Object) => {
         if (nextState.position.y > nextState.destination.y) nextState.position.y--
         if (nextState.position.x > nextState.destination.x) nextState.position.x--
         if (nextState.position.y < nextState.destination.y) nextState.position.y++
-        if (compareCoordinates(nextState.destination, nextState.position)) {
-          // print(`[SYSTEM] Disabled`)
-          nextState.active = false
-        }
+        if (compareCoordinates(nextState.destination, nextState.position)) nextState.active = false
       }
       return nextState
     default:

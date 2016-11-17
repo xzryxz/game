@@ -15,7 +15,10 @@ class UiCommandline extends Component {
 
   getRange (x: number, y: number): number {
     const getDiff = (a: number, b: number): number => Math.abs(a - b)
-    return getDiff(x, this.props.position.x) + getDiff(y, this.props.position.y)
+    const xx = this.props.position.x
+    const yy = this.props.position.y
+    const result = getDiff(x, xx) + getDiff(y, yy)
+    return result
   }
 
   find (type) {
@@ -37,7 +40,10 @@ class UiCommandline extends Component {
     if (list(commands.keySeq()).includes(command)) command = commands.get(command)
     switch (command) {
       case 'AUTO':
-        this.props.dispatch(start(`[SYSTEM] Auto`, this.find('ship').position))
+        const ship = this.find('ship')
+        const range = this.getRange(ship.position.x, ship.position.y)
+        if (range === 0) this.props.dispatch(start(`[SYSTEM] Attacking ${ ship.name }`, ship.position))
+        else this.props.dispatch(start(`[SYSTEM] Auto`, ship.position))
         break;
       case 'DOCK':
         this.props.dispatch(start(`[SYSTEM] Dock`, this.find('station').position))
@@ -51,34 +57,6 @@ class UiCommandline extends Component {
       default:
         console.log('command not found');
     }
-    // if (command === 'AUTO' || command === 'DOCK' || command === 'WARP') {
-    //   if (command === 'AUTO') {
-    //     print(`[SYSTEM] Auto attacking.`)
-    //     nextState.active = true
-    //     nextState.destination.x = nextState.mission.x
-    //     nextState.destination.y = nextState.mission.y
-    //   }
-    //   if (command === 'DOCK') {
-    //     print()
-    //     nextState.active = true
-    //     nextState.destination.x = nextState.home.x
-    //     nextState.destination.y = nextState.home.y
-    //   }
-    //   if (command === 'WARP') {
-    //     if (compareCoordinates(nextState.destination, nextState.position)) {
-    //       print(`[ERROR] No destination.`)
-    //     } else {
-    //       print(`[SYSTEM] Warping.`)
-    //       nextState.active = true
-    //     }
-    //   }
-    // } else if (command === 'STOP') {
-    //   print(`[SYSTEM] Stopped.`)
-    //   nextState.active = false
-    // } else {
-    //   print(`[ERROR] ${ command }: Command not found.`)
-    // }
-    // dispatch(runCommand(command))
   }
 
   onKeyDown (event: Object): void {
@@ -109,7 +87,10 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   dots: state.world.dots,
-  position: state.autopilot.position,
+  position: {
+    x: state.autopilot.position.x,
+    y: state.autopilot.position.y,
+  },
 })
 
 const connected = connect(mapStateToProps, mapDispatchToProps)(UiCommandline)

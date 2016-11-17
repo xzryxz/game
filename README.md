@@ -8,13 +8,13 @@
      - Cargo space
 2. Damage
    - Destroyer
-     - First strike
+     - Unlimited ammo
 3. Speed
    - Explorer
-     - No fuel
+     - Unlimited fuel
 4. Energy
    - Auxiliary
-     - Shield
+     - Shield recharge
 5. Tech
    - Valkyrie
      - Radar

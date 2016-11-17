@@ -13,8 +13,8 @@ class UiResources extends Component {
       const quantity = resources.get(label)
       return (
         <li key={ index }>
-          <span> { label }: </span>
-          <span> { quantity === Infinity ? '\u221E' : quantity } </span>
+          <span> { label[0] }:</span>
+          <span><b>{ quantity === Infinity ? '\u221E' : quantity } </b></span>
         </li>
       )
     })

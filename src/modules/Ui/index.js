@@ -43,7 +43,7 @@ class Ui extends Component {
 
   render () {
     const compare = (a, b) => a.x === b.x && a.y === b.y
-    const hasDestination = compare(this.props.destination, this.props.position)
+    const arrived = compare(this.props.destination, this.props.position)
     return (
       <div className='Ui'>
         <div className='statusbar'>
@@ -54,7 +54,7 @@ class Ui extends Component {
           <UiOverview />
           <div className='navigation'>
             <UiPosition />
-            { hasDestination && <UiDestination /> }
+            { !arrived && <UiDestination /> }
             <UiControls />
           </div>
           <UiRadar />
