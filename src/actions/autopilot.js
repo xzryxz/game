@@ -1,12 +1,5 @@
 // @flow
 
-export const runCommand = (command: Object) => {
-  return {
-    type: 'RUN_COMMAND',
-    command,
-  }
-}
-
 export const setDestination = (coordinates: Object) => {
   return {
     type: 'SET_DESTINATION',
@@ -14,17 +7,18 @@ export const setDestination = (coordinates: Object) => {
   }
 }
 
-export const setHome = (coordinates: Object) => {
+export const start = (log: String, coordinates: Object) => {
   return {
-    type: 'SET_HOME',
+    type: 'START',
     coordinates,
+    log,
   }
 }
 
-export const setMission = (coordinates: Object) => {
+export const stop = (log: String) => {
   return {
-    type: 'SET_MISSION',
-    coordinates,
+    type: 'STOP',
+    log,
   }
 }
 

@@ -69,8 +69,14 @@ class Ui extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  destination: state.autopilot.destination,
-  position: state.autopilot.position,
+  destination: {
+    x: state.autopilot.destination.x,
+    y: state.autopilot.destination.y,
+  },
+  position: {
+    x: state.autopilot.position.x,
+    y: state.autopilot.position.y,
+  },
 })
 
 const mapDispatchToProps = (dispatch) => ({
