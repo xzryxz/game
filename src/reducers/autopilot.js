@@ -6,7 +6,8 @@ import { Map as map } from 'immutable'
 const initialState = {
   active: false,
   destination: { x: 50, y: 50, },
-  logs: [`[SYSTEM] System online.`],
+  // logs: [`[SYSTEM] System online.`],
+  logs: [],
   position: { x: 50, y: 50, },
   resources: map({
     dollars: 0,
