@@ -14,6 +14,20 @@ export const setDestination = (coordinates: Object) => {
   }
 }
 
+export const setHome = (coordinates: Object) => {
+  return {
+    type: 'SET_HOME',
+    coordinates,
+  }
+}
+
+export const setMission = (coordinates: Object) => {
+  return {
+    type: 'SET_MISSION',
+    coordinates,
+  }
+}
+
 export const tick = () => {
   return {
     type: 'TICK',

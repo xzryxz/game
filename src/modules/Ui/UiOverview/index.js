@@ -22,7 +22,6 @@ class UiOverview extends Component {
   }
 
   getRange (x: number, y: number): number {
-    if (x === undefined) debugger
     const getDiff = (a: number, b: number): number => Math.abs(a - b)
     return getDiff(x, this.props.position.x) + getDiff(y, this.props.position.y)
   }
