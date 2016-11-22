@@ -3,14 +3,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
-import { tick } from './actions/autopilot'
+import thunk from 'redux-thunk'
+import { createStore, applyMiddleware } from 'redux'
+import { tick } from './actions/tick'
 import reducer from './reducers'
 import App from './App'
 import './index.css'
 
 
-let store = createStore(reducer)
+let store = createStore(reducer, applyMiddleware(thunk))
 
 store.dispatch(tick())
 

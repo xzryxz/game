@@ -21,9 +21,3 @@ export const stop = (log: String) => {
     log,
   }
 }
-
-export const tick = () => {
-  return {
-    type: 'TICK',
-  }
-}

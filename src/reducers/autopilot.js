@@ -48,7 +48,6 @@ const reducer = (state: Object = initialState, action: Object) => {
       if (log) print(log)
       return nextState
     case 'TICK':
-      nextState.time++
       if (nextState.active) {
         if (nextState.position.x < nextState.destination.x) nextState.position.x++
         if (nextState.position.y > nextState.destination.y) nextState.position.y--
